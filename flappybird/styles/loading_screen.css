@@ -1,0 +1,16 @@
+#loading_bar {
+    display: block;
+    margin: auto;
+    position: relative;
+    top: 180px;
+    width: 300px;
+  }
+  
+  #flappy_bird {
+    display: block;
+    margin: auto;
+    position: relative;
+    top: -30px;
+    left: -240px;
+    width: 170px;
+  }
