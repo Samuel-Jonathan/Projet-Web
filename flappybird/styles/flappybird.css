@@ -11,7 +11,7 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
-  background-image: url(/flappybird/assets/main_menu/background.jpg);
+  background-image: url(/flappybird/assets/loading_screen/background.jpg);
   background-size: cover;
 }
 
