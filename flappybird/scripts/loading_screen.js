@@ -16,7 +16,7 @@ function drawElements() {
 
 function loopLoadingScreen() {
   timer++;
-  if (timer >= 90) {
+  if (timer >= 80) {
     stopLoadingScreen();
     currentGamestates = gamestates.MainMenu;
     state();
@@ -28,8 +28,9 @@ function stopLoadingScreen() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   flappyBird.style.visibility = 'hidden';
   loadingBar.style.visibility = 'hidden';
-  window.cancelAnimationFrame(loopLoadingScreen);
   timer = 0;
+  window.cancelAnimationFrame(loopLoadingScreen);
+
 }
 
 
