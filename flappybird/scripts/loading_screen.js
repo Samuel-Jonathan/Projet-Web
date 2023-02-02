@@ -1,21 +1,22 @@
-const title = document.getElementById("title");
 const flappyBird = document.getElementById("flappy_bird");
 const loadingBar = document.getElementById("loading_bar");
 
 var timer = 0;
 
 function initLoadingScreen() {
-  drawElements();
   window.requestAnimationFrame(loopLoadingScreen);
 }
 
 function drawElements() {
+
   ctx.drawImage(title, canvas.width / 2 - title.width / 2,
     canvas.height / 2 - title.height / 2 - 100);
 }
 
 function loopLoadingScreen() {
+   drawElements();
   timer++;
+
   if (timer >= 80) {
     stopLoadingScreen();
     currentGamestates = gamestates.MainMenu;
@@ -32,5 +33,6 @@ function stopLoadingScreen() {
   window.cancelAnimationFrame(loopLoadingScreen);
 
 }
+
 
 
