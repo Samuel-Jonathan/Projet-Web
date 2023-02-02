@@ -1,16 +1,18 @@
 #loading_bar {
-    display: block;
-    margin: auto;
-    position: relative;
-    top: 420px;
-    width: 300px;
-  }
-  
-  #flappy_bird {
-    display: block;
-    margin: auto;
-    position: relative;
-    top: 210px;
-    left: -240px;
-    width: 170px;
-  }
+  /* Position de la barre de chargement */
+  display: block;
+  margin: auto;
+  position: relative;
+  top: 420px;
+  width: 300px;
+}
+
+#flappy_bird {
+  /* Position du flappy bird animé */
+  display: block;
+  margin: auto;
+  position: relative;
+  top: 210px;
+  left: -240px;
+  width: 170px;
+}
