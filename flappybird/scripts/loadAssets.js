@@ -33,3 +33,23 @@ rankingButton.src = "assets/main_menu/ranking_button.png";
 // Bouton pour les options
 var settingsButton = new Image(120, 120);
 settingsButton.src = "assets/main_menu/settings_button.png";
+
+// Bouton pour jouer (survol)
+var playButtonHover = new Image(181, 104);
+playButtonHover.src = "assets/main_menu/play_button_hover.png";
+
+// Bouton pour le magasin (hover)
+var shopButtonHover = new Image(120, 120);
+shopButtonHover.src = "assets/main_menu/shop_button_hover.png";
+
+// Bouton pour les succès (hover)
+var successButtonHover = new Image(120, 120);
+successButtonHover.src = "assets/main_menu/success_button_hover.png";
+
+// Bouton pour le classement (hover)
+var rankingButtonHover = new Image(120, 120);
+rankingButtonHover.src = "assets/main_menu/ranking_button_hover.png";
+
+// Bouton pour les options (hover)
+var settingsButtonHover = new Image(120, 120);
+settingsButtonHover.src = "assets/main_menu/settings_button_hover.png";

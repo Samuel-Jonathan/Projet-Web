@@ -27,8 +27,11 @@ function loopLoadingScreen() {
     stopLoadingScreen();
     currentGamestates = gamestates.MainMenu;
     state();
+    // Arrête la boucle de l'écran de chargement
+    window.cancelAnimationFrame(loopLoadingScreen);
+  }else{
+    window.requestAnimationFrame(loopLoadingScreen);
   }
-  window.requestAnimationFrame(loopLoadingScreen);
 }
 
 // Enlève l'écran de chargement
@@ -42,10 +45,6 @@ function stopLoadingScreen() {
   loadingBar.style.visibility = 'hidden';
 
   timer = 0;
-
-  // Arrête la boucle de l'écran de chargement
-  window.cancelAnimationFrame(loopLoadingScreen);
-
 }
 
 
