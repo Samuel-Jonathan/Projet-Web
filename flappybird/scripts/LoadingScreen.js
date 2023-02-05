@@ -41,7 +41,7 @@ function stopLoadingScreen() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   // Cache les gifs
-  flappyBird.style.visibility = 'hidden';
+  flappyBirdAnimation.style.visibility = 'hidden';
   loadingBar.style.visibility = 'hidden';
 
   timer = 0;

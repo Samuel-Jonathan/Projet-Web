@@ -2,7 +2,8 @@
 // États du jeu
 const gamestates = {
     LoadingScreen: "loading_screen",
-    MainMenu: "main_menu"
+    MainMenu: "main_menu",
+    Game: "game"
 }
 
 // État du jeu actuel
@@ -21,6 +22,11 @@ function state() {
         case gamestates.MainMenu:
             initMainMenu();
             break;
+
+        case gamestates.Game:
+            initGame();
+            break;
+
     }
 }
 

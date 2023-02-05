@@ -5,7 +5,7 @@ const canvas = document.getElementById("canvas");7
 const ctx = canvas.getContext("2d");
 
 // Récupère le Flappy Bird animé
-const flappyBird = document.getElementById("flappy_bird");
+const flappyBirdAnimation = document.getElementById("flappy_bird");
 
 // Récupère la barre de chargement
 const loadingBar = document.getElementById("loading_bar");
@@ -53,3 +53,5 @@ rankingButtonHover.src = "assets/main_menu/ranking_button_hover.png";
 // Bouton pour les options (hover)
 var settingsButtonHover = new Image(120, 120);
 settingsButtonHover.src = "assets/main_menu/settings_button_hover.png";
+
+

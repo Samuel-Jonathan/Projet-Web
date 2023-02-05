@@ -29,8 +29,9 @@ function initMainMenu() {
         canvas.height / 2 - settingsButton.height / 2 + 235, 120, 120);
 
 
-    canvas.addEventListener("mousemove", onMouseOver);
-    requestAnimationFrame(loopMainMenu);
+    canvas.addEventListener("mousemove", onMouseOverMainMenu);
+    canvas.addEventListener("click", onMouseClickMainMenu);
+
 }
 
 function getMousePos(canvas, evt) {
@@ -42,7 +43,7 @@ function getMousePos(canvas, evt) {
 }
 
 
-function onMouseOver(e) {
+function onMouseOverMainMenu(e) {
 
     var pos = getMousePos(canvas, e);
 
@@ -51,6 +52,32 @@ function onMouseOver(e) {
     hoverRankingButton(pos);
     hoverSettingsButton(pos);
     hoverSuccessButton(pos);
+}
+
+function onMouseClickMainMenu(e) {
+    var pos = getMousePos(canvas, e);
+
+    var x = canvas.width / 2 - playButton.width / 2;
+    var y = canvas.height / 2 - playButton.height / 2 + 100;
+    var width = playButton.width;
+    var height = playButton.height;
+    clickPlayButton(x, y, width, height, pos);
+}
+
+function clickPlayButton(x, y, width, height, pos) {
+
+
+    if (pos.x > x &&
+        pos.x < x + width &&
+        pos.y > y &&
+        pos.y < y + height) {
+
+        canvas.removeEventListener("mousemove", onMouseOverMainMenu);
+        canvas.removeEventListener("click", onMouseClickMainMenu);
+        currentGamestates = gamestates.Game;
+        state();
+    }
+
 }
 
 function hoverPlayButton(pos) {
@@ -110,9 +137,4 @@ function detectMouseOnMainMenu(button, buttonHover, x, y, width, height, pos) {
         // Affiche le bouton 
         ctx.drawImage(button, x, y, width, height);
     }
-}
-
-function loopMainMenu() {
-
-    requestAnimationFrame(loopMainMenu);
 }
