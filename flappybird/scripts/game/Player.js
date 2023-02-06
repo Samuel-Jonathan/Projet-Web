@@ -1,6 +1,7 @@
 class Player {
 
     angle = 0;
+    gravity = 0.2;
 
     constructor(img, position, velocity) {
         this.img = img;
@@ -9,11 +10,17 @@ class Player {
 
     }
 
-    applyGravity() {
+    jump() {
 
-        var gravity = 0.2;
+        this.position.addY(-50);
+        this.velocity.setY(0);
+        this.angle = -20;
 
-        this.velocity.addY(gravity);
+    }
+
+    applyGravity() {    
+
+        this.velocity.addY(this.gravity);
 
         this.position = Vector2.sum(this.position, this.velocity);
 
@@ -21,8 +28,11 @@ class Player {
             this.angle += 4;
         }
 
-        drawRotate(this.img, this.position, 75, 55, 0, 0, 169, 124, this.angle);
+    }
 
+    draw(){
+        
+        drawRotate(this.img, this.position, 75, 55, 0, 0, 169, 124, this.angle);
 
     }
 }
