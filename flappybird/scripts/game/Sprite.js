@@ -1,4 +1,4 @@
-function drawRotate(img, position, width, height, offsetX, offsetY, offsetWidth, offsetHeight, angle) {
+export function drawRotate(ctx, img, position, width, height, offsetX, offsetY, offsetWidth, offsetHeight, angle) {
     ctx.save();
     ctx.translate(position.getX(), position.getY());
     ctx.rotate(angle * Math.PI / 180);

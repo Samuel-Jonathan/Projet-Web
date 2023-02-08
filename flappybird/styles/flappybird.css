@@ -14,7 +14,7 @@ body {
   left: 0;
   right: 0;
   /* Arrière-plan */
-  background-image: url(/flappybird/assets/loading_screen/background.jpg);
+  background-image: url(/flappybird/assets/loadingScreen/background.jpg);
   background-size: cover;
 }
 

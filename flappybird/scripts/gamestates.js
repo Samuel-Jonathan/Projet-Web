@@ -1,18 +1,24 @@
+import initLoadingScreen from "./loadingScreen/LoadingScreen.js";
+import initMainMenu from "./MainMenu/MainMenu.js";
+import initGame from "./game/Game.js";
+
 
 // États du jeu
-const gamestates = {
+export const gamestates = {
     LoadingScreen: "loading_screen",
     MainMenu: "main_menu",
     Game: "game"
 }
 
 // État du jeu actuel
-var currentGamestates = gamestates.LoadingScreen;
+var currentGamestate = gamestates.LoadingScreen;
+
+export function setCurrentGameStates(gamestate) { currentGamestate = gamestate; }
 
 // Changer l'état du jeu
-function state() {
+export function state() {
 
-    switch (currentGamestates) {
+    switch (currentGamestate) {
         // Écran de chargement
         case gamestates.LoadingScreen:
             initLoadingScreen();
@@ -31,3 +37,4 @@ function state() {
 }
 
 state();
+

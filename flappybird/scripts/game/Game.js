@@ -1,9 +1,17 @@
+import { Player } from "./Player.js";
+import { ctx, canvas } from "../Main.js";
+import * as assets from "./Assets.js";
+import { Vector2 } from "./Vector2.js";
+
 var player;
 
-function initGame() {
+export default function initGame() {
+
+  var playerImg = assets.playerImg;
+
   // Efface le canvas
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  player = new Player(playerImg, new Vector2(canvas.width / 2, canvas.height / 2), new Vector2(0, 2));
+  player = new Player(ctx, playerImg, new Vector2(canvas.width / 2, canvas.height / 2), new Vector2(0, 2));
 
   window.addEventListener("keydown", (event) => {
     if (event.code == "Space") {

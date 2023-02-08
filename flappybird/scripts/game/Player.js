@@ -1,9 +1,14 @@
-class Player {
+import { drawRotate } from "./Sprite.js";
+import { Vector2 } from "./Vector2.js";
+
+
+export class Player {
 
     angle = 0;
     gravity = 0.2;
 
-    constructor(img, position, velocity) {
+    constructor(ctx, img, position, velocity) {
+        this.ctx = ctx;
         this.img = img;
         this.position = position;
         this.velocity = velocity;
@@ -18,7 +23,7 @@ class Player {
 
     }
 
-    applyGravity() {    
+    applyGravity() {
 
         this.velocity.addY(this.gravity);
 
@@ -30,9 +35,9 @@ class Player {
 
     }
 
-    draw(){
-        
-        drawRotate(this.img, this.position, 75, 55, 0, 0, 169, 124, this.angle);
+    draw() {
+
+        drawRotate(this.ctx, this.img, this.position, 75, 55, 0, 0, 169, 124, this.angle);
 
     }
 }

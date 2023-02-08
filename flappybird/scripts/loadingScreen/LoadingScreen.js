@@ -1,15 +1,20 @@
+import { gamestates, setCurrentGameStates, state } from "../GameStates.js";
+import * as assets from "./Assets.js";
+import { ctx, canvas } from "../Main.js";
 
 // Timer pour passer au menu principale
 var timer = 0;
 
 // Initialise l'écran de chargement
-function initLoadingScreen() {
+export default function initLoadingScreen() {
   // Boucle de l'écran de chargement
   window.requestAnimationFrame(loopLoadingScreen);
 }
 
 // Affiche les éléments
 function drawElements() {
+
+  var title = assets.title;
 
   // Affiche le titre Flappy Bird
   ctx.drawImage(title, canvas.width / 2 - title.width / 2,
@@ -25,11 +30,13 @@ function loopLoadingScreen() {
   // Affiche le menu principale
   if (timer >= 80) {
     stopLoadingScreen();
-    currentGamestates = gamestates.MainMenu;
+
+    setCurrentGameStates(gamestates.MainMenu);
+
     state();
     // Arrête la boucle de l'écran de chargement
     window.cancelAnimationFrame(loopLoadingScreen);
-  }else{
+  } else {
     window.requestAnimationFrame(loopLoadingScreen);
   }
 }
@@ -41,8 +48,8 @@ function stopLoadingScreen() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   // Cache les gifs
-  flappyBirdAnimation.style.visibility = 'hidden';
-  loadingBar.style.visibility = 'hidden';
+  assets.flappyBirdAnimation.style.visibility = 'hidden';
+  assets.loadingBar.style.visibility = 'hidden';
 
   timer = 0;
 }

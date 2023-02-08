@@ -1,8 +1,19 @@
-// Initialise le menu principale
-function initMainMenu() {
+import { setCurrentGameStates, state, gamestates } from "../GameStates.js";
+import * as assets from "./Assets.js";
+import { ctx, canvas } from "../Main.js"; 
 
+// Initialise le menu principale
+export default function initMainMenu() {
+
+    var title = assets.title;
+    var playButton = assets.playButton;
+    var shopButton = assets.shopButton;
+    var successButton = assets.successButton;
+    var rankingButton = assets.rankingButton;
+    var settingsButton = assets.settingsButton;
+    
     // Arrière-plan du canvas
-    canvas.style.background = 'url(/flappybird/assets/main_menu/background.png)';
+    canvas.style.background = 'url(/flappybird/assets/mainMenu/background.png)';
 
     // Affiche le titre
     ctx.drawImage(title, canvas.width / 2 - title.width / 2,
@@ -55,6 +66,9 @@ function onMouseOverMainMenu(e) {
 }
 
 function onMouseClickMainMenu(e) {
+
+    var playButton = assets.playButton;
+
     var pos = getMousePos(canvas, e);
 
     var x = canvas.width / 2 - playButton.width / 2;
@@ -66,7 +80,6 @@ function onMouseClickMainMenu(e) {
 
 function clickPlayButton(x, y, width, height, pos) {
 
-
     if (pos.x > x &&
         pos.x < x + width &&
         pos.y > y &&
@@ -74,13 +87,17 @@ function clickPlayButton(x, y, width, height, pos) {
 
         canvas.removeEventListener("mousemove", onMouseOverMainMenu);
         canvas.removeEventListener("click", onMouseClickMainMenu);
-        currentGamestates = gamestates.Game;
+        setCurrentGameStates(gamestates.Game);
         state();
     }
 
 }
 
 function hoverPlayButton(pos) {
+
+    var playButton = assets.playButton;
+    var playButtonHover = assets.playButtonHover;
+    
     var x = canvas.width / 2 - playButton.width / 2;
     var y = canvas.height / 2 - playButton.height / 2 + 100;
     var width = playButton.width;
@@ -90,6 +107,10 @@ function hoverPlayButton(pos) {
 
 
 function hoverShopButton(pos) {
+
+    var shopButton = assets.shopButton;
+    var shopButtonHover = assets.shopButtonHover;
+
     var x = canvas.width / 2 - shopButton.width / 2 - 200;
     var y = canvas.height / 2 - shopButton.height / 2 + 235;
     var width = shopButton.width;
@@ -99,6 +120,10 @@ function hoverShopButton(pos) {
 }
 
 function hoverRankingButton(pos) {
+
+    var rankingButton = assets.rankingButton;
+    var rankingButtonHover = assets.rankingButtonHover;
+
     var x = canvas.width / 2 - rankingButton.width / 2 + 400;
     var y = canvas.height / 2 - rankingButton.height / 2 + 235;
     var width = rankingButton.width;
@@ -107,6 +132,9 @@ function hoverRankingButton(pos) {
 }
 
 function hoverSettingsButton(pos) {
+
+    var settingsButton = assets.settingsButton;
+    var settingsButtonHover = assets.settingsButtonHover;
 
     var x = canvas.width / 2 - settingsButton.width / 2 - 390;
     var y = canvas.height / 2 - settingsButton.height / 2 + 235;
@@ -117,6 +145,10 @@ function hoverSettingsButton(pos) {
 }
 
 function hoverSuccessButton(pos) {
+
+    var successButton = assets.successButton;
+    var successButtonHover = assets.successButtonHover;
+
     var x = canvas.width / 2 - successButton.width / 2 + 200;
     var y = canvas.height / 2 - successButton.height / 2 + 235;
     var width = successButton.width;
