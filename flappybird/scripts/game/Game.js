@@ -4,6 +4,7 @@ import * as assets from "./Assets.js";
 import { Vector2 } from "./Vector2.js";
 
 var player;
+var moveBackground = 0;
 
 export default function initGame() {
 
@@ -24,7 +25,6 @@ export default function initGame() {
 }
 
 
-
 function loopGame() {
 
   // Efface le canvas
@@ -38,5 +38,10 @@ function loopGame() {
 
   player.animation();
 
+  moveBackground-=4;
+  canvas.style.backgroundPositionX = moveBackground+"px";
+
   requestAnimationFrame(loopGame);
+
+
 }

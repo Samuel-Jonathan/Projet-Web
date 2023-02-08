@@ -2,6 +2,8 @@ body {
   /* Arrière-plan */
   background: url(/flappybird/assets/background.jpg);
   background-size: cover;
+  background-repeat: repeat;
+
 }
 
 #canvas {
