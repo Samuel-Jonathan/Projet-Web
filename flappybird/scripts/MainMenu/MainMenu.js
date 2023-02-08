@@ -22,7 +22,7 @@ export default function initMainMenu() {
     // Affiche le bouton jouer
     ctx.drawImage(playButton, canvas.width / 2 - playButton.width / 2,
         canvas.height / 2 - playButton.height / 2 + 100);
-
+    
     // Affiche le bouton pour le classement
     ctx.drawImage(rankingButton, canvas.width / 2 - rankingButton.width / 2 + 400,
         canvas.height / 2 - rankingButton.height / 2 + 235, 120, 120);

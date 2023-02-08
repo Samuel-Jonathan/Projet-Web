@@ -1,5 +1,5 @@
 import initLoadingScreen from "./loadingScreen/LoadingScreen.js";
-import initMainMenu from "./MainMenu/MainMenu.js";
+import initMainMenu from "./mainMenu/MainMenu.js";
 import initGame from "./game/Game.js";
 
 
