@@ -1,12 +1,12 @@
-import Paddle from "./paddle.js";
 import Ball from "./ball.js";
+import Paddle from "./paddle.js";
 import Brick from "./bricks.js";
 import { circRectsOverlap } from "./collisions.js";
 
 let tabBricks = [];
 let canvas, ctx;
 let paddle, ball, brick;
-
+let score = 0;
 window.onload = init;
 
 
@@ -33,16 +33,19 @@ function gameLoop(time) {
     paddle.draw(ctx);
     for (let i = 0; i < tabBricks.length; i++) {
         tabBricks[i].draw(ctx);
-
+        handleCollisionBallBrick(tabBricks[i]);
 
     }
-   
+
     // 3 on met à jour
     paddle.update(canvas.width);
     handleCollisionBallPaddle();
     ball.update(canvas.width, canvas.height);
     requestAnimationFrame(gameLoop);
 }
+
+
+
 
 function handleCollisionBallPaddle() {
     if (circRectsOverlap(paddle.x, paddle.y, paddle.width, paddle.height, ball.x, ball.y, ball.radius)) {
@@ -70,6 +73,41 @@ function handleCollisionBallPaddle() {
 
     }
 }
+
+function handleCollisionBallBrick(brick) {
+    if (circRectsOverlap(brick.x, brick.y, brick.width, brick.height, ball.x, ball.y, ball.radius)) {
+        console.log("collision");
+        if (ball.y < brick.y) {
+            //collision par le haut
+            ball.dy = -ball.dy;
+            // On remet au point de contact
+            ball.y = brick.y - ball.radius;
+        } else if (ball.y > (brick.y + brick.height)) {
+            // collision par le bas
+            ball.dy = -ball.dy;
+            // On remet au point de contact
+            ball.y = brick.y + brick.height + ball.radius;
+        } else if (ball.x < brick.x) {
+            //collision par la gauche
+            ball.dx = -ball.dx;
+            // On remet au point de contact
+            ball.x = brick.x - ball.radius;
+        } else {
+            // collision par la droite
+            ball.dx = -ball.dx;
+            // On remet au point de contact
+            ball.x = brick.x + brick.width + ball.radius;
+        }
+        score++;
+        //si la baller touche la brique, on la supprime
+        const index = tabBricks.indexOf(brick);
+        tabBricks.splice(index, 1);
+    }
+}
+
+//creer une function score qui a chaque fois que la ballle touche une brick ca ajoute un point 
+
+
 
 function createBricks() {
     for (let l = 0; l < 9; l++) { // iterate 9 times
