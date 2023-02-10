@@ -4,6 +4,7 @@ import { Pipe } from "./Pipe.js";
 import { ctx, canvas } from "../Main.js";
 import * as assets from "./Assets.js";
 import { Vector2 } from "./Vector2.js";
+import { Floor } from "./Floor.js";
 
 // Joueur
 var player;
@@ -13,10 +14,12 @@ var pipe = [];
 
 var xPipe = 1000;
 var yPipe;
+var generatePipeTime = 0;
+
+var floor;
 
 var moveBackground = 0;
 
-var generatePipeTime = 0;
 
 export default function initGame() {
 
@@ -36,15 +39,16 @@ export default function initGame() {
     }
   });
 
+  floor = new Floor(ctx, assets.floorImg, 0, 644, 1000, 56);
+
   requestAnimationFrame(loopGame);
 }
 
 
-
 function loopGame() {
-
   // Efface le canvas
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+
 
   // Fait défiler l'arrière-plan
   scrollBackground();
@@ -52,6 +56,8 @@ function loopGame() {
   createPlayer();
   // Crée les tuyaux
   createPipes();
+  // Crée le sol
+  createFloor();
 
   requestAnimationFrame(loopGame);
 
@@ -77,6 +83,7 @@ function scrollBackground() {
 function createPipes() {
   // Récupère l'image du tuyau
   const pipeImg = assets.pipeImg;
+  const pipe2Img = assets.pipe2Img;
 
   const GENERATE_PIPE_TIME_MAX = random(40, 50);
 
@@ -84,20 +91,34 @@ function createPipes() {
 
   // Crée un tuyau
   if (generatePipeTime >= GENERATE_PIPE_TIME_MAX) {
-    yPipe = (random(100, 400)) * -1;
+    yPipe = (random(500, 200)) * -1;
+
     pipe[pipe.length] = new Pipe(ctx, pipeImg, new Vector2(xPipe, yPipe), 100, 575);
+    pipe[pipe.length] = new Pipe(ctx, pipe2Img, new Vector2(xPipe, yPipe + 575 + 180), 100, 575);
+
+
     xPipe += random(200, 300);
 
     generatePipeTime = 0;
+
+
   }
 
 
   for (let i = 0; i < pipe.length; i++) {
+
     // Dessine les tuyaux
     pipe[i].draw();
     // Déplace les tuyaux
     pipe[i].move();
   }
+
+}
+
+function createFloor() {
+
+  floor.draw();
+  floor.regenerateFloor();
 
 }
 
