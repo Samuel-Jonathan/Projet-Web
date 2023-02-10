@@ -1,3 +1,4 @@
+// Dessine un sprite avec une rotation
 export function drawRotate(ctx, img, position, width, height, offsetX, offsetY, offsetWidth, offsetHeight, angle) {
     ctx.save();
     ctx.translate(position.getX(), position.getY());

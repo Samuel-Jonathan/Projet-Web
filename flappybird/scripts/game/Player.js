@@ -1,11 +1,14 @@
+// Importations
 import { drawRotate } from "./Sprite.js";
 import { Vector2 } from "./Vector2.js";
 
 
 export class Player {
 
+    // Gravité appliquée au joueur
     gravity = 0.3;
 
+    // Temps pour les animations
     fallAnimationTime = 0;
     flyAnimationTime = 0;
 
@@ -26,6 +29,7 @@ export class Player {
         this.angle = angle;
     }
 
+    // Saut 
     jump() {
 
         const ANGLE_JUMP = -30;
@@ -38,6 +42,7 @@ export class Player {
         this.angle = ANGLE_JUMP;
     }
 
+    // Gravité
     applyGravity() {
 
         const FALL_ANIMATION_TIME_MAX = 40;
@@ -63,12 +68,14 @@ export class Player {
 
     }
 
+    // Dessine le joueur
     draw() {
 
         drawRotate(this.ctx, this.img, this.position, 75, 55, this.offsetX, 0, 169, 124, this.angle);
 
     }
 
+    // Animation du joueur
     animation() {
 
         const LAST_SPRITE = 340;

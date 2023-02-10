@@ -1,3 +1,4 @@
+// Importations
 import { gamestates, setCurrentGameStates, state } from "../GameStates.js";
 import * as assets from "./Assets.js";
 import { ctx, canvas } from "../Main.js";
@@ -14,7 +15,7 @@ export default function initLoadingScreen() {
 // Affiche les éléments
 function drawElements() {
 
-  var title = assets.title;
+  const title = assets.title;
 
   // Affiche le titre Flappy Bird
   ctx.drawImage(title, canvas.width / 2 - title.width / 2,

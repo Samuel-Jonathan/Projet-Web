@@ -1,3 +1,4 @@
+// Importations
 import { setCurrentGameStates, state, gamestates } from "../GameStates.js";
 import * as assets from "./Assets.js";
 import { ctx, canvas } from "../Main.js"; 
@@ -5,12 +6,13 @@ import { ctx, canvas } from "../Main.js";
 // Initialise le menu principale
 export default function initMainMenu() {
 
-    var title = assets.title;
-    var playButton = assets.playButton;
-    var shopButton = assets.shopButton;
-    var successButton = assets.successButton;
-    var rankingButton = assets.rankingButton;
-    var settingsButton = assets.settingsButton;
+    // Récupère les images
+    const title = assets.title;
+    const playButton = assets.playButton;
+    const shopButton = assets.shopButton;
+    const successButton = assets.successButton;
+    const rankingButton = assets.rankingButton;
+    const settingsButton = assets.settingsButton;
     
     // Arrière-plan du canvas
     canvas.style.background = 'url(/flappybird/assets/mainMenu/background.png)';
@@ -40,11 +42,13 @@ export default function initMainMenu() {
         canvas.height / 2 - settingsButton.height / 2 + 235, 120, 120);
 
 
+    // Évènements
     canvas.addEventListener("mousemove", onMouseOverMainMenu);
     canvas.addEventListener("click", onMouseClickMainMenu);
 
 }
 
+// Position x et y de la souris
 function getMousePos(canvas, evt) {
     var rect = canvas.getBoundingClientRect();
     return {
@@ -54,6 +58,7 @@ function getMousePos(canvas, evt) {
 }
 
 
+// Évènements du menu principale
 function onMouseOverMainMenu(e) {
 
     var pos = getMousePos(canvas, e);
@@ -65,6 +70,7 @@ function onMouseOverMainMenu(e) {
     hoverSuccessButton(pos);
 }
 
+// Évènement du bouton joueur
 function onMouseClickMainMenu(e) {
 
     var playButton = assets.playButton;
@@ -78,6 +84,7 @@ function onMouseClickMainMenu(e) {
     clickPlayButton(x, y, width, height, pos);
 }
 
+// Évènement du bouton joueur (clic)
 function clickPlayButton(x, y, width, height, pos) {
 
     if (pos.x > x &&
@@ -93,6 +100,7 @@ function clickPlayButton(x, y, width, height, pos) {
 
 }
 
+// Évènement du bouton jouer (survol)
 function hoverPlayButton(pos) {
 
     var playButton = assets.playButton;
@@ -106,6 +114,7 @@ function hoverPlayButton(pos) {
 }
 
 
+// Évènement du bouton boutique (survol)
 function hoverShopButton(pos) {
 
     var shopButton = assets.shopButton;
@@ -119,6 +128,7 @@ function hoverShopButton(pos) {
     detectMouseOnMainMenu(shopButton, shopButtonHover, x, y, width, height, pos);
 }
 
+// Évènement du bouton classement (survol)
 function hoverRankingButton(pos) {
 
     var rankingButton = assets.rankingButton;
@@ -131,6 +141,7 @@ function hoverRankingButton(pos) {
     detectMouseOnMainMenu(rankingButton, rankingButtonHover, x, y, width, height, pos);
 }
 
+// Évènement du bouton options (survol)
 function hoverSettingsButton(pos) {
 
     var settingsButton = assets.settingsButton;
@@ -144,6 +155,7 @@ function hoverSettingsButton(pos) {
     detectMouseOnMainMenu(settingsButton, settingsButtonHover, x, y, width, height, pos);
 }
 
+// Évènement du bouton succès (survol)
 function hoverSuccessButton(pos) {
 
     var successButton = assets.successButton;
@@ -157,6 +169,7 @@ function hoverSuccessButton(pos) {
     detectMouseOnMainMenu(successButton, successButtonHover, x, y, width, height, pos);
 }
 
+// Évènement des boutons
 function detectMouseOnMainMenu(button, buttonHover, x, y, width, height, pos) {
 
     if (pos.x > x &&

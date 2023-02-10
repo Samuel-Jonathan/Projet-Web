@@ -1,3 +1,4 @@
+// Importations
 import initLoadingScreen from "./loadingScreen/LoadingScreen.js";
 import initMainMenu from "./mainMenu/MainMenu.js";
 import initGame from "./game/Game.js";
@@ -13,6 +14,7 @@ export const gamestates = {
 // État du jeu actuel
 var currentGamestate = gamestates.LoadingScreen;
 
+// Modifie la gamestate actuelle
 export function setCurrentGameStates(gamestate) { currentGamestate = gamestate; }
 
 // Changer l'état du jeu

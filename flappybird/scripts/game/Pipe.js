@@ -7,10 +7,12 @@ export class Pipe{
         this.height = height;
     }
 
+    // Dessine les tuyaux
     draw(){
         this.ctx.drawImage(this.img, this.position.x, this.position.y, this.width, this.height);
     }
 
+    // Déplace les tuyaux
     move(){
          this.position.x -= 4;
     }
