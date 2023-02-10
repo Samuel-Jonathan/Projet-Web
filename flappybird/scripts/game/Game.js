@@ -38,13 +38,13 @@ export default function initGame() {
 
   requestAnimationFrame(loopGame);
 }
-var moveFloor = 0;
+
+
 
 function loopGame() {
-  moveFloor -= 4;
+
   // Efface le canvas
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-
 
   // Fait défiler l'arrière-plan
   scrollBackground();
@@ -52,8 +52,6 @@ function loopGame() {
   createPlayer();
   // Crée les tuyaux
   createPipes();
-
-  ctx.drawImage(assets.floorImg, 0 + moveFloor, 644, 1000, 56);
 
   requestAnimationFrame(loopGame);
 
@@ -79,7 +77,6 @@ function scrollBackground() {
 function createPipes() {
   // Récupère l'image du tuyau
   const pipeImg = assets.pipeImg;
-  const pipe2Img = assets.pipe2Img;
 
   const GENERATE_PIPE_TIME_MAX = random(40, 50);
 
@@ -87,12 +84,8 @@ function createPipes() {
 
   // Crée un tuyau
   if (generatePipeTime >= GENERATE_PIPE_TIME_MAX) {
-    yPipe = (random(500, 200)) * -1;
-
+    yPipe = (random(100, 400)) * -1;
     pipe[pipe.length] = new Pipe(ctx, pipeImg, new Vector2(xPipe, yPipe), 100, 575);
-    pipe[pipe.length] = new Pipe(ctx, pipe2Img, new Vector2(xPipe, yPipe + 575 + 180), 100, 575);
-
-
     xPipe += random(200, 300);
 
     generatePipeTime = 0;
@@ -104,14 +97,6 @@ function createPipes() {
     pipe[i].draw();
     // Déplace les tuyaux
     pipe[i].move();
-    // Collision du joueur avec les tuyaux
-    pipe[i].collision(player.getX(), player.getY())
-  }
-
-
-  ctx.drawImage(assets.floorImg, 1000 + moveFloor, 644, 1000, 56);
-  if (moveFloor == -1000) {
-    moveFloor = 0;
   }
 
 }
