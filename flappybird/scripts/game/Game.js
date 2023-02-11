@@ -80,7 +80,7 @@ function createPipes() {
   const pipe2Img = assets.pipe2Img;
 
   // Délai pour la génération des tuyaux
-  const GENERATE_PIPE_TIME_MAX = random(40, 50);
+  const GENERATE_PIPE_TIME_MAX = random(80, 120);
 
   Pipe.generatePipeTime++;
 
@@ -93,6 +93,7 @@ function createPipes() {
 
 
   for (let i = 0; i < pipe.length; i++) {
+  
     // Dessine les tuyaux
     pipe[i].draw();
     // Déplace les tuyaux

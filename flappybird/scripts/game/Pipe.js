@@ -33,7 +33,7 @@ export class Pipe {
         let yPipe = Pipe.yPipe;
 
         // Hauteur des tuyaux
-        Pipe.yPipe = (random(500, 200)) * -1;
+        yPipe = (random(500, 200)) * -1;
   
         // Création des tuyaux
         pipe[pipe.length] = new Pipe(ctx, pipeImg, new Vector2(xPipe, yPipe), width, height);
