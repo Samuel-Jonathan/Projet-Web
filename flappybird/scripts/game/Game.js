@@ -20,6 +20,9 @@ var moveBackground = 0;
 
 export default function initGame() {
 
+  // Arrière-plan du canvas
+  canvas.style.background = 'url(/flappybird/assets/game/background.png)';
+
   // Récupère l'image du joueur
   const playerImg = assets.playerImg;
 
@@ -87,17 +90,19 @@ function createPipes() {
   // Crée un tuyau
   if (Pipe.generatePipeTime >= GENERATE_PIPE_TIME_MAX) {
 
-    Pipe.generatePipe(ctx, pipe, pipeImg, pipe2Img,100, 575);
+    Pipe.generatePipe(ctx, pipe, pipeImg, pipe2Img, 100, 575);
 
   }
 
 
   for (let i = 0; i < pipe.length; i++) {
-  
+
     // Dessine les tuyaux
     pipe[i].draw();
     // Déplace les tuyaux
     pipe[i].move();
+    // Collision du joueur avec les tuyaux
+    pipe[i].collision(player.getX(), player.getY())
   }
 
 }

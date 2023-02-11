@@ -118,4 +118,12 @@ export class Player {
             this.isJumping = false;
         }
     }
+
+    getX(){
+        return this.position.x;
+    }
+
+    getY(){
+        return this.position.y;
+    }
 }

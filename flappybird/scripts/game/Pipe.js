@@ -27,6 +27,14 @@ export class Pipe {
         this.position.x -= 4;
     }
 
+      // Collision du joueur avec les tuyaux
+      collision(playerX, playerY) {
+        if (playerX > this.position.x && playerX < this.position.x + this.width
+            && playerY > this.position.y && playerY < this.position.y + this.height) {
+            console.log('ok');
+        }
+    }
+
     static generatePipe(ctx, pipe, pipeImg, pipe2Img,width, height) {
 
         let xPipe = Pipe.xPipe;
