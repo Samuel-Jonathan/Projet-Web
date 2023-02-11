@@ -29,6 +29,16 @@ export class Player {
         this.angle = angle;
     }
 
+    events(player) {
+
+        // Saut du joueur
+        window.addEventListener("keydown", (event) => {
+            if (event.code == "Space") {
+                player.jump();
+            }
+        });
+    }
+
     // Saut 
     jump() {
 

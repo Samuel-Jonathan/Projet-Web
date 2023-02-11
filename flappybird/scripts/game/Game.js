@@ -12,10 +12,7 @@ var player;
 // Tuyaux
 var pipe = [];
 
-var xPipe = 1000;
-var yPipe;
-var generatePipeTime = 0;
-
+// Sol
 var floor;
 
 var moveBackground = 0;
@@ -32,13 +29,10 @@ export default function initGame() {
   // Crée le joueur
   player = new Player(ctx, playerImg, new Vector2(canvas.width / 2, canvas.height / 2), new Vector2(0, 2), 75, 55, 0, 0, 156, 114, 0);
 
-  // Saut du joueur
-  window.addEventListener("keydown", (event) => {
-    if (event.code == "Space") {
-      player.jump();
-    }
-  });
+  // Évènements du joueur
+  player.events(player);
 
+  // Création du sol
   floor = new Floor(ctx, assets.floorImg, 0, 644, 1000, 56);
 
   requestAnimationFrame(loopGame);
@@ -48,7 +42,6 @@ export default function initGame() {
 function loopGame() {
   // Efface le canvas
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-
 
   // Fait défiler l'arrière-plan
   scrollBackground();
@@ -60,7 +53,6 @@ function loopGame() {
   createFloor();
 
   requestAnimationFrame(loopGame);
-
 
 }
 
@@ -75,7 +67,9 @@ function createPlayer() {
 }
 
 function scrollBackground() {
+  // Vitesse de défilement de l'arrière-plan
   const VELOCITY_SCROLL_BACKGROUND = 4;
+  // Déplace l'arrière-plan
   moveBackground -= VELOCITY_SCROLL_BACKGROUND;
   canvas.style.backgroundPositionX = moveBackground + "px";
 }
@@ -85,28 +79,20 @@ function createPipes() {
   const pipeImg = assets.pipeImg;
   const pipe2Img = assets.pipe2Img;
 
+  // Délai pour la génération des tuyaux
   const GENERATE_PIPE_TIME_MAX = random(40, 50);
 
-  generatePipeTime++;
+  Pipe.generatePipeTime++;
 
   // Crée un tuyau
-  if (generatePipeTime >= GENERATE_PIPE_TIME_MAX) {
-    yPipe = (random(500, 200)) * -1;
+  if (Pipe.generatePipeTime >= GENERATE_PIPE_TIME_MAX) {
 
-    pipe[pipe.length] = new Pipe(ctx, pipeImg, new Vector2(xPipe, yPipe), 100, 575);
-    pipe[pipe.length] = new Pipe(ctx, pipe2Img, new Vector2(xPipe, yPipe + 575 + 180), 100, 575);
-
-
-    xPipe += random(200, 300);
-
-    generatePipeTime = 0;
-
+    Pipe.generatePipe(ctx, pipe, pipeImg, pipe2Img,100, 575);
 
   }
 
 
   for (let i = 0; i < pipe.length; i++) {
-
     // Dessine les tuyaux
     pipe[i].draw();
     // Déplace les tuyaux
@@ -122,6 +108,6 @@ function createFloor() {
 
 }
 
-function random(min, max) {
+export function random(min, max) {
   return Math.random() * (max - min) + min;
 }
