@@ -1,129 +1,112 @@
 // Importations
-import { drawRotate } from "./Sprite.js";
-import { Vector2 } from "./Vector2.js";
+import {
+	drawRotate
+} from "./Sprite.js";
+import {
+	Vector2
+} from "./Vector2.js";
 
 
 export class Player {
 
-    // Gravité appliquée au joueur
-    gravity = 0.3;
+	// Gravité appliquée au joueur
+	gravity = 0.3;
+    angle = 0;
 
-    // Temps pour les animations
-    fallAnimationTime = 0;
-    flyAnimationTime = 0;
+	frames = [0, 170, 340];
 
-    isJumping = false;
-    jumpTime = 0;
+	// Temps pour les animations
+	fallDelay = 0;
+	frameDelay = 0;
+	jumpDelay = 0;
 
-    constructor(ctx, img, position, velocity, width, height, offsetX, offsetY, offsetWidth, offsetHeight, angle) {
-        this.ctx = ctx;
-        this.img = img;
-        this.position = position;
-        this.velocity = velocity;
-        this.width = width;
-        this.height = height;
-        this.offsetX = offsetX;
-        this.offsetY = offsetY;
-        this.offsetWidth = offsetWidth;
-        this.offsetHeight = offsetHeight;
-        this.angle = angle;
-    }
+	isJumping = false;
 
-    events(player) {
+	constructor(ctx, img, position, velocity, width, height, offsetX, offsetY) {
+		this.ctx = ctx;
+		this.img = img;
+		this.position = position;
+		this.velocity = velocity;
+		this.width = width;
+		this.height = height;
+		this.offsetX = offsetX;
+		this.offsetY = offsetY;
+	}
 
-        // Saut du joueur
-        window.addEventListener("keydown", (event) => {
-            if (event.code == "Space") {
-                player.jump();
-            }
-        });
-    }
+	events() {
 
-    // Saut 
-    jump() {
+		// Saut du joueur
+		window.addEventListener("keydown", (event) => {
+			if (event.code == "Space") {
+				this.isJumping = true;
+				this.fallDelay = 0;
+				this.angle = -30;
+			}
+		});
+	}
 
-        const ANGLE_JUMP = -30;
+	// Saut 
+	jump() {
 
-        this.isJumping = true;
+		if (this.isJumping) {
+			this.offsetX = this.frames[2];
+			this.velocity.setY(-4.2);
+			this.position = Vector2.sum(this.position, this.velocity);
+			this.jumpDelay++;
+		}
+		if (this.jumpDelay == 8) {
+			this.isJumping = false;
+			this.jumpDelay = 0;
+		}
+	}
 
-        this.jumpTime = 0;
-        this.fallAnimationTime = 0;
+	// Gravité
+	applyGravity() {
 
-        this.angle = ANGLE_JUMP;
-    }
+		this.velocity.addY(this.gravity);
 
-    // Gravité
-    applyGravity() {
+		this.position = Vector2.sum(this.position, this.velocity);
 
-        const FALL_ANIMATION_TIME_MAX = 40;
-        const ANGLE_MAX = 90;
-        const VELOCITY_ROTATION = 6;
+		this.fallDelay++;
 
-        this.velocity.addY(this.gravity);
+		if (this.fallDelay > 40) {
+			this.angle += (this.angle < 90) ? 6 : 0;
+		}
 
-        this.position = Vector2.sum(this.position, this.velocity);
+		this.offsetX = (this.angle == 90) ? this.frames[1] : this.offsetX;
 
-        this.fallAnimationTime++;
+	}
 
+	// Dessine le joueur
+	draw() {
 
-        if (this.fallAnimationTime > FALL_ANIMATION_TIME_MAX) {
-            if (this.angle < ANGLE_MAX) {
-                this.angle += VELOCITY_ROTATION;
-            }
-        }
+		drawRotate(this.ctx, this.img, this.position, 75, 55, this.offsetX, 0, 169, 124, this.angle);
 
-        if (this.angle == ANGLE_MAX) {
-            this.offsetX = 170;
-        }
+	}
 
-    }
+	// Animation du joueur
+	animation() {
+        
+		let nextFrame = this.frameDelay >= 7;
+        let firstFrame = this.offsetX >= this.frames[2];
 
-    // Dessine le joueur
-    draw() {
+        this.frameDelay++;
 
-        drawRotate(this.ctx, this.img, this.position, 75, 55, this.offsetX, 0, 169, 124, this.angle);
+        if (nextFrame) {
+			this.offsetX += this.frames[1];
+			this.frameDelay = 0;
+		}
 
-    }
+        this.offsetX = (firstFrame) ? this.frames[0] : this.offsetX;       
+    
+	}
 
-    // Animation du joueur
-    animation() {
+	getX() {
+		return this.position.x;
+	}
 
-        const LAST_SPRITE = 340;
-        const NEXT_SPRITE = 170;
-        const DELAY_BETWEEN_SPRITE = 7;
-
-        this.flyAnimationTime++;
-
-        if (this.offsetX >= LAST_SPRITE) {
-            this.offsetX = 0;
-        } else if (this.flyAnimationTime >= DELAY_BETWEEN_SPRITE) {
-            this.offsetX += NEXT_SPRITE;
-            this.flyAnimationTime = 0;
-        }
-    }
-
-    update() {
-
-        const JUMP_TIME_MAX = 9;
-        const VELOCITY_JUMP = -4.5;
-
-        if (this.isJumping) {
-            this.offsetX = 340;
-            this.jumpTime++;
-            this.velocity.setY(VELOCITY_JUMP);
-            this.position = Vector2.sum(this.position, this.velocity);
-        }
-
-        if (this.jumpTime >= JUMP_TIME_MAX) {
-            this.isJumping = false;
-        }
-    }
-
-    getX(){
-        return this.position.x;
-    }
-
-    getY(){
-        return this.position.y;
-    }
+	getY() {
+		return this.position.y;
+	}
 }
+

@@ -30,10 +30,9 @@ export default function initGame() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   // Crée le joueur
-  player = new Player(ctx, playerImg, new Vector2(canvas.width / 2, canvas.height / 2), new Vector2(0, 2), 75, 55, 0, 0, 156, 114, 0);
+  player = new Player(ctx, playerImg, new Vector2(canvas.width / 2, canvas.height / 2), new Vector2(0, 2), 75, 55, 0, 0);
 
-  // Évènements du joueur
-  player.events(player);
+
 
   // Création du sol
   floor = new Floor(ctx, assets.floorImg, 0, 644, 1000, 56);
@@ -62,11 +61,16 @@ function loopGame() {
 function createPlayer() {
   // Applique la gravité au joueur
   player.applyGravity();
-  player.update();
+
   // Dessine le joueur
   player.draw();
   // Animation du joueur
   player.animation();
+
+  player.jump();
+
+  // Évènements du joueur
+  player.events();
 }
 
 function scrollBackground() {
