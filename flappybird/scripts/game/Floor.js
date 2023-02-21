@@ -1,25 +1,25 @@
+import { Vector2 } from "./Vector2.js";
+
 export class Floor {
 
-    moveFloor = 0;
-
-    constructor(ctx, img, x, y, width, height) {
+    constructor(ctx, img, position, velocity, width, height) {
         this.ctx = ctx;
         this.img = img;
-        this.x = x;
-        this.y = y;
+        this.position = position;
+        this.velocity = velocity;
         this.width = width;
         this.height = height;
     }
 
     draw() {
-        this.moveFloor -= 4;
-        this.ctx.drawImage(this.img, this.moveFloor, this.y, this.width, this.height);
+        this.position = Vector2.sum(this.position, this.velocity);
+        this.ctx.drawImage(this.img, this.position.x, this.position.y, this.width, this.height);
     }
 
     regenerateFloor() {
-        this.ctx.drawImage(this.img, 1000 + this.moveFloor, this.y, this.width, this.height);
-        if (this.moveFloor <= -1000) {
-            this.moveFloor = 0;
+        this.ctx.drawImage(this.img, 1000 + this.position.x, this.position.y, this.width, this.height);
+        if (this.position.x <= -1000) {
+            this.position.x = 0;
         }
-    }
+    }   
 }

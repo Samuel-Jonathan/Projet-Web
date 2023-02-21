@@ -1,5 +1,5 @@
 // Importations
-import { gamestates, setCurrentGameStates, state } from "../GameStates.js";
+import { gamestates, setCurrentGameStates, state } from "../Gamestates.js";
 import * as assets from "./Assets.js";
 import { ctx, canvas } from "../Main.js";
 

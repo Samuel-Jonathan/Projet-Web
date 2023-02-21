@@ -1,14 +1,17 @@
 // Importations
 import initLoadingScreen from "./loadingScreen/LoadingScreen.js";
 import initMainMenu from "./mainMenu/MainMenu.js";
-import initGame from "./game/Game.js";
+import {initGame, isPause} from "./game/Game.js";
+import { initPause, initResume } from "./game/Pause.js";
 
 
-// États du jeu
+
+// États du jeu 
 export const gamestates = {
     LoadingScreen: "loading_screen",
     MainMenu: "main_menu",
-    Game: "game"
+    Game: "game",
+    Pause: "pause"
 }
 
 // État du jeu actuel
@@ -33,6 +36,16 @@ export function state() {
 
         case gamestates.Game:
             initGame();
+            break;
+        case gamestates.Pause:
+
+        //Pause
+            if(!isPause){
+                initPause();
+            }else{
+                initResume();
+            }
+        
             break;
 
     }

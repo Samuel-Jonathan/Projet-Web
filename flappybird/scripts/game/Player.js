@@ -22,6 +22,8 @@ export class Player {
 
 	isJumping = false;
 
+
+
 	constructor(ctx, img, position, velocity, width, height, offsetX, offsetY) {
 		this.ctx = ctx;
 		this.img = img;
@@ -50,7 +52,7 @@ export class Player {
 
 		if (this.isJumping) {
 			this.offsetX = this.frames[2];
-			this.velocity.setY(-4.2);
+			this.velocity.y = -4.2;
 			this.position = Vector2.sum(this.position, this.velocity);
 			this.jumpDelay++;
 		}
@@ -63,7 +65,7 @@ export class Player {
 	// Gravité
 	applyGravity() {
 
-		this.velocity.addY(this.gravity);
+		this.velocity.y += this.gravity;
 
 		this.position = Vector2.sum(this.position, this.velocity);
 

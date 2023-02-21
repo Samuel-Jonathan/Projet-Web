@@ -1,5 +1,5 @@
 // Importations
-import { setCurrentGameStates, gamestates, state } from "./GameStates.js";
+import { setCurrentGameStates, gamestates, state } from "./Gamestates.js";
 
 // Récupère le canvas
 export const canvas = document.getElementById("canvas");
