@@ -2,22 +2,25 @@ import * as assets from "./Assets.js";
 import { ctx, canvas } from "../Main.js";
 import { gamestates, setCurrentGameStates, state } from "../GameStates.js";
 
-let isHoverGameOver = false;
+var isHoverGameOver = true;
 
 export function initGameOver() {
 
-    window.requestAnimationFrame(loopGameOver);
+    isHoverGameOver = true;
 
     // Évènements
     canvas.addEventListener("mousemove", onMouseOverGameOver);
     canvas.addEventListener("click", onMouseClickGameOver);
+
+    window.requestAnimationFrame(loopGameOver);
 }
 
 function loopGameOver() {
-console.log('ok');
+
     // Récupère les images
     const background = assets.gameOverImg;
     const replayButton = assets.replayButtonImg;
+    const mainMenuButton = assets.mainMenuButtonImg;
 
 
     // Affiche l'arrière-plan
@@ -28,9 +31,13 @@ console.log('ok');
     ctx.drawImage(replayButton, canvas.width / 2 + 135,
         canvas.height / 2 - 80, 60, 60);
 
-        if(!isHoverGameOver){
-            window.requestAnimationFrame(loopGameOver);
-        }
+    // Affiche le bouton pour revenir au menu principale
+    ctx.drawImage(mainMenuButton, canvas.width / 2 + 135,
+        canvas.height / 2 + 20, 60, 60);
+    
+    if (!isHoverGameOver) {
+        window.requestAnimationFrame(loopGameOver);
+    }
 }
 
 // Position x et y de la souris
@@ -44,28 +51,32 @@ function getMousePos(canvas, evt) {
 
 
 
-// Évènements du menu principale
+// Évènements du game over (survol)
 function onMouseOverGameOver(e) {
 
     var pos = getMousePos(canvas, e);
 
     hoverReplayButton(pos);
+    hoverMainMenuButton(pos);
 }
 
-// Évènement du bouton pour rejouer
+// Évènement du game over (clic)
 function onMouseClickGameOver(e) {
 
     var pos = getMousePos(canvas, e);
+
+    clickReplayButton(pos);
+    clickMainMenuButton(pos);
+}
+
+
+// Évènement du bouton rejouer (clic)
+function clickReplayButton(pos) {
 
     var x = canvas.width / 2 + 135;
     var y = canvas.height / 2 - 80;
     var width = 60;
     var height = 60;
-    clickReplayButton(x, y, width, height, pos);
-}
-
-// Évènement du bouton joueur (clic)
-function clickReplayButton(x, y, width, height, pos) {
 
     if (pos.x > x &&
         pos.x < x + width &&
@@ -81,7 +92,29 @@ function clickReplayButton(x, y, width, height, pos) {
 
 }
 
-// Évènement du bouton jouer (survol)
+// Évènement du bouton pour revenir au menu principale (clic)
+function clickMainMenuButton(pos) {
+
+    var x = canvas.width / 2 + 135;
+    var y = canvas.height / 2 + 20;
+    var width = 60;
+    var height = 60;
+
+    if (pos.x > x &&
+        pos.x < x + width &&
+        pos.y > y &&
+        pos.y < y + height) {
+
+        canvas.removeEventListener("mousemove", onMouseOverGameOver);
+        canvas.removeEventListener("click", onMouseClickGameOver);
+
+        setCurrentGameStates(gamestates.MainMenu);
+        state();
+    }
+
+}
+
+// Évènement du bouton rejouer (survol)
 function hoverReplayButton(pos) {
 
     var replayButton = assets.replayButtonImg;
@@ -93,7 +126,20 @@ function hoverReplayButton(pos) {
     detectMouseOnGameOver(replayButton, replayButtonHover, x, y, width, height, pos);
 }
 
-// Évènement des boutons
+
+// Évènement du bouton pour revenir au menu principale (survol)
+function hoverMainMenuButton(pos) {
+
+    var mainMenuButton = assets.mainMenuButtonImg;
+    var mainMenuButtonHover = assets.mainMenuButtonHoverImg;
+    var x = canvas.width / 2 + 135;
+    var y = canvas.height / 2 + 20;
+    var width = 60;
+    var height = 60;
+    detectMouseOnGameOver(mainMenuButton, mainMenuButtonHover, x, y, width, height, pos);
+}
+
+// Évènement des boutons (survol)
 function detectMouseOnGameOver(button, buttonHover, x, y, width, height, pos) {
 
     if (pos.x > x &&
@@ -102,8 +148,8 @@ function detectMouseOnGameOver(button, buttonHover, x, y, width, height, pos) {
         pos.y < y + height) {
         // Affiche le bouton (hover)
         ctx.drawImage(buttonHover, x, y, width, height);
-
         isHoverGameOver = true;
+
     } else {
         // Affiche le bouton 
         ctx.drawImage(button, x, y, width, height);

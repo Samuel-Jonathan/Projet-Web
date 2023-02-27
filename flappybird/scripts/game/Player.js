@@ -110,5 +110,15 @@ export class Player {
 	getY() {
 		return this.position.y;
 	}
+
+	getWidth(){
+		return this.width;
+	}
+
+	getHeight(){
+		return this.height;
+	}
+
+	
 }
 

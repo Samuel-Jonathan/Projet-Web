@@ -8,6 +8,7 @@ var timer = 0;
 
 // Initialise l'écran de chargement
 export default function initLoadingScreen() {
+  
   // Boucle de l'écran de chargement
   window.requestAnimationFrame(loopLoadingScreen);
 }

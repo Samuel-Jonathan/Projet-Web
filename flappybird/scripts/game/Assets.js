@@ -25,3 +25,12 @@ replayButtonImg.src = "assets/game/replay_button.png";
 // Bouton pour rejouer (survol)
 export var replayButtonHoverImg = new Image(360, 330);
 replayButtonHoverImg.src = "assets/game/replay_button_hover.png";
+
+
+// Bouton pour revenir au menu principale
+export var mainMenuButtonImg = new Image(360, 330);
+mainMenuButtonImg.src = "assets/game/main_menu_button.png";
+
+// Bouton pour revenir au menu principale (survol)
+export var mainMenuButtonHoverImg = new Image(360, 330);
+mainMenuButtonHoverImg.src = "assets/game/main_menu_button_hover.png";

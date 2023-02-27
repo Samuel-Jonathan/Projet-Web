@@ -99,15 +99,13 @@ function createPipes() {
 
 	Pipe.generatePipe(ctx, pipes, pipeImg, pipe2Img, 100, 575);
 
-	for (let i = Pipe.nbPipesRemove; i < pipes.length; i++) {
+	for (let i = 0; i < pipes.length; i++) {
 		// Dessine les tuyaux
 		pipes[i].draw();
 		// Déplace les tuyaux
 		pipes[i].move();
 		// Collision du joueur avec les tuyaux
-		pipes[i].collision(player.getX(), player.getY(), ctx);
-		//Supprime les tuyaux
-		pipes[i].remove();
+		pipes[i].collision(player.getX(), player.getY(), player.getWidth(), player.getHeight());
 	}
 
 }

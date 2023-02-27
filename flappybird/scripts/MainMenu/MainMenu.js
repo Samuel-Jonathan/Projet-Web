@@ -7,6 +7,9 @@ import { resume } from "../Game/Pause.js";
 // Initialise le menu principale
 export default function initMainMenu() {
 
+    // Efface le canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
     // Récupère les images
     const title = assets.title;
     const playButton = assets.playButton;
@@ -71,7 +74,7 @@ function onMouseOverMainMenu(e) {
     hoverSuccessButton(pos);
 }
 
-// Évènement du bouton joueur
+// Évènement du bouton jouer
 function onMouseClickMainMenu(e) {
 
     var playButton = assets.playButton;
@@ -98,7 +101,7 @@ function clickPlayButton(x, y, width, height, pos) {
 
         // Efface le canvas
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
+
         setCurrentGameStates(gamestates.Game);
         state();
     }

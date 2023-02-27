@@ -1,6 +1,5 @@
 import { gamestates, setCurrentGameStates, state } from "../GameStates.js";
-import { setBackgroundX } from "./Background.js";
-import { pipes, random } from "./Game.js";
+import { random } from "./Game.js";
 import { Vector2 } from "./Vector2.js";
 
 
@@ -10,8 +9,6 @@ export class Pipe {
 	static xPipe = 1000;
 	static yPipe = 0;
 	static generatePipeTime = 0;
-	static nbPipesRemove = 0;
-
 
 	constructor(ctx, id, img, position, velocity, width, height) {
 		this.ctx = ctx;
@@ -35,24 +32,14 @@ export class Pipe {
 	}
 
 	// Collision du joueur avec les tuyaux
-	collision(playerX, playerY, ctx) {
-		let leftSide = playerX > this.position.x && playerX < this.position.x + this.width;
-		let rightSide = playerY > this.position.y && playerY < this.position.y + this.height;
+	collision(playerX, playerY, width, height) {
+		
+		let leftSide = playerX + width/2> this.position.x && playerX - width/2 < this.position.x + this.width;
+		let rightSide = playerY + height / 2  > this.position.y && playerY - height / 2 < this.position.y + this.height;
 		if (leftSide && rightSide) {
-
 			setCurrentGameStates(gamestates.GameOver);
 			state();
-			/*setBackgroundX(0);
-			// Efface le canvas
-			ctx.clearRect(0, 0, canvas.width, canvas.height);*/
 
-
-		}
-	}
-
-	remove() {
-		if (this.position.x + this.width < 0) {
-			Pipe.nbPipesRemove++;
 		}
 	}
 
