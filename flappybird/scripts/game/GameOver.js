@@ -2,7 +2,19 @@ import * as assets from "./Assets.js";
 import { ctx, canvas } from "../Main.js";
 import { gamestates, setCurrentGameStates, state } from "../GameStates.js";
 
+let isHoverGameOver = false;
+
 export function initGameOver() {
+
+    window.requestAnimationFrame(loopGameOver);
+
+    // Évènements
+    canvas.addEventListener("mousemove", onMouseOverGameOver);
+    canvas.addEventListener("click", onMouseClickGameOver);
+}
+
+function loopGameOver() {
+console.log('ok');
     // Récupère les images
     const background = assets.gameOverImg;
     const replayButton = assets.replayButtonImg;
@@ -16,9 +28,9 @@ export function initGameOver() {
     ctx.drawImage(replayButton, canvas.width / 2 + 135,
         canvas.height / 2 - 80, 60, 60);
 
-    // Évènements
-    canvas.addEventListener("mousemove", onMouseOverMainMenu);
-    canvas.addEventListener("click", onMouseClickMainMenu);
+        if(!isHoverGameOver){
+            window.requestAnimationFrame(loopGameOver);
+        }
 }
 
 // Position x et y de la souris
@@ -90,9 +102,12 @@ function detectMouseOnGameOver(button, buttonHover, x, y, width, height, pos) {
         pos.y < y + height) {
         // Affiche le bouton (hover)
         ctx.drawImage(buttonHover, x, y, width, height);
+
+        isHoverGameOver = true;
     } else {
         // Affiche le bouton 
         ctx.drawImage(button, x, y, width, height);
+        isHoverGameOver = false;
     }
 }
 
