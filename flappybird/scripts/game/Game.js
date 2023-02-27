@@ -4,8 +4,8 @@ import { Pipe } from "./Pipe.js";
 import { ctx, canvas } from "../Main.js";
 import * as assets from "./Assets.js";
 import { Vector2 } from "./Vector2.js";
-import { Floor } from "./Floor.js";
-import { gamestates, setCurrentGameStates, state } from "../Gamestates.js";
+import { Floor, scrollBackground, setBackgroundX } from "./Background.js";
+import { gamestates, setCurrentGameStates, state } from "../GameStates.js";
 
 // Joueur
 export var player;
@@ -16,12 +16,15 @@ export var pipes = [];
 // Sol
 export var floor;
 
-export var moveBackground = 0;
-
 export var isPause = false;
 
 
 export function initGame() {
+
+	// Réinitialise le jeu
+	isPause = false;
+	setBackgroundX(0);
+	pipes = [];
 
 	// Arrière-plan du canvas
 	canvas.style.background = 'url(/flappybird/assets/game/background.png)';
@@ -87,14 +90,6 @@ function createPlayer() {
 	player.events();
 }
 
-function scrollBackground() {
-	// Vitesse de défilement de l'arrière-plan
-	const VELOCITY_SCROLL_BACKGROUND = 4;
-	// Déplace l'arrière-plan
-	moveBackground -= VELOCITY_SCROLL_BACKGROUND;
-	canvas.style.backgroundPositionX = moveBackground + "px";
-}
-
 
 function createPipes() {
 	// Récupère l'image du tuyau
@@ -110,7 +105,7 @@ function createPipes() {
 		// Déplace les tuyaux
 		pipes[i].move();
 		// Collision du joueur avec les tuyaux
-		pipes[i].collision(player.getX(), player.getY());
+		pipes[i].collision(player.getX(), player.getY(), ctx);
 		//Supprime les tuyaux
 		pipes[i].remove();
 	}

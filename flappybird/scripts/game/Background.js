@@ -1,5 +1,20 @@
 import { Vector2 } from "./Vector2.js";
 
+export var backgroundX = 0;
+
+export function scrollBackground() {
+	// Vitesse de défilement de l'arrière-plan
+	const VELOCITY_SCROLL_BACKGROUND = 4;
+	// Déplace l'arrière-plan
+	backgroundX -= VELOCITY_SCROLL_BACKGROUND;
+	canvas.style.backgroundPositionX = backgroundX + "px";
+}
+
+export function setBackgroundX(value){
+    backgroundX = value;
+}
+
+
 export class Floor {
 
     constructor(ctx, img, position, velocity, width, height) {

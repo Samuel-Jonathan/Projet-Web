@@ -1,7 +1,8 @@
 // Importations
-import { setCurrentGameStates, state, gamestates } from "../Gamestates.js";
+import { setCurrentGameStates, state, gamestates } from "../GameStates.js";
 import * as assets from "./Assets.js";
-import { ctx, canvas } from "../Main.js"; 
+import { ctx, canvas } from "../Main.js";
+import { resume } from "../Game/Pause.js";
 
 // Initialise le menu principale
 export default function initMainMenu() {
@@ -13,7 +14,7 @@ export default function initMainMenu() {
     const successButton = assets.successButton;
     const rankingButton = assets.rankingButton;
     const settingsButton = assets.settingsButton;
-    
+
     // Arrière-plan du canvas
     canvas.style.background = 'url(/flappybird/assets/mainMenu/background.png)';
 
@@ -24,7 +25,7 @@ export default function initMainMenu() {
     // Affiche le bouton jouer
     ctx.drawImage(playButton, canvas.width / 2 - playButton.width / 2,
         canvas.height / 2 - playButton.height / 2 + 100);
-    
+
     // Affiche le bouton pour le classement
     ctx.drawImage(rankingButton, canvas.width / 2 - rankingButton.width / 2 + 400,
         canvas.height / 2 - rankingButton.height / 2 + 235, 120, 120);
@@ -94,6 +95,10 @@ function clickPlayButton(x, y, width, height, pos) {
 
         canvas.removeEventListener("mousemove", onMouseOverMainMenu);
         canvas.removeEventListener("click", onMouseClickMainMenu);
+
+        // Efface le canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
         setCurrentGameStates(gamestates.Game);
         state();
     }
@@ -105,7 +110,7 @@ function hoverPlayButton(pos) {
 
     var playButton = assets.playButton;
     var playButtonHover = assets.playButtonHover;
-    
+
     var x = canvas.width / 2 - playButton.width / 2;
     var y = canvas.height / 2 - playButton.height / 2 + 100;
     var width = playButton.width;

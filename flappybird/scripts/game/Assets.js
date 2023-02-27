@@ -1,12 +1,27 @@
 // Joueur
-export var playerImg = new Image(100,100)
+export var playerImg = new Image(100, 100)
 playerImg.src = "assets/game/flappy_bird.png";
 
-export var pipeImg = new Image(100,575);
+//Tuyaux du haut
+export var pipeImg = new Image(100, 575);
 pipeImg.src = "assets/game/pipe.png";
 
-export var pipe2Img = new Image(100,575);
+//Tuyaux du bas
+export var pipe2Img = new Image(100, 575);
 pipe2Img.src = "assets/game/pipe2.png";
 
-export var floorImg = new Image(933,56);
+//Sol
+export var floorImg = new Image(933, 56);
 floorImg.src = "assets/game/floor.png"
+
+//Arrière-plan du game over
+export var gameOverImg = new Image(1003, 502);
+gameOverImg.src = "assets/game/game_over.png";
+
+// Bouton pour rejouer
+export var replayButtonImg = new Image(360, 330);
+replayButtonImg.src = "assets/game/replay_button.png";
+
+// Bouton pour rejouer (survol)
+export var replayButtonHoverImg = new Image(360, 330);
+replayButtonHoverImg.src = "assets/game/replay_button_hover.png";
