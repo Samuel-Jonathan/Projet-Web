@@ -5,6 +5,7 @@ export default class Brick {
         this.width = width;
         this.height = height;
         this.color = color;
+        
     }
 
     update(ball) {

@@ -13,8 +13,10 @@ export default class Paddle {
     draw(ctx) {
         ctx.save();
         ctx.translate(this.x,this.y);
-        ctx.fillRect(0,0,this.width, this.height);
+        ctx.beginPath();
         ctx.fillStyle = this.color;
+        ctx.fill();
+        ctx.fillRect(0,0,this.width, this.height);
         ctx.closePath();
         ctx.restore();
     }
