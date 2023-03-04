@@ -1,23 +1,23 @@
 import Ball from "./ball.js";
 import Paddle from "./paddle.js";
 import Brick from "./bricks.js";
-import Bonus from "./bonus.js";
+import PaddleBonus from "./PaddleBonus.js";
 import { circRectsOverlap } from "./collisions.js";
 
 let tabBricks = [];
 let canvas, ctx;
-let paddle, ball, bonus;
+let paddle, ball;
 let score = 0;
 window.onload = init;
+
+let bonus = new Array();
 
 
 function init() {
     console.log("page chargée")
     canvas = document.querySelector("#gameCanvas");
     ctx = canvas.getContext("2d");
-
     ball = new Ball(canvas.width / 2, canvas.height - 80, 10, "green", 6, -6);
-    bonus = new Bonus(0, 0, 10, "green", 0, 0);
     paddle = new Paddle(75, canvas.height - 50, 100, 10, 10, "red");
     createBricks(100,10,"blue");
     document.addEventListener("keydown", paddle.handleKeyDown.bind(paddle));
@@ -30,18 +30,25 @@ function gameLoop(time) {
     // 1 on efface
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+
     // 2 on dessinea
     ball.draw(ctx);
     paddle.draw(ctx);
-    bonus.draw(ctx);
+    let spawnbonus = Math.round(random(1,100));
+    if (spawnbonus == 1) {
+        bonus.push(new PaddleBonus(50,50,50,50));
+    }
+    console.log(spawnbonus);
+    for(let i = 0; i < bonus.length; i++){
+        bonus[i].draw(ctx);
+    }
     for (let i = 0; i < tabBricks.length; i++) {
         tabBricks[i].draw(ctx);
         handleCollisionBallBrick(tabBricks[i]);
-
     }
 
     // 3 on met à jour
-    bonus.update(canvas.width);
+   
     paddle.update(canvas.width);
     handleCollisionBallPaddle();
     ball.update(canvas.width, canvas.height);
@@ -113,8 +120,6 @@ function handleCollisionBallBrick(brick) {
 
 //creer une function score qui a chaque fois que la ballle touche une brick ca ajoute un point 
 
-
-
 function createBricks(brickWidth, brickHeight, brickColor) {
     for (let l = 0; l < 9; l++) {
       for (let c = 0; c < 9; c++) {
@@ -126,6 +131,10 @@ function createBricks(brickWidth, brickHeight, brickColor) {
       }
     }
   }
+
+  function random(min, max) {
+    return Math.random() * (max - min) + min;
+}
   
 
 
