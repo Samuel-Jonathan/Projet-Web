@@ -9,27 +9,30 @@ var isHoverPause = true;
 
 export function pause() {
 
+  setPause(true);
+  // Désactive l'affichage du menu de pause lors du game over
+  if (getCurrentGameStates() != gamestates.GameOver) {
+
     isHoverPause = true;
 
     // Évènements
     canvas.addEventListener("mousemove", onMouseOverPause);
     canvas.addEventListener("click", onMouseClickPause);
-
-    setPause(true);
-    
     window.requestAnimationFrame(loopPause);
+  }
 
 
 }
 
 export function resume() {
-
-    setPause(false);
-    setCurrentGameStates(gamestates.Game);
-    loopGame();
+  //Lance le jeu
+  setPause(false);
+  setCurrentGameStates(gamestates.Game);
+  loopGame();
 }
 
 function loopPause() {
+
   let pauseImg = assets.pauseImg;
   let playButtonImg = assets.playButtonImg;
   let exitButtonImg = assets.exitButtonImg;
@@ -62,7 +65,6 @@ function getMousePos(canvas, evt) {
 
 // Évènements du menu de pause (survol)
 function onMouseOverPause(e) {
-
   var pos = getMousePos(canvas, e);
 
   hoverPlayButton(pos);
@@ -136,7 +138,7 @@ function clickPlayButton(pos) {
 
     canvas.removeEventListener("mousemove", onMouseOverPause);
     canvas.removeEventListener("click", onMouseClickPause);
-  
+
     resume();
   }
 
@@ -159,7 +161,7 @@ function clickExitButton(pos) {
 
     canvas.removeEventListener("mousemove", onMouseOverPause);
     canvas.removeEventListener("click", onMouseClickPause);
-    
+
     setCurrentGameStates(gamestates.MainMenu);
     state();
   }

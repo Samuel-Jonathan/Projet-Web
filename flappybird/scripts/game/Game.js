@@ -6,6 +6,7 @@ import * as assets from "./Assets.js";
 import { Vector2 } from "./Vector2.js";
 import { Floor, scrollBackground, setBackgroundX } from "./Background.js";
 import { gamestates, getCurrentGameStates, setCurrentGameStates, state } from "../GameStates.js";
+import { Score } from "./Score.js";
 
 // Joueur
 export var player;
@@ -15,6 +16,9 @@ export var pipes = [];
 
 // Sol
 export var floor;
+
+// Score
+export var score = 0;
 
 export var isPause = false;
 
@@ -43,6 +47,9 @@ export function initGame() {
 	// Création du sol
 	floor = new Floor(ctx, assets.floorImg, new Vector2(0, 644), new Vector2(-4, 0), 1000, 56);
 
+	// Création du score
+	score = new Score(ctx, new Vector2(80,80), 0);
+
 	// Pause
 	window.addEventListener("keydown", (event) => {
 		if (event.code == "Escape" && getCurrentGameStates() != gamestates.MainMenu && 
@@ -58,7 +65,7 @@ export function initGame() {
 
 
 export function loopGame() {
-	console.log(getCurrentGameStates());
+
 	// Efface le canvas
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -70,6 +77,9 @@ export function loopGame() {
 	createPipes();
 	// Crée le sol
 	createFloor();
+
+	// Crée le score
+	createScore();
 
 	if (!isPause) {
 		requestAnimationFrame(loopGame);
@@ -91,6 +101,9 @@ function createPlayer() {
 
 	// Évènements du joueur
 	player.events();
+
+	// Collision du joueur
+	player.collision();
 }
 
 
@@ -115,10 +128,15 @@ function createPipes() {
 
 
 function createFloor() {
-
+	
 	floor.draw();
 	floor.regenerateFloor();
 
+}
+
+function createScore(){
+	score.draw();
+	score.addScore();
 }
 
 export function random(min, max) {

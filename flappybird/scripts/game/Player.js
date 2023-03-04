@@ -1,10 +1,7 @@
 // Importations
-import {
-	drawRotate
-} from "./Sprite.js";
-import {
-	Vector2
-} from "./Vector2.js";
+import {drawRotate} from "./Sprite.js";
+import {Vector2} from "./Vector2.js";
+import { gamestates, setCurrentGameStates, state } from "../GameStates.js";
 
 
 export class Player {
@@ -117,6 +114,14 @@ export class Player {
 
 	getHeight(){
 		return this.height;
+	}
+
+	collision(){
+		// Collision du joueur avec le sol
+		if(this.getY() + this.height - 19 > 644){
+			setCurrentGameStates(gamestates.GameOver);
+			state();
+		}
 	}
 
 	
