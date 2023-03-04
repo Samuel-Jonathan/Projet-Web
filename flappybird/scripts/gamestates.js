@@ -21,6 +21,8 @@ var currentGamestate = gamestates.LoadingScreen;
 // Modifie la gamestate actuelle
 export function setCurrentGameStates(gamestate) { currentGamestate = gamestate; }
 
+export function getCurrentGameStates() { return currentGamestate; }
+
 // Changer l'état du jeu
 export function state() {
 

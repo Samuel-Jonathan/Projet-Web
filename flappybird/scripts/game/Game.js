@@ -5,7 +5,7 @@ import { ctx, canvas } from "../Main.js";
 import * as assets from "./Assets.js";
 import { Vector2 } from "./Vector2.js";
 import { Floor, scrollBackground, setBackgroundX } from "./Background.js";
-import { gamestates, setCurrentGameStates, state } from "../GameStates.js";
+import { gamestates, getCurrentGameStates, setCurrentGameStates, state } from "../GameStates.js";
 
 // Joueur
 export var player;
@@ -43,8 +43,11 @@ export function initGame() {
 	// Création du sol
 	floor = new Floor(ctx, assets.floorImg, new Vector2(0, 644), new Vector2(-4, 0), 1000, 56);
 
+	// Pause
 	window.addEventListener("keydown", (event) => {
-		if (event.code == "Escape") {
+		if (event.code == "Escape" && getCurrentGameStates() != gamestates.MainMenu && 
+		getCurrentGameStates() != gamestates.GameOver && 
+		getCurrentGameStates() != gamestates.Pause) {
 			setCurrentGameStates(gamestates.Pause);
 			state();
 		}
@@ -55,7 +58,7 @@ export function initGame() {
 
 
 export function loopGame() {
-
+	console.log(getCurrentGameStates());
 	// Efface le canvas
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 
