@@ -21,23 +21,18 @@ export default class Ball {
         ctx.restore();
     }
     
-   /*
-    draw(ctx) {
-        ctx.save();
-        ctx.translate(this.x, this.y);
-        ctx.beginPath();
-        ctx.arc(0, 0, this.radius, 0, Math.PI * 2);
-        var texture = new Image();
-        texture.src = '';
-        texture.onload = function() {
-            var pattern = ctx.createPattern(texture, 'repeat');
-            ctx.fillStyle = pattern;
-            ctx.fill();
-        }
-        ctx.closePath();
-        ctx.restore();
+    getX(){
+        return this.x;
     }
-    */
+
+    getY(){
+        return this.y;
+    }
+
+    getRadius(){
+        return this.radius;
+    }
+    
 
 
     update(width, height) {

@@ -41,6 +41,8 @@ function gameLoop(time) {
     console.log(spawnbonus);
     for(let i = 0; i < bonus.length; i++){
         bonus[i].draw(ctx);
+        // bonus[i].collision(ctx,ball.getX(),ball.getY(),ball.getRadius());
+        handleCollisionBonus(ball);
     }
     for (let i = 0; i < tabBricks.length; i++) {
         tabBricks[i].draw(ctx);
@@ -87,7 +89,6 @@ function handleCollisionBallPaddle() {
 
 function handleCollisionBallBrick(brick) {
     if (circRectsOverlap(brick.x, brick.y, brick.width, brick.height, ball.x, ball.y, ball.radius)) {
-        console.log("collision");
         if (ball.y < brick.y) {
             //collision par le haut
             ball.dy = -ball.dy;
@@ -113,6 +114,12 @@ function handleCollisionBallBrick(brick) {
         //si la baller touche la brique, on la supprime
         const index = tabBricks.indexOf(brick);
         tabBricks.splice(index, 1);
+    }
+}
+
+function handleCollisionBonus(ball){
+    if (circRectsOverlap(bonus.x, bonus.y, bonus.width, bonus.height, ball.x, ball.y, ball.radius)) {
+        ctx.clearRect(bonus.x,bonus.y,bonus.width, bonus.height);
     }
 }
 
