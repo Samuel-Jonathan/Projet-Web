@@ -54,3 +54,7 @@ exitButtonImg.src = "assets/game/exit_button.png";
 // Bouton pour quitter du menu de pause (survol)
 export var exitButtonHoverImg = new Image(107, 45);
 exitButtonHoverImg.src = "assets/game/exit_button_hover.png";
+
+// Bonus (invincibilité)
+export var invincibilityBonusImg = new Image(51,46);
+invincibilityBonusImg.src = "assets/game/invincibility_bonus.png";

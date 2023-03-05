@@ -7,6 +7,8 @@ import { Vector2 } from "./Vector2.js";
 import { Floor, scrollBackground, setBackgroundX } from "./Background.js";
 import { gamestates, getCurrentGameStates, setCurrentGameStates, state } from "../GameStates.js";
 import { Score } from "./Score.js";
+import { Bonus } from "./Bonus.js";
+
 // Joueur
 export var player;
 
@@ -20,6 +22,9 @@ export var floor;
 // Score
 export var score = 0;
 
+// Bonus
+var bonus = []
+
 export var isPause = false;
 
 
@@ -30,6 +35,7 @@ export function initGame() {
 	setBackgroundX(0);
 	pipesTop = [];
 	pipesBottom = [];
+	bonus = [];
 
 	// Arrière-plan du canvas
 	canvas.style.background = 'url(/flappybird/assets/game/background.png)';
@@ -67,6 +73,9 @@ export function initGame() {
 
 export function loopGame() {
 
+	// Récupère les images des bonus
+	const invincibilityBonusImg = assets.invincibilityBonusImg;
+
 	// Efface le canvas
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -81,6 +90,18 @@ export function loopGame() {
 
 	// Crée le score
 	createScore();
+
+	let spawnInvincibilityBonus = Math.round(random(1,100));
+
+	if(spawnInvincibilityBonus == 1){
+		console.log(spawnInvincibilityBonus);
+		bonus.push(new Bonus(ctx, invincibilityBonusImg, new Vector2(random(600,900),random(100,600)), new Vector2(1,1)));
+	}
+
+	for(let i = 0; i < bonus.length; i++){
+		bonus[i].draw();
+		bonus[i].move();
+	}
 
 	if (!isPause) {
 		requestAnimationFrame(loopGame);
