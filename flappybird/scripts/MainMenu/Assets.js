@@ -27,7 +27,7 @@ export var shopButtonHover = new Image(120, 120);
 shopButtonHover.src = "assets/mainMenu/shop_button_hover.png";
 
 // Bouton pour les succès (hover)
-    export var successButtonHover = new Image(120, 120);
+export var successButtonHover = new Image(120, 120);
 successButtonHover.src = "assets/mainMenu/success_button_hover.png";
 
 // Bouton pour le classement (hover)
@@ -39,8 +39,5 @@ export var settingsButtonHover = new Image(120, 120);
 settingsButtonHover.src = "assets/mainMenu/settings_button_hover.png";
 
 // Titre Flappy Bird
-export var title = new Image(800,212);
+export var title = new Image(800, 212);
 title.src = "assets/loadingScreen/title.png";
-
-
-

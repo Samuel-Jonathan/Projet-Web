@@ -7,7 +7,6 @@ import { Vector2 } from "./Vector2.js";
 import { Floor, scrollBackground, setBackgroundX } from "./Background.js";
 import { gamestates, getCurrentGameStates, setCurrentGameStates, state } from "../GameStates.js";
 import { Score } from "./Score.js";
-
 // Joueur
 export var player;
 
@@ -50,13 +49,13 @@ export function initGame() {
 	floor = new Floor(ctx, assets.floorImg, new Vector2(0, 644), new Vector2(-4, 0), 1000, 56);
 
 	// Création du score
-	score = new Score(ctx, new Vector2(80,80), 0);
+	score = new Score(ctx, new Vector2(80, 80), 0);
 
 	// Pause
 	window.addEventListener("keydown", (event) => {
-		if (event.code == "Escape" && getCurrentGameStates() != gamestates.MainMenu && 
-		getCurrentGameStates() != gamestates.GameOver && 
-		getCurrentGameStates() != gamestates.Pause) {
+		if (event.code == "Escape" && getCurrentGameStates() != gamestates.MainMenu &&
+			getCurrentGameStates() != gamestates.GameOver &&
+			getCurrentGameStates() != gamestates.Pause) {
 			setCurrentGameStates(gamestates.Pause);
 			state();
 		}
@@ -133,20 +132,20 @@ function createPipes() {
 
 
 function createFloor() {
-	
+
 	floor.draw();
 	floor.regenerateFloor();
 
 }
 
-function createScore(){
+function createScore() {
 	score.draw();
 
 	for (let i = score.getValue(); i < pipesTop.length; i++) {
-		
+
 		score.addScore(pipesTop[i].getX(), pipesTop[i].getWidth());
 
-	}	
+	}
 
 }
 
@@ -157,4 +156,3 @@ export function random(min, max) {
 export function setPause(value) {
 	isPause = value;
 }
-

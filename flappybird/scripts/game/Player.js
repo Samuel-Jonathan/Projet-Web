@@ -1,14 +1,13 @@
 // Importations
-import {drawRotate} from "./Sprite.js";
-import {Vector2} from "./Vector2.js";
+import { drawRotate } from "./Sprite.js";
+import { Vector2 } from "./Vector2.js";
 import { gamestates, setCurrentGameStates, state } from "../GameStates.js";
-
 
 export class Player {
 
 	// Gravité appliquée au joueur
 	gravity = 0.3;
-    angle = 0;
+	angle = 0;
 
 	frames = [0, 170, 340];
 
@@ -85,19 +84,19 @@ export class Player {
 
 	// Animation du joueur
 	animation() {
-        
+
 		let nextFrame = this.frameDelay >= 7;
-        let firstFrame = this.offsetX >= this.frames[2];
+		let firstFrame = this.offsetX >= this.frames[2];
 
-        this.frameDelay++;
+		this.frameDelay++;
 
-        if (nextFrame) {
+		if (nextFrame) {
 			this.offsetX += this.frames[1];
 			this.frameDelay = 0;
 		}
 
-        this.offsetX = (firstFrame) ? this.frames[0] : this.offsetX;       
-    
+		this.offsetX = (firstFrame) ? this.frames[0] : this.offsetX;
+
 	}
 
 	getX() {
@@ -108,22 +107,21 @@ export class Player {
 		return this.position.y;
 	}
 
-	getWidth(){
+	getWidth() {
 		return this.width;
 	}
 
-	getHeight(){
+	getHeight() {
 		return this.height;
 	}
 
-	collision(){
+	collision() {
 		// Collision du joueur avec le sol
-		if(this.position.y + this.height - 19 > 644){
+		if (this.position.y + this.height - 19 > 644) {
 			setCurrentGameStates(gamestates.GameOver);
 			state();
 		}
 	}
 
-	
-}
 
+}

@@ -36,21 +36,21 @@ export var mainMenuButtonHoverImg = new Image(360, 330);
 mainMenuButtonHoverImg.src = "assets/game/main_menu_button_hover.png";
 
 // Arrière-plan du menu de pause
-export var pauseImg = new Image(950,456);
+export var pauseImg = new Image(950, 456);
 pauseImg.src = "assets/game/pause.png";
 
 // Bouton pour jouer du menu de pause
-export var playButtonImg = new Image(135,52);
+export var playButtonImg = new Image(135, 52);
 playButtonImg.src = "assets/game/play_button.png";
 
 // Bouton pour jouer du menu de pause (survol)
-export var playButtonHoverImg = new Image(135,52);
+export var playButtonHoverImg = new Image(135, 52);
 playButtonHoverImg.src = "assets/game/play_button_hover.png";
 
 // Bouton pour quitter du menu de pause
-export var exitButtonImg = new Image(107,45);
+export var exitButtonImg = new Image(107, 45);
 exitButtonImg.src = "assets/game/exit_button.png";
 
 // Bouton pour quitter du menu de pause (survol)
-export var exitButtonHoverImg = new Image(107,45);
+export var exitButtonHoverImg = new Image(107, 45);
 exitButtonHoverImg.src = "assets/game/exit_button_hover.png";

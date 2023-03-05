@@ -5,5 +5,5 @@ export const flappyBirdAnimation = document.getElementById("flappy_bird");
 export const loadingBar = document.getElementById("loading_bar");
 
 // Titre Flappy Bird
-export var title = new Image(800,212);
+export var title = new Image(800, 212);
 title.src = "assets/loadingScreen/title.png";

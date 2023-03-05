@@ -8,9 +8,9 @@ export const canvas = document.getElementById("canvas");
 export const ctx = canvas.getContext("2d");
 
 // Démarre le jeu
-function start(){
-    setCurrentGameStates(gamestates.LoadingScreen);
-    state();
+function start() {
+	setCurrentGameStates(gamestates.LoadingScreen);
+	state();
 }
 
 start();

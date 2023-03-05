@@ -1,27 +1,30 @@
 export class Score {
 
-    constructor(ctx, position, value) {
-        this.ctx = ctx;
-        this.position = position;
-        this.value = value;
-    }
+	constructor(ctx, position, value) {
+		this.ctx = ctx;
+		this.position = position;
+		this.value = value;
+	}
 
-    draw() {
-        // Affichage du score
-        this.ctx.font = '48px consolas';
-        this.ctx.fillText(this.value, 10, 50);
-    }
+	draw() {
+		let ctx = this.ctx;
+		// Affichage du score
+		ctx.save();
+		ctx.font = '48px Chakra Petch';
+		ctx.fillText(this.value, 10, 50);
+		ctx.restore();
+	}
 
-    addScore(pipeX, width) {
+	addScore(pipeX, width) {
 
-        // Ajoute un point lorsqu'on passe un tuyau
-        if(pipeX + width < 500){
-            this.value++;
-        }
-        
-    }
+		// Ajoute un point lorsqu'on passe un tuyau
+		if (pipeX + width < 500) {
+			this.value++;
+		}
 
-    getValue(){
-        return this.value;
-    }
+	}
+
+	getValue() {
+		return this.value;
+	}
 }
