@@ -130,6 +130,8 @@ function createPlayer() {
 
 	// Collision du joueur
 	player.collision();
+
+	player.update();
 }
 
 

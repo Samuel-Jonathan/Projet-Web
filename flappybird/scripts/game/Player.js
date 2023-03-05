@@ -3,6 +3,9 @@ import { drawRotate } from "./Sprite.js";
 import { Vector2 } from "./Vector2.js";
 import { gamestates, setCurrentGameStates, state } from "../GameStates.js";
 
+
+
+
 export class Player {
 
 	// Gravité appliquée au joueur
@@ -18,6 +21,10 @@ export class Player {
 
 	isJumping = false;
 
+	static hasInvincibilityBonus = false;
+
+	// Temps pour les bonus
+	timerInvincibilityBonus = 400;
 
 
 	constructor(ctx, img, position, velocity, width, height, offsetX, offsetY) {
@@ -124,4 +131,15 @@ export class Player {
 		}
 	}
 
+	update() {
+		// Temps pour le bonus d'invincibilité
+		if (Player.hasInvincibilityBonus) {
+			this.timerInvincibilityBonus--;
+			if (this.timerInvincibilityBonus < 0) {
+				Player.hasInvincibilityBonus = false;
+			}
+		}
+	}
 }
+
+

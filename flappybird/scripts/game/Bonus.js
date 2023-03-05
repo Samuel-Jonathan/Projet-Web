@@ -1,7 +1,10 @@
 import { setBonus } from "./Game.js";
 import { Vector2 } from "./Vector2.js";
+import { Player } from "./Player.js";
+
 
 export class Bonus {
+
     constructor(ctx, img, position, velocity, acceleration, width, height) {
         this.ctx = ctx;
         this.img = img;
@@ -38,7 +41,9 @@ export class Bonus {
             });
 
             setBonus(bonus);
+            Player.hasInvincibilityBonus = true;
         }
+
     }
 
 }
