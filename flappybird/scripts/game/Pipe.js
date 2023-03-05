@@ -34,9 +34,9 @@ export class Pipe {
 	// Collision du joueur avec les tuyaux
 	collision(playerX, playerY, width, height) {
 
-		let leftSide = playerX + width / 2 > this.position.x && playerX - width / 2 < this.position.x + this.width;
-		let rightSide = playerY + height / 2 > this.position.y && playerY - height / 2 < this.position.y + this.height;
-		if (leftSide && rightSide) {
+		let leftRightSide = playerX + width / 2 > this.position.x && playerX - width / 2 < this.position.x + this.width;
+		let topBottomSide = playerY + height / 2 > this.position.y && playerY - height / 2 < this.position.y + this.height;
+		if (leftRightSide && topBottomSide) {
 			setCurrentGameStates(gamestates.GameOver);
 			state();
 

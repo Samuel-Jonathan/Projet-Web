@@ -116,12 +116,12 @@ export class Player {
 	}
 
 	collision() {
+
 		// Collision du joueur avec le sol
 		if (this.position.y + this.height - 19 > 644) {
 			setCurrentGameStates(gamestates.GameOver);
 			state();
 		}
 	}
-
 
 }

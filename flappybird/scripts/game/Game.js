@@ -94,13 +94,17 @@ export function loopGame() {
 	let spawnInvincibilityBonus = Math.round(random(1,100));
 
 	if(spawnInvincibilityBonus == 1){
-		console.log(spawnInvincibilityBonus);
-		bonus.push(new Bonus(ctx, invincibilityBonusImg, new Vector2(random(600,900),random(100,600)), new Vector2(1,1)));
+	
+		bonus.push(new Bonus(ctx, invincibilityBonusImg,
+			 new Vector2(random(600,900),700), 
+			 new Vector2(-4,-4),
+			  new Vector2(random(-3,0),-3,0),51,46));
 	}
 
 	for(let i = 0; i < bonus.length; i++){
 		bonus[i].draw();
 		bonus[i].move();
+		bonus[i].collision(bonus, i, player.getX(), player.getY(), player.getWidth(), player.getHeight());
 	}
 
 	if (!isPause) {
@@ -176,4 +180,8 @@ export function random(min, max) {
 
 export function setPause(value) {
 	isPause = value;
+}
+
+export function setBonus(value){
+	bonus = value;
 }
