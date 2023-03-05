@@ -36,6 +36,7 @@ export function initGame() {
 	pipesTop = [];
 	pipesBottom = [];
 	bonus = [];
+	Player.hasInvincibilityBonus = false;
 
 	// Arrière-plan du canvas
 	canvas.style.background = 'url(/flappybird/assets/game/background.png)';
@@ -73,39 +74,26 @@ export function initGame() {
 
 export function loopGame() {
 
-	// Récupère les images des bonus
-	const invincibilityBonusImg = assets.invincibilityBonusImg;
-
 	// Efface le canvas
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 	// Fait défiler l'arrière-plan
 	scrollBackground();
-	// Crée le joueur
-	createPlayer();
+	
 	// Crée les tuyaux
 	createPipes();
+
+	// Crée le joueur
+	createPlayer();
+
 	// Crée le sol
 	createFloor();
 
 	// Crée le score
 	createScore();
 
-	let spawnInvincibilityBonus = Math.round(random(1,100));
-
-	if(spawnInvincibilityBonus == 1){
-	
-		bonus.push(new Bonus(ctx, invincibilityBonusImg,
-			 new Vector2(random(600,900),700), 
-			 new Vector2(-4,-4),
-			  new Vector2(random(-3,0),-3,0),51,46));
-	}
-
-	for(let i = 0; i < bonus.length; i++){
-		bonus[i].draw();
-		bonus[i].move();
-		bonus[i].collision(bonus, i, player.getX(), player.getY(), player.getWidth(), player.getHeight());
-	}
+	// Crée les bonus
+	createBonus();
 
 	if (!isPause) {
 		requestAnimationFrame(loopGame);
@@ -132,6 +120,9 @@ function createPlayer() {
 	player.collision();
 
 	player.update();
+
+	// Bonus du joueur
+	player.drawBonus(assets.invincibilityBonusImg);
 }
 
 
@@ -176,6 +167,33 @@ function createScore() {
 
 }
 
+function createBonus() {
+
+	// Récupère les images des bonus
+	const invincibilityBonusImg = assets.invincibilityBonusImg;
+
+	// Probabilité qu'un bonus d'invincibilité apparaissent
+	let spawnInvincibilityBonus = Math.round(random(1, 10));
+
+	// Crée le bonus d'invicibilité
+	if (spawnInvincibilityBonus == 1) {
+
+		bonus.push(new Bonus(ctx, invincibilityBonusImg,
+			new Vector2(random(600, 900), 700),
+			new Vector2(-4, -4),
+			new Vector2(random(-3, 0), -3, 0), 51, 46));
+	}
+
+	for (let i = 0; i < bonus.length; i++) {
+		// Dessine les bonus
+		bonus[i].draw();
+		// Déplace les bonus
+		bonus[i].move();
+		// Collision des bonus
+		bonus[i].collision(bonus, i, player.getX(), player.getY(), player.getWidth(), player.getHeight(), player);
+	}
+}
+
 export function random(min, max) {
 	return Math.random() * (max - min) + min;
 }
@@ -184,6 +202,6 @@ export function setPause(value) {
 	isPause = value;
 }
 
-export function setBonus(value){
+export function setBonus(value) {
 	bonus = value;
 }

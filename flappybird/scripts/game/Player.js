@@ -24,7 +24,7 @@ export class Player {
 	static hasInvincibilityBonus = false;
 
 	// Temps pour les bonus
-	timerInvincibilityBonus = 400;
+	timerInvincibilityBonus = 360;
 
 
 	constructor(ctx, img, position, velocity, width, height, offsetX, offsetY) {
@@ -125,7 +125,7 @@ export class Player {
 	collision() {
 
 		// Collision du joueur avec le sol
-		if (this.position.y + this.height - 19 > 644) {
+		if (this.position.y + this.height - 19 > 644 && !Player.hasInvincibilityBonus) {
 			setCurrentGameStates(gamestates.GameOver);
 			state();
 		}
@@ -137,9 +137,26 @@ export class Player {
 			this.timerInvincibilityBonus--;
 			if (this.timerInvincibilityBonus < 0) {
 				Player.hasInvincibilityBonus = false;
+				this.timerInvincibilityBonus = 360;
 			}
 		}
 	}
+
+	setInvincibilityBonus(value) {
+		this.timerInvincibilityBonus = value;
+	}
+
+	drawBonus(img) {
+		if (Player.hasInvincibilityBonus) {
+			// Affiche le bonus
+			this.ctx.drawImage(img, 10, 100);
+			this.ctx.save();
+			this.ctx.font = '40px Chakra Petch';
+			this.ctx.fillText(Math.round(this.timerInvincibilityBonus/60) + "s", 70, 140);
+			this.ctx.restore();
+		}
+	}
+
 }
 
 

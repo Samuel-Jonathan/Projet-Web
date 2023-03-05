@@ -26,13 +26,16 @@ export class Bonus {
         this.position = Vector2.sum(this.position, this.acceleration);
     }
 
-    collision(bonus, i, playerX, playerY, width, height) {
+    collision(bonus, i, playerX, playerY, width, height, player) {
         // Collision avec le bonus
         let leftRightSide = playerX + width / 2 > this.position.x + 25 && playerX - width / 2 < this.position.x + this.width - 25;
         let topBottomSide = playerY + height / 2 > this.position.y + 25 && playerY - height / 2 < this.position.y + this.height - 25;
 
 
         if (leftRightSide && topBottomSide) {
+
+            player.setInvincibilityBonus(360);
+
             // Supprime le bonus
             delete bonus[i];
 
