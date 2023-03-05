@@ -79,7 +79,7 @@ export function loopGame() {
 
 	// Fait défiler l'arrière-plan
 	scrollBackground();
-	
+
 	// Crée les tuyaux
 	createPipes();
 
@@ -122,7 +122,7 @@ function createPlayer() {
 	player.update();
 
 	// Bonus du joueur
-	player.drawBonus(assets.invincibilityBonusImg);
+	player.drawBonus(assets.invincibilityBonusImg, assets.x2BonusImg);
 }
 
 
@@ -151,38 +151,55 @@ function createPipes() {
 
 function createFloor() {
 
+	// Affiche le sol
 	floor.draw();
+	// Régénère le sol
 	floor.regenerateFloor();
 
 }
 
 function createScore() {
+	// Affiche le score
 	score.draw();
 
-	for (let i = score.getValue(); i < pipesTop.length; i++) {
+	// Ajouts des points
+	for (let i = score.getIndex(); i < pipesTop.length; i++) {
 
 		score.addScore(pipesTop[i].getX(), pipesTop[i].getWidth());
-
 	}
 
 }
+
+
 
 function createBonus() {
 
 	// Récupère les images des bonus
 	const invincibilityBonusImg = assets.invincibilityBonusImg;
+	const x2BonusImg = assets.x2BonusImg;
 
 	// Probabilité qu'un bonus d'invincibilité apparaissent
-	let spawnInvincibilityBonus = Math.round(random(1, 10));
+	let spawnInvincibilityBonus = Math.round(random(1, 100));
+
+	// Probabilité qu'un bonus x2 apparaissent
+	let spawnX2Bonus = Math.round(random(1, 100));
 
 	// Crée le bonus d'invicibilité
 	if (spawnInvincibilityBonus == 1) {
 
-		bonus.push(new Bonus(ctx, invincibilityBonusImg,
+		bonus.push(new Bonus("invincibility_bonus", ctx, invincibilityBonusImg,
 			new Vector2(random(600, 900), 700),
 			new Vector2(-4, -4),
 			new Vector2(random(-3, 0), -3, 0), 51, 46));
 	}
+
+	if (spawnX2Bonus == 1) {
+		bonus.push(new Bonus("x2_bonus", ctx, x2BonusImg,
+			new Vector2(random(600, 900), 700),
+			new Vector2(-4, -4),
+			new Vector2(random(-3, 0), -3, 0), 51, 43));
+	}
+
 
 	for (let i = 0; i < bonus.length; i++) {
 		// Dessine les bonus

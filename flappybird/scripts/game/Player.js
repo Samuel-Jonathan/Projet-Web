@@ -22,9 +22,11 @@ export class Player {
 	isJumping = false;
 
 	static hasInvincibilityBonus = false;
+	static hasX2Bonus = false;
 
 	// Temps pour les bonus
 	timerInvincibilityBonus = 360;
+	timerX2Bonus = 360;
 
 
 	constructor(ctx, img, position, velocity, width, height, offsetX, offsetY) {
@@ -140,19 +142,41 @@ export class Player {
 				this.timerInvincibilityBonus = 360;
 			}
 		}
+
+		// Temps pour le bonus x2
+		if (Player.hasX2Bonus) {
+			this.timerX2Bonus--;
+			if (this.timerX2Bonus < 0) {
+				Player.hasX2Bonus = false;
+				this.timerX2Bonus = 360;
+			}
+		}
 	}
 
 	setInvincibilityBonus(value) {
 		this.timerInvincibilityBonus = value;
 	}
 
-	drawBonus(img) {
+	setX2Bonus(value) {
+		this.timerX2Bonus = value;
+	}
+
+	drawBonus(invincibilityBonusImg, x2BonusImg) {
 		if (Player.hasInvincibilityBonus) {
 			// Affiche le bonus
-			this.ctx.drawImage(img, 10, 100);
+			this.ctx.drawImage(invincibilityBonusImg, 10, 100);
 			this.ctx.save();
 			this.ctx.font = '40px Chakra Petch';
 			this.ctx.fillText(Math.round(this.timerInvincibilityBonus/60) + "s", 70, 140);
+			this.ctx.restore();
+		}
+
+		if(Player.hasX2Bonus){
+			// Affiche le bonus
+			this.ctx.drawImage(x2BonusImg, 10, 200);
+			this.ctx.save();
+			this.ctx.font = '40px Chakra Petch';
+			this.ctx.fillText(Math.round(this.timerX2Bonus/60) + "s", 70, 240);
 			this.ctx.restore();
 		}
 	}

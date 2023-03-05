@@ -5,7 +5,8 @@ import { Player } from "./Player.js";
 
 export class Bonus {
 
-    constructor(ctx, img, position, velocity, acceleration, width, height) {
+    constructor(name, ctx, img, position, velocity, acceleration, width, height) {
+        this.name = name;
         this.ctx = ctx;
         this.img = img;
         this.position = position;
@@ -34,17 +35,36 @@ export class Bonus {
 
         if (leftRightSide && topBottomSide) {
 
-            player.setInvincibilityBonus(360);
+            switch(this.name){
+                case "invincibility_bonus":
+                    player.setInvincibilityBonus(11360);
 
-            // Supprime le bonus
-            delete bonus[i];
+                    // Supprime le bonus
+                    delete bonus[i];
+        
+                    bonus = bonus.filter(function (element) {
+                        return element !== "";
+                    });
+        
+                    setBonus(bonus);
+                    Player.hasInvincibilityBonus = true;
+                    break;
+                case "x2_bonus":
+                    player.setX2Bonus(360);
 
-            bonus = bonus.filter(function (element) {
-                return element !== "";
-            });
+                      // Supprime le bonus
+                      delete bonus[i];
+        
+                      bonus = bonus.filter(function (element) {
+                          return element !== "";
+                      });
 
-            setBonus(bonus);
-            Player.hasInvincibilityBonus = true;
+                      setBonus(bonus);
+
+                      Player.hasX2Bonus = true;
+                      break;
+            }
+       
         }
 
     }

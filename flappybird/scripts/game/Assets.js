@@ -58,3 +58,8 @@ exitButtonHoverImg.src = "assets/game/exit_button_hover.png";
 // Bonus (invincibilité)
 export var invincibilityBonusImg = new Image(51,46);
 invincibilityBonusImg.src = "assets/game/invincibility_bonus.png";
+
+
+// Bonus (x2)
+export var x2BonusImg = new Image(51,43);
+x2BonusImg.src = "assets/game/x2_bonus.png";

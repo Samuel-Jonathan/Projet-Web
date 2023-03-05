@@ -1,4 +1,8 @@
+import { Player } from "./Player.js";
+
 export class Score {
+
+	index = 0;
 
 	constructor(ctx, position, value) {
 		this.ctx = ctx;
@@ -17,14 +21,19 @@ export class Score {
 
 	addScore(pipeX, width) {
 
-		// Ajoute un point lorsqu'on passe un tuyau
 		if (pipeX + width < 500) {
-			this.value++;
+			// Ajoute un point (pas de bonus) / Ajoute deux points (bonus x2)
+			this.value += (!Player.hasX2Bonus) ? 1 : 2;
+			this.index++;
 		}
 
 	}
 
 	getValue() {
 		return this.value;
+	}
+
+	getIndex() {
+		return this.index;
 	}
 }
