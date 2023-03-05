@@ -37,7 +37,7 @@ export class Bonus {
 
             switch(this.name){
                 case "invincibility_bonus":
-                    player.setInvincibilityBonus(11360);
+                    player.setInvincibilityBonus(360);
 
                     // Supprime le bonus
                     delete bonus[i];

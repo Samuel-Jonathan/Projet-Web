@@ -37,6 +37,7 @@ export function initGame() {
 	pipesBottom = [];
 	bonus = [];
 	Player.hasInvincibilityBonus = false;
+	Player.hasX2Bonus = false;
 
 	// Arrière-plan du canvas
 	canvas.style.background = 'url(/flappybird/assets/game/background.png)';
