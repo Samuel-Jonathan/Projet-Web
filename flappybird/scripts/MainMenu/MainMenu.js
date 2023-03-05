@@ -2,7 +2,7 @@
 import { setCurrentGameStates, state, gamestates } from "../GameStates.js";
 import * as assets from "./Assets.js";
 import { ctx, canvas } from "../Main.js";
-import { resume } from "../Game/Pause.js";
+import { resume } from "../game/Pause.js";
 
 // Initialise le menu principale
 export default function initMainMenu() {

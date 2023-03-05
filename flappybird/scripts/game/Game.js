@@ -12,7 +12,8 @@ import { Score } from "./Score.js";
 export var player;
 
 // Tuyaux
-export var pipes = [];
+export var pipesTop = [];
+export var pipesBottom = [];
 
 // Sol
 export var floor;
@@ -28,7 +29,8 @@ export function initGame() {
 	// Réinitialise le jeu
 	isPause = false;
 	setBackgroundX(0);
-	pipes = [];
+	pipesTop = [];
+	pipesBottom = [];
 
 	// Arrière-plan du canvas
 	canvas.style.background = 'url(/flappybird/assets/game/background.png)';
@@ -113,15 +115,18 @@ function createPipes() {
 	const pipe2Img = assets.pipe2Img;
 
 
-	Pipe.generatePipe(ctx, pipes, pipeImg, pipe2Img, 100, 575);
+	Pipe.generatePipe(ctx, pipesTop, pipesBottom, pipeImg, pipe2Img, 100, 575);
 
-	for (let i = 0; i < pipes.length; i++) {
+	for (let i = 0; i < pipesTop.length; i++) {
 		// Dessine les tuyaux
-		pipes[i].draw();
+		pipesTop[i].draw();
+		pipesBottom[i].draw();
 		// Déplace les tuyaux
-		pipes[i].move();
+		pipesTop[i].move();
+		pipesBottom[i].move();
 		// Collision du joueur avec les tuyaux
-		pipes[i].collision(player.getX(), player.getY(), player.getWidth(), player.getHeight());
+		pipesTop[i].collision(player.getX(), player.getY(), player.getWidth(), player.getHeight());
+		pipesBottom[i].collision(player.getX(), player.getY(), player.getWidth(), player.getHeight());
 	}
 
 }
@@ -136,7 +141,13 @@ function createFloor() {
 
 function createScore(){
 	score.draw();
-	score.addScore();
+
+	for (let i = score.getValue(); i < pipesTop.length; i++) {
+		
+		score.addScore(pipesTop[i].getX(), pipesTop[i].getWidth());
+
+	}	
+
 }
 
 export function random(min, max) {

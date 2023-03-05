@@ -43,7 +43,16 @@ export class Pipe {
 		}
 	}
 
-	static generatePipe(ctx, pipes, pipeImg, pipe2Img, width, height) {
+	getX(){
+		return this.position.x;
+	}
+
+	getWidth(){
+		return this.width;
+	}
+
+
+	static generatePipe(ctx, pipesTop, pipesBottom, pipeImg, pipe2Img, width, height) {
 
 		// Délai pour la génération des tuyaux
 		const generatePipeTimeMax = random(80, 120);
@@ -60,8 +69,8 @@ export class Pipe {
 			yPipe = (random(500, 200)) * -1;
 
 			// Création des tuyaux
-			pipes[pipes.length] = new Pipe(ctx, pipes.length, pipeImg, new Vector2(xPipe, yPipe), new Vector2(-4, 0), width, height);
-			pipes[pipes.length] = new Pipe(ctx, pipes.length, pipe2Img, new Vector2(xPipe, yPipe + height + 180), new Vector2(-4, 0),
+			pipesTop[pipesTop.length] = new Pipe(ctx, pipesTop.length, pipeImg, new Vector2(xPipe, yPipe), new Vector2(-4, 0), width, height);
+			pipesBottom[pipesBottom.length] = new Pipe(ctx, pipesBottom.length, pipe2Img, new Vector2(xPipe, yPipe + height + 180), new Vector2(-4, 0),
 				width, height);
 
 			// Écart entre chaque tuyaux

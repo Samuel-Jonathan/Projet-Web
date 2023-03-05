@@ -1,9 +1,9 @@
 // Importations
-import initLoadingScreen from "./LoadingScreen/LoadingScreen.js";
+import initLoadingScreen from "./loadingScreen/LoadingScreen.js";
 import initMainMenu from "./mainMenu/MainMenu.js";
-import { initGame, isPause } from "./Game/Game.js";
-import { pause, resume } from "./Game/Pause.js";
-import { initGameOver } from "./Game/GameOver.js";
+import { initGame, isPause } from "./game/Game.js";
+import { pause, resume } from "./game/Pause.js";
+import { initGameOver } from "./game/GameOver.js";
 
 
 // États du jeu 

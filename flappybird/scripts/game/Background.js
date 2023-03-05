@@ -15,6 +15,8 @@ export function setBackgroundX(value){
 }
 
 
+
+
 export class Floor {
 
     constructor(ctx, img, position, velocity, width, height) {
