@@ -186,16 +186,16 @@ export class Player {
 
 	drawCoins(coinsImg) {
 		// Affiche les pièces
-		this.ctx.drawImage(coinsImg, 860, 10,50,50);
+		this.ctx.drawImage(coinsImg, 840, 10,50,50);
 		this.ctx.save();
 		this.ctx.font = '40px Chakra Petch';
-		this.ctx.fillText("x" + this.coins, 920, 50);
+		this.ctx.fillText("x" + this.coins, 900, 50);
 		this.ctx.restore();
 
 	}
 
-	addCoins() {
-		this.coins += 1;
+	addCoins(value) {
+		this.coins += value;
 	}
 
 }

@@ -67,3 +67,7 @@ x2BonusImg.src = "assets/game/x2_bonus.png";
 // Pièce
 export var coinImg = new Image(54,54);
 coinImg.src = "assets/game/coin.png";
+
+// Sac de pièces
+export var bagCoinImg = new Image(59,64);
+bagCoinImg.src = "assets/game/bag_coins.png";

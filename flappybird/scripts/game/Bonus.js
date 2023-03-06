@@ -35,36 +35,49 @@ export class Bonus {
 
         if (leftRightSide && topBottomSide) {
 
-            switch(this.name){
+            switch (this.name) {
                 case "invincibility_bonus":
                     player.setInvincibilityBonus(360);
 
                     // Supprime le bonus
                     delete bonus[i];
-        
+
                     bonus = bonus.filter(function (element) {
                         return element !== "";
                     });
-        
+
                     setBonus(bonus);
                     Player.hasInvincibilityBonus = true;
                     break;
                 case "x2_bonus":
                     player.setX2Bonus(360);
 
-                      // Supprime le bonus
-                      delete bonus[i];
-        
-                      bonus = bonus.filter(function (element) {
-                          return element !== "";
-                      });
+                    // Supprime le bonus
+                    delete bonus[i];
 
-                      setBonus(bonus);
+                    bonus = bonus.filter(function (element) {
+                        return element !== "";
+                    });
 
-                      Player.hasX2Bonus = true;
-                      break;
+                    setBonus(bonus);
+
+                    Player.hasX2Bonus = true;
+                    break;
+                case "bag_coins":
+
+                    // Supprime le bonus
+                    delete bonus[i];
+
+                    bonus = bonus.filter(function (element) {
+                        return element !== "";
+                    });
+
+                    setBonus(bonus);
+
+                    player.addCoins(10);
+                    break;
             }
-       
+
         }
 
     }

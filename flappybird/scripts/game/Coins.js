@@ -1,3 +1,4 @@
+import { bagCoinImg } from "./Assets.js";
 import { setCoins } from "./Game.js";
 import { Vector2 } from "./Vector2.js";
 
