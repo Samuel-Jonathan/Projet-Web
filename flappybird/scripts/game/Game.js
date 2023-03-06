@@ -8,6 +8,7 @@ import { Floor, scrollBackground, setBackgroundX } from "./Background.js";
 import { gamestates, getCurrentGameStates, setCurrentGameStates, state } from "../GameStates.js";
 import { Score } from "./Score.js";
 import { Bonus } from "./Bonus.js";
+import { Coins } from "./Coins.js";
 
 // Joueur
 export var player;
@@ -20,10 +21,13 @@ export var pipesBottom = [];
 export var floor;
 
 // Score
-export var score = 0;
+export var score;
 
 // Bonus
 var bonus = []
+
+// Pièces
+var coins = [];
 
 export var isPause = false;
 
@@ -96,6 +100,9 @@ export function loopGame() {
 	// Crée les bonus
 	createBonus();
 
+	// Crée les pièces
+	createCoins();
+
 	if (!isPause) {
 		requestAnimationFrame(loopGame);
 	}
@@ -124,6 +131,9 @@ function createPlayer() {
 
 	// Bonus du joueur
 	player.drawBonus(assets.invincibilityBonusImg, assets.x2BonusImg);
+
+	// Pièces du joueur
+	player.drawCoins(assets.coinImg);
 }
 
 
@@ -180,10 +190,10 @@ function createBonus() {
 	const x2BonusImg = assets.x2BonusImg;
 
 	// Probabilité qu'un bonus d'invincibilité apparaissent
-	let spawnInvincibilityBonus = Math.round(random(1, 100));
+	let spawnInvincibilityBonus = Math.round(random(1, 10));
 
 	// Probabilité qu'un bonus x2 apparaissent
-	let spawnX2Bonus = Math.round(random(1, 100));
+	let spawnX2Bonus = Math.round(random(1, 10));
 
 	// Crée le bonus d'invicibilité
 	if (spawnInvincibilityBonus == 1) {
@@ -212,6 +222,33 @@ function createBonus() {
 	}
 }
 
+function createCoins() {
+
+	// Récupère l'image pour les pièces
+	const coinsImg = assets.coinImg;
+
+	// Probabilité qu'une pièce apparaissent
+	let spawnCoins = Math.round(random(1, 10));
+
+
+	// Crée une pièce
+	if (spawnCoins == 1) {
+		coins.push(new Coins(ctx, coinsImg,
+			new Vector2(random(600, 900), 700),
+			new Vector2(-4, -4),
+			new Vector2(random(-3, 0), -3, 0), 51, 46));
+	}
+
+	for (let i = 0; i < coins.length; i++) {
+		// Dessine les pièces
+		coins[i].draw();
+		// Déplace les pièces
+		coins[i].move();
+		// Collision des pièces
+		coins[i].collision(player, coins, i, player.getX(), player.getY(), player.getWidth(), player.getHeight());
+	}
+}
+
 export function random(min, max) {
 	return Math.random() * (max - min) + min;
 }
@@ -222,4 +259,8 @@ export function setPause(value) {
 
 export function setBonus(value) {
 	bonus = value;
+}
+
+export function setCoins(value){
+	coins = value;
 }

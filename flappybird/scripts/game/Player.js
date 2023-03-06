@@ -28,6 +28,7 @@ export class Player {
 	timerInvincibilityBonus = 360;
 	timerX2Bonus = 360;
 
+	coins = 0;
 
 	constructor(ctx, img, position, velocity, width, height, offsetX, offsetY) {
 		this.ctx = ctx;
@@ -162,23 +163,39 @@ export class Player {
 	}
 
 	drawBonus(invincibilityBonusImg, x2BonusImg) {
+
 		if (Player.hasInvincibilityBonus) {
+
 			// Affiche le bonus
 			this.ctx.drawImage(invincibilityBonusImg, 10, 100);
 			this.ctx.save();
 			this.ctx.font = '40px Chakra Petch';
-			this.ctx.fillText(Math.round(this.timerInvincibilityBonus/60) + "s", 70, 140);
+			this.ctx.fillText(Math.round(this.timerInvincibilityBonus / 60) + "s", 70, 140);
 			this.ctx.restore();
 		}
 
-		if(Player.hasX2Bonus){
+		if (Player.hasX2Bonus) {
 			// Affiche le bonus
 			this.ctx.drawImage(x2BonusImg, 10, 200);
 			this.ctx.save();
 			this.ctx.font = '40px Chakra Petch';
-			this.ctx.fillText(Math.round(this.timerX2Bonus/60) + "s", 70, 240);
+			this.ctx.fillText(Math.round(this.timerX2Bonus / 60) + "s", 70, 240);
 			this.ctx.restore();
 		}
+	}
+
+	drawCoins(coinsImg) {
+		// Affiche les pièces
+		this.ctx.drawImage(coinsImg, 860, 10,50,50);
+		this.ctx.save();
+		this.ctx.font = '40px Chakra Petch';
+		this.ctx.fillText("x" + this.coins, 920, 50);
+		this.ctx.restore();
+
+	}
+
+	addCoins() {
+		this.coins += 1;
 	}
 
 }

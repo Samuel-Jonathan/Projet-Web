@@ -63,3 +63,7 @@ invincibilityBonusImg.src = "assets/game/invincibility_bonus.png";
 // Bonus (x2)
 export var x2BonusImg = new Image(51,43);
 x2BonusImg.src = "assets/game/x2_bonus.png";
+
+// Pièce
+export var coinImg = new Image(54,54);
+coinImg.src = "assets/game/coin.png";
