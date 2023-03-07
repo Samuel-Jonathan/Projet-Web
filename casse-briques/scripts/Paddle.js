@@ -1,27 +1,29 @@
 export default class Paddle {
-    constructor(img, x, y, width, height, speed, color) {
+
+    hasPaddleBonus = false;
+
+    timerPaddleBonus = 360;
+
+    constructor(img, x, y, width, height, speed) {
         this.img = img;
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
         this.speed = speed;
-        this.color = color;
         this.isRightPressed = false;
         this.isLeftPressed = false;
     }
 
     draw(ctx) {
-        // ctx.save();
-        // ctx.translate(this.x,this.y);
-        // ctx.beginPath();
-        // ctx.fillStyle = this.color;
-        // ctx.fill();
-        // ctx.fillRect(0,0,this.width, this.height);
-        // ctx.closePath();
-        // ctx.restore();
-
-        ctx.drawImage(this.img, this.x, this.y);
+        if(!this.hasPaddleBonus){
+            ctx.drawImage(this.img, this.x, this.y);
+        }else{
+            this.width = 200;
+            this.height = 40;
+            ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+        }
+       
     }
 
     update(width) {
@@ -29,6 +31,17 @@ export default class Paddle {
             this.x += this.speed;
         } else if (this.isLeftPressed && this.x > 0) {
             this.x -= this.speed;
+        }
+
+        if(this.hasPaddleBonus){
+            this.timerPaddleBonus--;
+    
+            if(this.timerPaddleBonus < 0){
+                this.hasPaddleBonus = false;
+                this.timerPaddleBonus = 360;
+                this.width = 75;
+                this.height = 15;
+            }
         }
     }
 

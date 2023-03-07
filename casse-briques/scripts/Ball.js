@@ -1,4 +1,5 @@
 import { circRectsOverlap } from "./Collisions.js";
+import { init } from "./gameloop.js";
 
 export default class Ball {
     constructor(x, y, radius, color, dx, dy) {
@@ -62,7 +63,8 @@ export default class Ball {
                 // Afficher le message "Game Over"
                 // alert("Game Over");
                 // Relancer le jeu
-                document.location.reload();
+                // document.location.reload();
+                init();
             }
         }
     }

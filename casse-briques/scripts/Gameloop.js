@@ -1,7 +1,7 @@
 import Ball from "./ball.js";
 import Paddle from "./Paddle.js";
 import Brick from "./bricks.js";
-import PaddleBonus from "./Bonus.js";
+import Bonus from "./Bonus.js";
 import { circRectsOverlap } from "./collisions.js";
 import * as assets from "./Assets.js";
 
@@ -12,18 +12,18 @@ let score = 0;
 window.onload = init;
 
 let bonus = new Array();
-    
 
-function init() {
 
-    
+export function init() {
+
+
     console.log("page chargée");
 
     canvas = document.querySelector("#gameCanvas");
     ctx = canvas.getContext("2d");
     ball = new Ball(canvas.width / 2, canvas.height - 80, 10, "green", 6, -6);
-    paddle = new Paddle(assets.paddleImg, 75, canvas.height - 50, 100, 10, 10, "red");
-    createBricks(100,10,"blue");
+    paddle = new Paddle(assets.paddleImg, 75, canvas.height - 50, 100, 10, 10);
+    createBricks(100, 10, "blue");
     document.addEventListener("keydown", paddle.handleKeyDown.bind(paddle));
     document.addEventListener("keyup", paddle.handleKeyUp.bind(paddle));
     requestAnimationFrame(gameLoop);
@@ -38,12 +38,12 @@ function gameLoop(time) {
     // 2 on dessinea
     ball.draw(ctx);
     paddle.draw(ctx);
-    let spawnbonus = Math.round(random(1,10 ));
+    let spawnbonus = Math.round(random(1, 100));
     if (spawnbonus == 1) {
-        // bonus.push(new PaddleBonus("paddle_bonus", ctx, img, 50,50));
+        bonus.push(new Bonus("paddle_bonus", assets.paddleImg, 50, 10));
     }
     // console.log(spawnbonus);
-    for(let i = 0; i < bonus.length; i++){
+    for (let i = 0; i < bonus.length; i++) {
         bonus[i].draw(ctx);
         // bonus[i].collision(ctx,ball.getX(),ball.getY(),ball.getRadius());
         handleCollisionBonus(ball);
@@ -54,7 +54,7 @@ function gameLoop(time) {
     }
 
     // 3 on met à jour
-   
+
     paddle.update(canvas.width);
     handleCollisionBallPaddle();
     ball.update(canvas.width, canvas.height);
@@ -122,36 +122,36 @@ function handleCollisionBallBrick(brick) {
 }
 
 
-function handleCollisionBonus(ball){
-    for(let i = 0; i < bonus.length; i++){
+function handleCollisionBonus(ball) {
+    for (let i = 0; i < bonus.length; i++) {
         if (circRectsOverlap(bonus[i].x, bonus[i].y, bonus[i].width, bonus[i].height, ball.x, ball.y, ball.radius)) {
             const index = bonus.indexOf(bonus[i]);
             bonus.splice(index, 1);
+            paddle.hasPaddleBonus = true;
         }
     }
-    
+
 }
 
-  
+
 
 //creer une function score qui a chaque fois que la ballle touche une brick ca ajoute un point 
 
 function createBricks(brickWidth, brickHeight, brickColor) {
     for (let l = 0; l < 9; l++) {
-      for (let c = 0; c < 9; c++) {
-        let x = l * (brickWidth + 10); // Add 10 pixels of spacing between bricks
-        let y = c * (brickHeight + 20); // Add 20 pixels of spacing between rows of bricks
-        let b = new Brick(x, y, brickWidth, brickHeight, brickColor);
-        tabBricks.push(b);
-        // console.log(tabBricks);
-      }
+        for (let c = 0; c < 9; c++) {
+            let x = l * (brickWidth + 10); // Add 10 pixels of spacing between bricks
+            let y = c * (brickHeight + 20); // Add 20 pixels of spacing between rows of bricks
+            let b = new Brick(x, y, brickWidth, brickHeight, brickColor);
+            tabBricks.push(b);
+        }
     }
-  }
+}
 
-  function random(min, max) {
+function random(min, max) {
     return Math.random() * (max - min) + min;
 }
-  
+
 
 
 
