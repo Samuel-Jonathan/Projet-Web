@@ -1,5 +1,6 @@
 export default class Paddle {
-    constructor(x, y, width, height, speed, color) {
+    constructor(img, x, y, width, height, speed, color) {
+        this.img = img;
         this.x = x;
         this.y = y;
         this.width = width;
@@ -11,14 +12,16 @@ export default class Paddle {
     }
 
     draw(ctx) {
-        ctx.save();
-        ctx.translate(this.x,this.y);
-        ctx.beginPath();
-        ctx.fillStyle = this.color;
-        ctx.fill();
-        ctx.fillRect(0,0,this.width, this.height);
-        ctx.closePath();
-        ctx.restore();
+        // ctx.save();
+        // ctx.translate(this.x,this.y);
+        // ctx.beginPath();
+        // ctx.fillStyle = this.color;
+        // ctx.fill();
+        // ctx.fillRect(0,0,this.width, this.height);
+        // ctx.closePath();
+        // ctx.restore();
+
+        ctx.drawImage(this.img, this.x, this.y);
     }
 
     update(width) {

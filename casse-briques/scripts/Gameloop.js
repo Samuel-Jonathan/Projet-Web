@@ -1,8 +1,9 @@
 import Ball from "./ball.js";
 import Paddle from "./Paddle.js";
 import Brick from "./bricks.js";
-import PaddleBonus from "./PaddleBonus.js";
+import PaddleBonus from "./Bonus.js";
 import { circRectsOverlap } from "./collisions.js";
+import * as assets from "./Assets.js";
 
 let tabBricks = [];
 let canvas, ctx;
@@ -14,11 +15,14 @@ let bonus = new Array();
     
 
 function init() {
-    console.log("page chargée")
+
+    
+    console.log("page chargée");
+
     canvas = document.querySelector("#gameCanvas");
     ctx = canvas.getContext("2d");
     ball = new Ball(canvas.width / 2, canvas.height - 80, 10, "green", 6, -6);
-    paddle = new Paddle(75, canvas.height - 50, 100, 10, 10, "red");
+    paddle = new Paddle(assets.paddleImg, 75, canvas.height - 50, 100, 10, 10, "red");
     createBricks(100,10,"blue");
     document.addEventListener("keydown", paddle.handleKeyDown.bind(paddle));
     document.addEventListener("keyup", paddle.handleKeyUp.bind(paddle));
@@ -34,11 +38,11 @@ function gameLoop(time) {
     // 2 on dessinea
     ball.draw(ctx);
     paddle.draw(ctx);
-    let spawnbonus = Math.round(random(1,100));
+    let spawnbonus = Math.round(random(1,10 ));
     if (spawnbonus == 1) {
-        bonus.push(new PaddleBonus(50,50,50,50));
+        // bonus.push(new PaddleBonus("paddle_bonus", ctx, img, 50,50));
     }
-    console.log(spawnbonus);
+    // console.log(spawnbonus);
     for(let i = 0; i < bonus.length; i++){
         bonus[i].draw(ctx);
         // bonus[i].collision(ctx,ball.getX(),ball.getY(),ball.getRadius());
@@ -117,10 +121,15 @@ function handleCollisionBallBrick(brick) {
     }
 }
 
+
 function handleCollisionBonus(ball){
-    if (circRectsOverlap(bonus.x, bonus.y, bonus.width, bonus.height, ball.x, ball.y, ball.radius)) {
-        ctx.clearRect(bonus.x,bonus.y,bonus.width, bonus.height);
+    for(let i = 0; i < bonus.length; i++){
+        if (circRectsOverlap(bonus[i].x, bonus[i].y, bonus[i].width, bonus[i].height, ball.x, ball.y, ball.radius)) {
+            const index = bonus.indexOf(bonus[i]);
+            bonus.splice(index, 1);
+        }
     }
+    
 }
 
   
@@ -134,7 +143,7 @@ function createBricks(brickWidth, brickHeight, brickColor) {
         let y = c * (brickHeight + 20); // Add 20 pixels of spacing between rows of bricks
         let b = new Brick(x, y, brickWidth, brickHeight, brickColor);
         tabBricks.push(b);
-        console.log(tabBricks);
+        // console.log(tabBricks);
       }
     }
   }
