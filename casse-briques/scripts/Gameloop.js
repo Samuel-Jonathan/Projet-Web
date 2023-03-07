@@ -4,37 +4,39 @@ import Brick from "./bricks.js";
 import Bonus from "./Bonus.js";
 import { circRectsOverlap } from "./collisions.js";
 import * as assets from "./Assets.js";
+export let loop;
 
 let tabBricks = [];
 let canvas, ctx;
 let paddle, ball;
 let score = 0;
-window.onload = init;
-
 let bonus = new Array();
+window.onload = init();
+
+
 
 
 export function init() {
-
-
     console.log("page chargée");
-
     canvas = document.querySelector("#gameCanvas");
     ctx = canvas.getContext("2d");
     ball = new Ball(canvas.width / 2, canvas.height - 80, 10, "green", 6, -6);
     paddle = new Paddle(assets.paddleImg, 75, canvas.height - 50, 100, 10, 10);
-    createBricks(100, 10, "blue");
+    createBricks(100, 10, "#ff4af6");
+    console.log(ball)
     document.addEventListener("keydown", paddle.handleKeyDown.bind(paddle));
     document.addEventListener("keyup", paddle.handleKeyUp.bind(paddle));
-    requestAnimationFrame(gameLoop);
+    // Reset the game 
+    loop = requestAnimationFrame(gameLoop);
 }
 
 
-function gameLoop(time) {
+
+
+function gameLoop() {
+    window.cancelAnimationFrame(loop);
     // 1 on efface
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-
     // 2 on dessinea
     ball.draw(ctx);
     paddle.draw(ctx);
@@ -54,13 +56,16 @@ function gameLoop(time) {
     }
 
     // 3 on met à jour
-
     paddle.update(canvas.width);
     handleCollisionBallPaddle();
     ball.update(canvas.width, canvas.height);
-    requestAnimationFrame(gameLoop);
-}
+    
 
+
+    // 4 on recommence
+   loop = requestAnimationFrame(gameLoop);
+
+}
 
 
 
@@ -114,7 +119,6 @@ function handleCollisionBallBrick(brick) {
             // On remet au point de contact
             ball.x = brick.x + brick.width + ball.radius;
         }
-        score++;
         //si la baller touche la brique, on la supprime
         const index = tabBricks.indexOf(brick);
         tabBricks.splice(index, 1);
@@ -130,7 +134,6 @@ function handleCollisionBonus(ball) {
             paddle.hasPaddleBonus = true;
         }
     }
-
 }
 
 
