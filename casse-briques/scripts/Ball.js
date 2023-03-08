@@ -1,5 +1,4 @@
-import { circRectsOverlap } from "./Collisions.js";
-import { init } from "./gameloop.js";
+import { gamestates, init, setCurrentGameStates } from "./gameloop.js";
 
 export default class Ball {
     constructor(x, y, radius, color, dx, dy) {
@@ -50,10 +49,11 @@ export default class Ball {
             this.dy = -this.dy;
         } else if (this.y + this.dy > height - this.radius) {
 
-             if (this.y + this.dy >= height - this.radius) {
+            if (this.y + this.dy >= height - this.radius) {
                 // Si la balle touche le bas du canvas
                 // Relancer le jeu
-                init();
+                setCurrentGameStates(gamestates.GameOver);
+                // init();
 
             }
         }

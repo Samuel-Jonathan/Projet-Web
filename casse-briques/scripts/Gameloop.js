@@ -5,13 +5,30 @@ import Bonus from "./Bonus.js";
 import { circRectsOverlap } from "./collisions.js";
 import * as assets from "./Assets.js";
 import Score from "./Score.js";
-export let loop;
+import { gameover } from "./GameOver.js";
 
+export let loop;
 let tabBricks = [];
 let canvas, ctx;
 let paddle, ball;
 let score = 0;
 let bonus = new Array();
+
+// États du jeu 
+export const gamestates = {
+    Game: "game",
+	GameOver: "game_over"
+}
+
+// État du jeu actuel
+var currentGamestate = gamestates.Game;
+
+// Modifie la gamestate actuelle
+export function setCurrentGameStates(gamestate) {
+	currentGamestate = gamestate;
+}
+
+
 window.onload = init();
 
 
@@ -39,6 +56,7 @@ export function init() {
 
     // Pause du jeu
     window.addEventListener("keydown", pause);
+
     loop = requestAnimationFrame(gameLoop);
 }
 
@@ -67,6 +85,10 @@ function gameLoop() {
     // Collision entre la balle et la raquette
     handleCollisionBallPaddle();
     ball.update(canvas.width, canvas.height);
+
+    if(currentGamestate == gamestates.GameOver){
+        gameover(ctx,assets.gameOverImg,window.width / 2 - ,50);
+    }
   
     loop = (!isPause) ? requestAnimationFrame(gameLoop) : 0;
 
