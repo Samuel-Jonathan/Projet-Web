@@ -17,67 +17,80 @@ window.onload = init();
 
 var isPause = false;
 
+
 export function init() {
     isPause = false;
     tabBricks = [];
-    score = new Score(500,500,0);
     console.log("page chargée");
     canvas = document.querySelector("#gameCanvas");
     ctx = canvas.getContext("2d");
+    // Crée la balle
     ball = new Ball(canvas.width / 2, canvas.height - 80, 10, "blue", 6, -6);
+    // Crée la raquette
     paddle = new Paddle(assets.paddleImg, 75, canvas.height - 50, 100, 10, 10);
+    // Crée les briques
     createBricks(100, 10, "#ff4af6");
-    console.log(ball)
+    // Crée le score
+    score = new Score(500, 500, 0);
+
+    // Évènements de la raquette
     document.addEventListener("keydown", paddle.handleKeyDown.bind(paddle));
     document.addEventListener("keyup", paddle.handleKeyUp.bind(paddle));
-    // Reset the game 
+
     // Pause du jeu
     window.addEventListener("keydown", pause);
     loop = requestAnimationFrame(gameLoop);
 }
 
-
-function pause(event) {
-    if (event.code == "Escape") {
-        if (!isPause) {
-            isPause = true;
-        } else {
-            isPause = false;
-            gameLoop();
-        }
-
-    }
-}
-
 function gameLoop() {
     window.cancelAnimationFrame(loop);
-    // 1 on efface
+    // Efface le canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    // 2 on dessinea
+    // Dessine la balle
     ball.draw(ctx);
+    // Dessine la raquette
     paddle.draw(ctx);
+    // Dessine le score
     score.draw(ctx);
+
+    // Crée des bonus
+    spawnBonus();
+    paddle.update(canvas.width);
+    // Collision entre la balle et la raquette
+    handleCollisionBallPaddle();
+    ball.update(canvas.width, canvas.height);
+  
+    loop = (!isPause) ? requestAnimationFrame(gameLoop) : 0;
+
+}
+
+function spawnBonus() {
+    // Spawn des bonus
     let spawnbonus = Math.round(random(1, 100));
-    if (spawnbonus == 1) {
-        bonus.push(new Bonus("paddle_bonus", assets.paddleImg, 50, 10));
-    }
-    // console.log(spawnbonus);
+    spawnBonus = (spawnbonus == 1) ? bonus.push(new Bonus("paddle_bonus", assets.paddleImg, 50, 10)) : null;
+
     for (let i = 0; i < bonus.length; i++) {
         bonus[i].draw(ctx);
-        // bonus[i].collision(ctx,ball.getX(),ball.getY(),ball.getRadius());
         handleCollisionBonus(ball);
     }
     for (let i = 0; i < tabBricks.length; i++) {
         tabBricks[i].draw(ctx);
         handleCollisionBallBrick(tabBricks[i]);
     }
-    // 3 on met à jour
-    paddle.update(canvas.width);
-    handleCollisionBallPaddle();
-    ball.update(canvas.width, canvas.height);
-    // 4 on recommence
-    loop = (!isPause) ? requestAnimationFrame(gameLoop) : 0;
+}
 
+function pause(event) {
+    if (event.code == "Escape") {
+        // Met le jeu en pause
+        if (!isPause) {
+            isPause = true;
+            // Relance le jeu
+        } else {
+            isPause = false;
+            gameLoop();
+        }
+
+    }
 }
 
 
@@ -132,7 +145,7 @@ function handleCollisionBallBrick(brick) {
             // On remet au point de contact
             ball.x = brick.x + brick.width + ball.radius;
         }
-        //si la baller touche la brique, on la supprime
+        //si la balle touche la brique, on la supprime
         const index = tabBricks.indexOf(brick);
         score.addScore(1);
         tabBricks.splice(index, 1);
