@@ -15,9 +15,10 @@ let bonus = new Array();
 window.onload = init();
 
 
-
+var isPause = false;
 
 export function init() {
+    isPause = false;
     tabBricks = [];
     score = new Score(500,500,0);
     console.log("page chargée");
@@ -30,11 +31,23 @@ export function init() {
     document.addEventListener("keydown", paddle.handleKeyDown.bind(paddle));
     document.addEventListener("keyup", paddle.handleKeyUp.bind(paddle));
     // Reset the game 
+    // Pause du jeu
+    window.addEventListener("keydown", pause);
     loop = requestAnimationFrame(gameLoop);
 }
 
 
+function pause(event) {
+    if (event.code == "Escape") {
+        if (!isPause) {
+            isPause = true;
+        } else {
+            isPause = false;
+            gameLoop();
+        }
 
+    }
+}
 
 function gameLoop() {
     window.cancelAnimationFrame(loop);
@@ -63,7 +76,7 @@ function gameLoop() {
     handleCollisionBallPaddle();
     ball.update(canvas.width, canvas.height);
     // 4 on recommence
-   loop = requestAnimationFrame(gameLoop);
+    loop = (!isPause) ? requestAnimationFrame(gameLoop) : 0;
 
 }
 
