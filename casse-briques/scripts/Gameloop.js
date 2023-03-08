@@ -4,6 +4,7 @@ import Brick from "./bricks.js";
 import Bonus from "./Bonus.js";
 import { circRectsOverlap } from "./collisions.js";
 import * as assets from "./Assets.js";
+import Score from "./Score.js";
 export let loop;
 
 let tabBricks = [];
@@ -17,10 +18,12 @@ window.onload = init();
 
 
 export function init() {
+    tabBricks = [];
+    score = new Score(500,500,0);
     console.log("page chargée");
     canvas = document.querySelector("#gameCanvas");
     ctx = canvas.getContext("2d");
-    ball = new Ball(canvas.width / 2, canvas.height - 80, 10, "green", 6, -6);
+    ball = new Ball(canvas.width / 2, canvas.height - 80, 10, "blue", 6, -6);
     paddle = new Paddle(assets.paddleImg, 75, canvas.height - 50, 100, 10, 10);
     createBricks(100, 10, "#ff4af6");
     console.log(ball)
@@ -40,6 +43,7 @@ function gameLoop() {
     // 2 on dessinea
     ball.draw(ctx);
     paddle.draw(ctx);
+    score.draw(ctx);
     let spawnbonus = Math.round(random(1, 100));
     if (spawnbonus == 1) {
         bonus.push(new Bonus("paddle_bonus", assets.paddleImg, 50, 10));
@@ -54,14 +58,10 @@ function gameLoop() {
         tabBricks[i].draw(ctx);
         handleCollisionBallBrick(tabBricks[i]);
     }
-
     // 3 on met à jour
     paddle.update(canvas.width);
     handleCollisionBallPaddle();
     ball.update(canvas.width, canvas.height);
-    
-
-
     // 4 on recommence
    loop = requestAnimationFrame(gameLoop);
 
@@ -121,6 +121,7 @@ function handleCollisionBallBrick(brick) {
         }
         //si la baller touche la brique, on la supprime
         const index = tabBricks.indexOf(brick);
+        score.addScore(1);
         tabBricks.splice(index, 1);
     }
 }

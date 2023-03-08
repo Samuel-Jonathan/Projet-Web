@@ -10,7 +10,7 @@ export default class Ball {
         this.dx = dx;
         this.dy = dy;
     }
-    
+
     draw(ctx) {
         ctx.save();
         ctx.translate(this.x, this.y);
@@ -21,19 +21,19 @@ export default class Ball {
         ctx.closePath();
         ctx.restore();
     }
-    
-    getX(){
+
+    getX() {
         return this.x;
     }
 
-    getY(){
+    getY() {
         return this.y;
     }
 
-    getRadius(){
+    getRadius() {
         return this.radius;
     }
-    
+
 
 
     update(width, height) {
@@ -41,7 +41,7 @@ export default class Ball {
         this.y += this.dy;
         this.handleCanvasCollision(width, height);
     }
-   
+
     handleCanvasCollision(width, height) {
         if (this.x + this.dx > width - this.radius || this.x + this.dx < this.radius) {
             this.dx = -this.dx;
@@ -49,14 +49,13 @@ export default class Ball {
         if (this.y + this.dy < this.radius) {
             this.dy = -this.dy;
         } else if (this.y + this.dy > height - this.radius) {
-            // Si la balle touche le bas du canvas
-            // Relancer le jeu
-            init();
-            
+
+             if (this.y + this.dy >= height - this.radius) {
+                // Si la balle touche le bas du canvas
+                // Relancer le jeu
+                init();
+
+            }
         }
     }
-    
-
-    
-
 }
