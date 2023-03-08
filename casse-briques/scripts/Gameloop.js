@@ -54,7 +54,15 @@ function gameLoop() {
     score.draw(ctx);
 
     // Crée des bonus
-    spawnBonus();
+    createBonus();
+
+    for (let i = 0; i < tabBricks.length; i++) {
+        // Dessine les briques
+        tabBricks[i].draw(ctx);
+        // Collision de la balle avec les briques
+        handleCollisionBallBrick(tabBricks[i]);
+    }
+
     paddle.update(canvas.width);
     // Collision entre la balle et la raquette
     handleCollisionBallPaddle();
@@ -64,18 +72,14 @@ function gameLoop() {
 
 }
 
-function spawnBonus() {
+function createBonus() {
     // Spawn des bonus
-    let spawnbonus = Math.round(random(1, 100));
-    spawnBonus = (spawnbonus == 1) ? bonus.push(new Bonus("paddle_bonus", assets.paddleImg, 50, 10)) : null;
+    let spawnBonus = Math.round(random(1, 100));
+    spawnBonus = (spawnBonus == 1) ? bonus.push(new Bonus("paddle_bonus", assets.paddleImg, 50, 10)) : null;
 
     for (let i = 0; i < bonus.length; i++) {
         bonus[i].draw(ctx);
         handleCollisionBonus(ball);
-    }
-    for (let i = 0; i < tabBricks.length; i++) {
-        tabBricks[i].draw(ctx);
-        handleCollisionBallBrick(tabBricks[i]);
     }
 }
 
