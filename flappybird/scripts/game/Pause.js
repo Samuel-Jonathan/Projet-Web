@@ -1,56 +1,42 @@
-import { setPause, loopGame, isPause } from "./Game.js";
+import { initGame, setPause } from "./Game.js";
 import * as assets from "./Assets.js";
 import { ctx, canvas } from "../Main.js";
-import { gamestates, getCurrentGameStates, setCurrentGameStates, state } from "../GameStates.js";
+import { gamestates, setCurrentGameStates } from "../GameStates.js";
 
-var isHoverPause = true;
-
-
-export function pause() {
-
-	setPause(true);
-	// Désactive l'affichage du menu de pause lors du game over
-	if (getCurrentGameStates() != gamestates.GameOver) {
-
-		isHoverPause = true;
-
-		// Évènements
-		canvas.addEventListener("mousemove", onMouseOverPause);
-		canvas.addEventListener("click", onMouseClickPause);
-		window.requestAnimationFrame(loopPause);
-	}
-
-
-}
+var isHoverPause = false;
 
 export function resume() {
 	//Lance le jeu
 	setPause(false);
 	setCurrentGameStates(gamestates.Game);
-	loopGame();
 }
 
-function loopPause() {
-
-	let pauseImg = assets.pauseImg;
-	let playButtonImg = assets.playButtonImg;
-	let exitButtonImg = assets.exitButtonImg;
-
-	// Affiche l'arrière-plan 
-	ctx.drawImage(pauseImg, canvas.width / 2 - 600 / 2,
-		canvas.height / 2 - 288 / 2, 600, 288);
-
-	// Affiche le bouton pour lancer le jeu
-	ctx.drawImage(playButtonImg, canvas.width / 2 - 120,
-		canvas.height / 2 - 45 / 2, 107, 45);
-
-	// Affiche le bouton pour quitter le jeu
-	ctx.drawImage(exitButtonImg, canvas.width / 2 + 20,
-		canvas.height / 2 - exitButtonImg.height / 2);
+export function pause() {
 
 	if (!isHoverPause) {
-		window.requestAnimationFrame(loopPause);
+		setPause(true);
+
+		let pauseImg = assets.pauseImg;
+		let playButtonImg = assets.playButtonImg;
+		let exitButtonImg = assets.exitButtonImg;
+
+		// Affiche l'arrière-plan 
+		ctx.drawImage(pauseImg, canvas.width / 2 - 600 / 2,
+			canvas.height / 2 - 288 / 2, 600, 288);
+
+		// Affiche le bouton pour lancer le jeu
+		ctx.drawImage(playButtonImg, canvas.width / 2 - 120,
+			canvas.height / 2 - 45 / 2, 107, 45);
+
+		// Affiche le bouton pour quitter le jeu
+		ctx.drawImage(exitButtonImg, canvas.width / 2 + 20,
+			canvas.height / 2 - exitButtonImg.height / 2);
+
+		// Évènements
+		canvas.addEventListener("mousemove", onMouseOverPause);
+		canvas.addEventListener("click", onMouseClickPause);
 	}
+
 }
 
 // Position x et y de la souris
@@ -108,7 +94,6 @@ function detectMouseOnGameOver(button, buttonHover, x, y, width, height, pos) {
 	} else {
 		// Affiche le bouton 
 		ctx.drawImage(button, x, y, width, height);
-		isHoverPause = false;
 	}
 }
 
@@ -134,7 +119,7 @@ function clickPlayButton(pos) {
 		pos.x < x + width &&
 		pos.y > y &&
 		pos.y < y + height) {
-
+		isHoverPause = false;
 		canvas.removeEventListener("mousemove", onMouseOverPause);
 		canvas.removeEventListener("click", onMouseClickPause);
 
@@ -158,11 +143,12 @@ function clickExitButton(pos) {
 		pos.y > y &&
 		pos.y < y + height) {
 
+		isHoverPause = false;
 		canvas.removeEventListener("mousemove", onMouseOverPause);
 		canvas.removeEventListener("click", onMouseClickPause);
-
+		
+		initGame();
 		setCurrentGameStates(gamestates.MainMenu);
-		state();
 	}
 
 }

@@ -1,52 +1,57 @@
 // Importations
-import { setCurrentGameStates, state, gamestates } from "../GameStates.js";
+import { setCurrentGameStates, gamestates } from "../GameStates.js";
 import * as assets from "./Assets.js";
 import { ctx, canvas } from "../Main.js";
+
+let isHoverMainMenu = false;
+
 // Initialise le menu principale
-export default function initMainMenu() {
+export default function mainMenu() {
 
-	// Efface le canvas
-	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	if (!isHoverMainMenu) {
+		// Efface le canvas
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-	// Récupère les images
-	const title = assets.title;
-	const playButton = assets.playButton;
-	const shopButton = assets.shopButton;
-	const successButton = assets.successButton;
-	const rankingButton = assets.rankingButton;
-	const settingsButton = assets.settingsButton;
+		// Récupère les images
+		const title = assets.title;
+		const playButton = assets.playButton;
+		const shopButton = assets.shopButton;
+		const successButton = assets.successButton;
+		const rankingButton = assets.rankingButton;
+		const settingsButton = assets.settingsButton;
 
-	// Arrière-plan du canvas
-	canvas.style.background = 'url(/flappybird/assets/mainMenu/background.png)';
+		// Arrière-plan du canvas
+		canvas.style.background = 'url(/flappybird/assets/mainMenu/background.png)';
 
-	// Affiche le titre
-	ctx.drawImage(title, canvas.width / 2 - title.width / 2,
-		canvas.height / 2 - title.height / 2 - 100);
+		// Affiche le titre
+		ctx.drawImage(title, canvas.width / 2 - title.width / 2,
+			canvas.height / 2 - title.height / 2 - 100);
 
-	// Affiche le bouton jouer
-	ctx.drawImage(playButton, canvas.width / 2 - playButton.width / 2,
-		canvas.height / 2 - playButton.height / 2 + 100);
+		// Affiche le bouton jouer
+		ctx.drawImage(playButton, canvas.width / 2 - playButton.width / 2,
+			canvas.height / 2 - playButton.height / 2 + 100);
 
-	// Affiche le bouton pour le classement
-	ctx.drawImage(rankingButton, canvas.width / 2 - rankingButton.width / 2 + 400,
-		canvas.height / 2 - rankingButton.height / 2 + 235, 120, 120);
+		// Affiche le bouton pour le classement
+		ctx.drawImage(rankingButton, canvas.width / 2 - rankingButton.width / 2 + 400,
+			canvas.height / 2 - rankingButton.height / 2 + 235, 120, 120);
 
-	// Affiche le bouton pour les succès
-	ctx.drawImage(successButton, canvas.width / 2 - successButton.width / 2 + 200,
-		canvas.height / 2 - successButton.height / 2 + 235, 120, 120);
+		// Affiche le bouton pour les succès
+		ctx.drawImage(successButton, canvas.width / 2 - successButton.width / 2 + 200,
+			canvas.height / 2 - successButton.height / 2 + 235, 120, 120);
 
-	// Affiche le bouton pour le magasin
-	ctx.drawImage(shopButton, canvas.width / 2 - shopButton.width / 2 - 200,
-		canvas.height / 2 - shopButton.height / 2 + 235, 120, 120);
+		// Affiche le bouton pour le magasin
+		ctx.drawImage(shopButton, canvas.width / 2 - shopButton.width / 2 - 200,
+			canvas.height / 2 - shopButton.height / 2 + 235, 120, 120);
 
-	// Affiche le bouton pour les options
-	ctx.drawImage(settingsButton, canvas.width / 2 - settingsButton.width / 2 - 390,
-		canvas.height / 2 - settingsButton.height / 2 + 235, 120, 120);
+		// Affiche le bouton pour les options
+		ctx.drawImage(settingsButton, canvas.width / 2 - settingsButton.width / 2 - 390,
+			canvas.height / 2 - settingsButton.height / 2 + 235, 120, 120);
 
 
-	// Évènements
-	canvas.addEventListener("mousemove", onMouseOverMainMenu);
-	canvas.addEventListener("click", onMouseClickMainMenu);
+		// Évènements
+		canvas.addEventListener("mousemove", onMouseOverMainMenu);
+		canvas.addEventListener("click", onMouseClickMainMenu);
+	}
 
 }
 
@@ -97,11 +102,9 @@ function clickPlayButton(x, y, width, height, pos) {
 		canvas.removeEventListener("mousemove", onMouseOverMainMenu);
 		canvas.removeEventListener("click", onMouseClickMainMenu);
 
-		// Efface le canvas
-		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		isHoverMainMenu = false;
 
 		setCurrentGameStates(gamestates.Game);
-		state();
 	}
 
 }
@@ -184,7 +187,9 @@ function detectMouseOnMainMenu(button, buttonHover, x, y, width, height, pos) {
 		pos.y < y + height) {
 		// Affiche le bouton (hover)
 		ctx.drawImage(buttonHover, x, y, width, height);
+		isHoverMainMenu = true;
 	} else {
+
 		// Affiche le bouton 
 		ctx.drawImage(button, x, y, width, height);
 	}

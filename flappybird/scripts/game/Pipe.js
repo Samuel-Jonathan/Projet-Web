@@ -1,4 +1,4 @@
-import { gamestates, setCurrentGameStates, state } from "../GameStates.js";
+import { gamestates, setCurrentGameStates } from "../GameStates.js";
 import { random } from "./Game.js";
 import { Player } from "./Player.js";
 import { Vector2 } from "./Vector2.js";
@@ -39,7 +39,6 @@ export class Pipe {
 		let topBottomSide = playerY + height / 2 > this.position.y && playerY - height / 2 < this.position.y + this.height;
 		if (leftRightSide && topBottomSide && !Player.hasInvincibilityBonus) {
 			setCurrentGameStates(gamestates.GameOver);
-			state();
 
 		}
 	}

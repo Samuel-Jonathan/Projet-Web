@@ -1,20 +1,13 @@
 // Importations
-import { gamestates, setCurrentGameStates, state } from "../GameStates.js";
+import { gamestates, setCurrentGameStates } from "../GameStates.js";
 import * as assets from "./Assets.js";
 import { ctx, canvas } from "../Main.js";
 
 // Timer pour passer au menu principale
 var timer = 0;
 
-// Initialise l'écran de chargement
-export default function initLoadingScreen() {
-
-	// Boucle de l'écran de chargement
-	window.requestAnimationFrame(loopLoadingScreen);
-}
-
 // Affiche les éléments
-function drawElements() {
+export function drawElements() {
 
 	const title = assets.title;
 
@@ -24,7 +17,7 @@ function drawElements() {
 }
 
 // Boucle de l'écran de chargement
-function loopLoadingScreen() {
+export function loadingScreen() {
 	// Dessine les éléments
 	drawElements();
 	timer++;
@@ -32,22 +25,14 @@ function loopLoadingScreen() {
 	// Affiche le menu principale
 	if (timer >= 80) {
 		stopLoadingScreen();
-
 		setCurrentGameStates(gamestates.MainMenu);
+	
 
-		state();
-		// Arrête la boucle de l'écran de chargement
-		window.cancelAnimationFrame(loopLoadingScreen);
-	} else {
-		window.requestAnimationFrame(loopLoadingScreen);
 	}
 }
 
 // Enlève l'écran de chargement
 function stopLoadingScreen() {
-
-	// Efface le canvas
-	ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 	// Cache les gifs
 	assets.flappyBirdAnimation.style.visibility = 'hidden';

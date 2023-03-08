@@ -5,7 +5,7 @@ import { ctx, canvas } from "../Main.js";
 import * as assets from "./Assets.js";
 import { Vector2 } from "./Vector2.js";
 import { Floor, scrollBackground, setBackgroundX } from "./Background.js";
-import { gamestates, getCurrentGameStates, setCurrentGameStates, state } from "../GameStates.js";
+import { gamestates, getCurrentGameStates, setCurrentGameStates } from "../GameStates.js";
 import { Score } from "./Score.js";
 import { Bonus } from "./Bonus.js";
 import { Coins } from "./Coins.js";
@@ -43,9 +43,6 @@ export function initGame() {
 	Player.hasInvincibilityBonus = false;
 	Player.hasX2Bonus = false;
 
-	// Arrière-plan du canvas
-	canvas.style.background = 'url(/flappybird/assets/game/background.png)';
-
 	// Récupère l'image du joueur
 	const playerImg = assets.playerImg;
 
@@ -65,19 +62,18 @@ export function initGame() {
 
 	// Pause
 	window.addEventListener("keydown", (event) => {
-		if (event.code == "Escape" && getCurrentGameStates() != gamestates.MainMenu &&
-			getCurrentGameStates() != gamestates.GameOver &&
-			getCurrentGameStates() != gamestates.Pause) {
+		if (event.code == "Escape" && getCurrentGameStates() == gamestates.Game) {
 			setCurrentGameStates(gamestates.Pause);
-			state();
 		}
 	});
 
-	requestAnimationFrame(loopGame);
 }
 
 
-export function loopGame() {
+export function game() {
+
+	// Arrière-plan du canvas
+	canvas.style.background = 'url(/flappybird/assets/game/background.png)';
 
 	// Efface le canvas
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -102,10 +98,6 @@ export function loopGame() {
 
 	// Crée les pièces
 	createCoins();
-
-	if (!isPause) {
-		requestAnimationFrame(loopGame);
-	}
 
 }
 
@@ -274,6 +266,6 @@ export function setBonus(value) {
 	bonus = value;
 }
 
-export function setCoins(value){
+export function setCoins(value) {
 	coins = value;
 }
