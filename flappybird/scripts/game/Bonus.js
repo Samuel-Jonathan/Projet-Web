@@ -40,11 +40,10 @@ export class Bonus {
                     player.setInvincibilityBonus(360);
 
                     // Supprime le bonus
-                    delete bonus[i];
 
-                    bonus = bonus.filter(function (element) {
-                        return element !== "";
-                    });
+                    const index = bonus.indexOf(bonus[i]);
+ 
+                    bonus.splice(index, 1);
 
                     setBonus(bonus);
                     Player.hasInvincibilityBonus = true;
@@ -53,11 +52,9 @@ export class Bonus {
                     player.setX2Bonus(360);
 
                     // Supprime le bonus
-                    delete bonus[i];
-
-                    bonus = bonus.filter(function (element) {
-                        return element !== "";
-                    });
+                    const index2 = bonus.indexOf(bonus[i]);
+ 
+                    bonus.splice(index2, 1);
 
                     setBonus(bonus);
 
@@ -66,11 +63,9 @@ export class Bonus {
                 case "bag_coins":
 
                     // Supprime le bonus
-                    delete bonus[i];
-
-                    bonus = bonus.filter(function (element) {
-                        return element !== "";
-                    });
+                    const index3 = bonus.indexOf(bonus[i]);
+ 
+                    bonus.splice(index3, 1);
 
                     setBonus(bonus);
 
