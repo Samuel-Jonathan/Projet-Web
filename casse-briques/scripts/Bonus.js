@@ -2,7 +2,7 @@ export default class Bonus {
   constructor(name, img, width, height) {
     this.name = name;
     this.img = img;
-    this.x = random(50, 950);
+    this.x = random(50, 700);
     this.y = random(300, 500);
     this.width = width;
     this.height = height;

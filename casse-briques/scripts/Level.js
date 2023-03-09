@@ -20,7 +20,7 @@ export class Level {
             for (let c = 0; c < this.nblinebrick; c++) {
                 let x = l * (this.brickWidth + this.spacelinebrick);
                 let y = c * (this.brickHeight + this.spacecolonebrick);
-                let b = new Brick(x, y, this.brickWidth, this.brickHeight, this.brickColor);
+                let b = new Brick(x, 50 + y, this.brickWidth, this.brickHeight, this.brickColor);
                 tabBricks.push(b);
             }
         }

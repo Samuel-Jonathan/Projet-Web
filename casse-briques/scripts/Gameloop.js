@@ -37,30 +37,25 @@ export function initGame() {
     tabBricks = [];
     bonus = [];
 
-
     console.log("page chargée");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     // Crée la balle
-    ball = new Ball(canvas.width / 2, canvas.height - 80, 10, "blue", 6, -6);
+    ball = new Ball(canvas.width / 2, canvas.height - 80, 10, "white", 6, -6);
     // Crée la raquette
-    paddle = new Paddle(assets.paddleImg, canvas.width / 2 - 100 / 2, canvas.height - 50, 100, 10, 10);
+    paddle = new Paddle(assets.paddleImg, canvas.width / 2 - 100 / 2, canvas.height - 50, 100, 10, 12);
     // Crée les briques
     // createBricks(9,9,10,10,100, 10, "#ff4af6");
     // Crée le score
     score = new Score(850, 500, 0, "red", "25");
 
-    level = new Level(9,1,10,10,100, 10, "#ff4af6");
+    level = new Level(9, 1, 10, 10, 100, 10, "#ff4af6");
 
     level.createBricks();
-
 
     // Évènements de la raquette
     document.addEventListener("keydown", paddle.handleKeyDown.bind(paddle));
     document.addEventListener("keyup", paddle.handleKeyUp.bind(paddle));
-
-
     paddle.hasPaddleBonus = false;
-
     // Pause du jeu
     window.addEventListener("keydown", pause);
 
@@ -105,7 +100,7 @@ function end() {
         // Position de la raquette et de la balle
         paddle.x = canvas.width / 2 - 100 / 2;
         paddle.y = canvas.height - 50;
-        ball.x = canvas.width / 2 - 10 / 2 ;
+        ball.x = canvas.width / 2 - 10 / 2;
         ball.y = canvas.height - 70;
         // Change de niveau
         switch (current_level) {
@@ -131,7 +126,7 @@ function end() {
 
 function createBonus() {
     // Spawn des bonus
-    let spawnBonus = Math.round(random(1, 100));
+    let spawnBonus = Math.round(random(1, 1000));
     spawnBonus = (spawnBonus == 1) ? bonus.push(new Bonus("paddle_bonus", assets.paddleImg, 50, 10)) : null;
 
     for (let i = 0; i < bonus.length; i++) {
@@ -155,7 +150,6 @@ function pause(event) {
             backgroundSound.play();
             gameLoop();
         }
-
     }
 }
 
