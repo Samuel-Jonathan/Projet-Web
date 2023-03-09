@@ -9,6 +9,7 @@ import { gamestates, getCurrentGameStates, setCurrentGameStates } from "../GameS
 import { Score } from "./Score.js";
 import { Bonus } from "./Bonus.js";
 import { Coins } from "./Coins.js";
+import { Malus } from "./Malus.js";
 
 // Joueur
 export var player;
@@ -24,7 +25,10 @@ export var floor;
 export var score;
 
 // Bonus
-var bonus = []
+var bonus = [];
+
+// Malus
+var malus = [];
 
 // Pièces
 var coins = [];
@@ -40,6 +44,7 @@ export function initGame() {
 	pipesTop = [];
 	pipesBottom = [];
 	bonus = [];
+	malus = [];
 	Player.hasInvincibilityBonus = false;
 	Player.hasX2Bonus = false;
 
@@ -95,6 +100,9 @@ export function game() {
 
 	// Crée les bonus
 	createBonus();
+
+	// Crée les malus
+	createMalus();
 
 	// Crée les pièces
 	createCoins();
@@ -225,6 +233,34 @@ function createBonus() {
 		// Collision des bonus
 		bonus[i].collision(bonus, i, player.getX(), player.getY(), player.getWidth(), player.getHeight(), player);
 	}
+}
+
+function createMalus(){
+		// Récupère les images des malus
+		const bombMalusImg = assets.bombImg;
+
+		// Probabilité qu'un bonus d'invincibilité apparaissent
+		let spawnBombMalus = Math.round(random(1, 10));
+	
+	
+		// Crée le malus bombe
+		if (spawnBombMalus == 1) {
+	
+			malus.push(new Malus("bomb_malus", ctx, bombMalusImg,
+				new Vector2(random(600, 900), 700),
+				new Vector2(-4, -4),
+				new Vector2(random(-3, 0), -3, 0), 51, 46));
+		}
+
+	
+		for (let i = 0; i < malus.length; i++) {
+			// Dessine les bonus
+			malus[i].draw();
+			// Déplace les bonus
+			malus[i].move();
+			// Collision des bonus
+			malus[i].collision(malus, i, player.getX(), player.getY(), player.getWidth(), player.getHeight(), player);
+		}
 }
 
 function createCoins() {

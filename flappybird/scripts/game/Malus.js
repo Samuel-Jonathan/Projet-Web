@@ -1,9 +1,9 @@
 import { setBonus } from "./Game.js";
 import { Vector2 } from "./Vector2.js";
 import { Player } from "./Player.js";
+import { gamestates, setCurrentGameStates } from "../GameStates.js";
 
-
-export class Bonus {
+export class Malus {
 
     constructor(name, ctx, img, position, velocity, acceleration, width, height) {
         this.name = name;
@@ -27,8 +27,8 @@ export class Bonus {
         this.position = Vector2.sum(this.position, this.acceleration);
     }
 
-    collision(bonus, i, playerX, playerY, width, height, player) {
-        // Collision avec le bonus
+    collision(malus, i, playerX, playerY, width, height, player) {
+        // Collision avec le malus
         let leftRightSide = playerX + width / 2 > this.position.x + 25 && playerX - width / 2 < this.position.x + this.width - 25;
         let topBottomSide = playerY + height / 2 > this.position.y + 25 && playerY - height / 2 < this.position.y + this.height - 25;
 
@@ -36,39 +36,15 @@ export class Bonus {
         if (leftRightSide && topBottomSide) {
 
             switch (this.name) {
-                case "invincibility_bonus":
-                    player.setInvincibilityBonus(360);
+                case "bomb_malus":
 
-                    // Supprime le bonus
-                    const index = bonus.indexOf(bonus[i]);
- 
-                    bonus.splice(index, 1);
+                    // Supprime le malus
+                    const index = malus.indexOf(malus[i]);
 
-                    setBonus(bonus);
-                    Player.hasInvincibilityBonus = true;
-                    break;
-                case "x2_bonus":
-                    player.setX2Bonus(360);
+                    malus.splice(index, 1);
 
-                    // Supprime le bonus
-                    const index2 = bonus.indexOf(bonus[i]);
- 
-                    bonus.splice(index2, 1);
+                    setCurrentGameStates(gamestates.GameOver);
 
-                    setBonus(bonus);
-
-                    Player.hasX2Bonus = true;
-                    break;
-                case "bag_coins":
-
-                    // Supprime le bonus
-                    const index3 = bonus.indexOf(bonus[i]);
- 
-                    bonus.splice(index3, 1);
-
-                    setBonus(bonus);
-
-                    player.addCoins(10);
                     break;
             }
 

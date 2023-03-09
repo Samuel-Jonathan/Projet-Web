@@ -71,3 +71,7 @@ coinImg.src = "assets/game/coin.png";
 // Sac de pièces
 export var bagCoinImg = new Image(59,64);
 bagCoinImg.src = "assets/game/bag_coins.png";
+
+// Bombe
+export var bombImg = new Image(46,68);
+bombImg.src = "assets/game/bomb_malus.png";
