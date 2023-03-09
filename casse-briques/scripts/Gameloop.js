@@ -6,11 +6,13 @@ import { circRectsOverlap } from "./collisions.js";
 import * as assets from "./Assets.js";
 import Score from "./Score.js";
 import { canvas, ctx } from "./Main.js";
+import Malus from "./Malus.js";
 
 let tabBricks = [];
 let paddle, ball;
 let score = 0;
 let bonus = new Array();
+let malus = new Array();
 
 
 var isPause = false;
@@ -30,6 +32,7 @@ export function initGame() {
     isPause = false;
     tabBricks = [];
     bonus = [];
+    malus = [];
 
 
     console.log("page chargée");
@@ -39,7 +42,7 @@ export function initGame() {
     // Crée la raquette
     paddle = new Paddle(assets.paddleImg, 75, canvas.height - 50, 100, 10, 10);
     // Crée les briques
-    createBricks(9,9,10,10,100, 10, "#ff4af6");
+    createBricks(9, 9, 10, 10, 100, 10, "#ff4af6");
     // Crée le score
     score = new Score(850, 500, 0, "red", "25");
 
@@ -64,11 +67,12 @@ export function gameLoop() {
         ball.draw(ctx);
         // Dessine la raquette
         paddle.draw(ctx);
-        // Dessine le score
-        score.draw(ctx);
 
         // Crée des bonus
         createBonus();
+
+        // Crée les malus
+        createMalus();
 
         for (let i = 0; i < tabBricks.length; i++) {
             // Dessine les briques
@@ -77,10 +81,13 @@ export function gameLoop() {
             handleCollisionBallBrick(tabBricks[i]);
         }
 
-        paddle.update(canvas.width);
+        paddle.update(canvas.width, ball);
         // Collision entre la balle et la raquette
         handleCollisionBallPaddle();
         ball.update(canvas.width, canvas.height);
+
+        // Dessine le score
+        score.draw(ctx);
     }
 
 }
@@ -96,6 +103,17 @@ function createBonus() {
     }
 }
 
+function createMalus() {
+    // Spawn des malus
+    let spawnMalus = Math.round(random(1, 10));
+    spawnMalus = (spawnMalus == 1) ? malus.push(new Malus("speed_malus", assets.speedImg, 50, 50)) : null;
+
+    for (let i = 0; i < malus.length; i++) {
+        malus[i].draw(ctx);
+        handleCollisionMalus(ball);
+    }
+}
+
 function pause(event) {
     if (event.code == "Escape") {
         // Met le jeu en pause
@@ -103,10 +121,10 @@ function pause(event) {
         backgroundSound.pause();
         if (!isPause) {
             isPause = true;
-            ctx.drawImage(assets.pauseImg, 400,350);
+            ctx.drawImage(assets.pauseImg, 400, 350);
             // Relance le jeu
         } else {
-    
+
             isPause = false;
             backgroundSound.play();
             gameLoop();
@@ -195,14 +213,38 @@ function handleCollisionBonus(ball) {
 }
 
 
+function handleCollisionMalus(ball) {
+    for (let i = 0; i < malus.length; i++) {
+        if (circRectsOverlap(malus[i].x, malus[i].y, malus[i].width, malus[i].height, ball.x, ball.y, ball.radius)) {
+
+            switch (malus[i].name) {
+                case "speed_malus":
+                    if (!paddle.hasSpeedMalus) {
+
+                        ball.dx *= 1.6;
+                        ball.dy *= 1.6;
+                    }
+                    paddle.hasSpeedMalus = true;
+                   
+            }
+
+            const index = malus.indexOf(malus[i]);
+            malus.splice(index, 1);
+
+
+        }
+    }
+}
+
+
 
 //creer une function score qui a chaque fois que la ballle touche une brick ca ajoute un point 
 
-function createBricks(nblinebrick,nbcolonebrick,spacelinebrick,spacecolonebrick,brickWidth, brickHeight, brickColor) {
+function createBricks(nblinebrick, nbcolonebrick, spacelinebrick, spacecolonebrick, brickWidth, brickHeight, brickColor) {
     for (let l = 0; l < nblinebrick; l++) {
         for (let c = 0; c < nbcolonebrick; c++) {
-            let x = l * (brickWidth + spacelinebrick ); 
-            let y = c * (brickHeight + spacecolonebrick); 
+            let x = l * (brickWidth + spacelinebrick);
+            let y = c * (brickHeight + spacecolonebrick);
             let b = new Brick(x, y, brickWidth, brickHeight, brickColor);
             tabBricks.push(b);
         }

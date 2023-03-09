@@ -1,8 +1,10 @@
 export default class Paddle {
 
     hasPaddleBonus = false;
+    hasSpeedMalus = false;
 
     timerPaddleBonus = 360;
+    timerSpeedMalus = 360;
 
     constructor(img, x, y, width, height, speed) {
         this.img = img;
@@ -16,14 +18,14 @@ export default class Paddle {
     }
 
     draw(ctx) {
-        if(!this.hasPaddleBonus){
+        if (!this.hasPaddleBonus) {
             ctx.drawImage(this.img, this.x, this.y);
-        }else{
+        } else {
             this.width = 200;
             this.height = 15;
             ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
         }
-       
+
     }
 
     update(width) {
@@ -33,14 +35,23 @@ export default class Paddle {
             this.x -= this.speed;
         }
 
-        if(this.hasPaddleBonus){
+        if (this.hasPaddleBonus) {
             this.timerPaddleBonus--;
-    
-            if(this.timerPaddleBonus < 0){
+
+            if (this.timerPaddleBonus < 0) {
                 this.hasPaddleBonus = false;
                 this.timerPaddleBonus = 360;
                 this.width = 75;
                 this.height = 15;
+            }
+        }
+
+        if (this.hasSpeedMalus) {
+
+            this.timerSpeedMalus--;
+            if (this.timerSpeedMalus < 0) {
+                this.hasSpeedMalus = false;
+                this.timerSpeedMalus = 360;
             }
         }
     }

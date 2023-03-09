@@ -19,3 +19,7 @@ paddleImg.src = "assets/paddle.png";
 // Pause
 export var pauseImg = new Image(640,360);
 pauseImg.src = "assets/pause.jpg";
+
+// Malus vitesse
+export var speedImg = new Image(50,50);
+speedImg.src = "assets/speed.png";

@@ -3,6 +3,7 @@ import { gamestates, getCurrentGameStates, setCurrentGameStates } from "./gamest
 
 
 export default class Ball {
+
     constructor(x, y, radius, color, dx, dy) {
         this.x = x;
         this.y = y;
@@ -43,6 +44,14 @@ export default class Ball {
         this.handleCanvasCollision(width, height);
     }
 
+    setDx(value) {
+        this.dx = value;
+    }
+
+    setDy(value) {
+        this.dy = value;
+    }
+
     handleCanvasCollision(width, height) {
         if (this.x + this.dx > width - this.radius || this.x + this.dx < this.radius) {
             this.dx = -this.dx;
@@ -51,11 +60,8 @@ export default class Ball {
             this.dy = -this.dy;
 
         } else if (this.y + this.dy > height - this.radius) {
-
+            resetMusic();
             setCurrentGameStates(gamestates.GameOver);
-            
-            // resetMusic()
-
         }
     }
 }
