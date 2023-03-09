@@ -129,7 +129,7 @@ function end() {
 
 function createBonus() {
     // Spawn des bonus
-    let spawnBonus = Math.round(random(1, 1000));
+    let spawnBonus = Math.round(random(1, 100));
     spawnBonus = (spawnBonus == 1) ? bonus.push(new Bonus("paddle_bonus", assets.paddleImg, 50, 10)) : null;
 
     for (let i = 0; i < bonus.length; i++) {
@@ -140,7 +140,7 @@ function createBonus() {
 
 function createMalus() {
     // Spawn des malus
-    let spawnSpeedMalus = Math.round(random(1, 10));
+    let spawnSpeedMalus = Math.round(random(1, 100));
     spawnSpeedMalus = (spawnSpeedMalus == 1) ? malus.push(new Malus("speed_malus", assets.speedImg, 50, 50)) : null;
 
     for (let i = 0; i < malus.length; i++) {
