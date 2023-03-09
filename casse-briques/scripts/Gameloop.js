@@ -102,11 +102,13 @@ function pause(event) {
         backgroundSound.pause();
         if (!isPause) {
             isPause = true;
+            ctx.drawImage(assets.pauseImg, 400,350);
             // Relance le jeu
         } else {
+    
             isPause = false;
             // backgroundSound.play();
-            gameLoop();
+
         }
 
     }

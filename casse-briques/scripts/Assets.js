@@ -12,5 +12,10 @@ replayButtonImg.src = "assets/replay_button.png";
 export var replayButtonHoverImg = new Image(100, 100);
 replayButtonHoverImg.src = "assets/replay_button_hover.png";
 
+// Raquette
 export var paddleImg = new Image(75, 15)
-paddleImg.src = "assets/paddlee.png";
+paddleImg.src = "assets/paddle.png";
+
+// Pause
+export var pauseImg = new Image(640,360);
+pauseImg.src = "assets/pause.jpg";
