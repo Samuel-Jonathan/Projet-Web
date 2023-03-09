@@ -19,6 +19,7 @@ var brickHitSound = document.getElementById("brickHit");
 var backgroundSound = document.getElementById("background")
 
 
+backgroundSound.play();
 
 export function setPause(value) {
     isPause = value;
@@ -38,9 +39,9 @@ export function initGame() {
     // Crée la raquette
     paddle = new Paddle(assets.paddleImg, 75, canvas.height - 50, 100, 10, 10);
     // Crée les briques
-    createBricks(100, 10, "#ff4af6");
+    createBricks(9,9,10,10,100, 10, "#ff4af6");
     // Crée le score
-    score = new Score(900, 650, 0, "blue", "25");
+    score = new Score(850, 500, 0, "red", "25");
 
     // Évènements de la raquette
     document.addEventListener("keydown", paddle.handleKeyDown.bind(paddle));
@@ -107,8 +108,8 @@ function pause(event) {
         } else {
     
             isPause = false;
-            // backgroundSound.play();
-
+            backgroundSound.play();
+            gameLoop();
         }
 
     }
@@ -197,12 +198,11 @@ function handleCollisionBonus(ball) {
 
 //creer une function score qui a chaque fois que la ballle touche une brick ca ajoute un point 
 
-function createBricks(brickWidth, brickHeight, brickColor) {
-    for (let l = 0; l < 9; l++) {
-        for (let c = 0; c < 9; c++) {
-
-            let x = l * (brickWidth + 10); // Add 10 pixels of spacing between bricks
-            let y = c * (brickHeight + 20); // Add 20 pixels of spacing between rows of bricks
+function createBricks(nblinebrick,nbcolonebrick,spacelinebrick,spacecolonebrick,brickWidth, brickHeight, brickColor) {
+    for (let l = 0; l < nblinebrick; l++) {
+        for (let c = 0; c < nbcolonebrick; c++) {
+            let x = l * (brickWidth + spacelinebrick ); 
+            let y = c * (brickHeight + spacecolonebrick); 
             let b = new Brick(x, y, brickWidth, brickHeight, brickColor);
             tabBricks.push(b);
         }

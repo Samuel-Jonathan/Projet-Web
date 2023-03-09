@@ -18,7 +18,6 @@ export default class Score {
 		ctx.font = this.size + "px Arial";
 		ctx.fillText("Score:" + this.value, this.x, this.y);
 		//taille de police 
-		ctx.fill();
 		ctx.restore();
 	}
 
