@@ -30,6 +30,12 @@ backgroundSound.play();
 export function setPause(value){
     isPause = value;
 }
+var paddleHitSound = document.getElementById("paddleHit");
+var brickHitSound = document.getElementById("brickHit");
+var backgroundSound = document.getElementById("background")
+
+
+backgroundSound.play();
 
 
 export function init() {
