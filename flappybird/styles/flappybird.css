@@ -1,0 +1,22 @@
+body {
+  /* Arrière-plan */
+  background: url(/flappybird/assets/background.jpg);
+  background-size: cover;
+  background-repeat: repeat;
+
+}
+
+#canvas {
+  /* Centre le canvas */
+  display: block;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  /* Arrière-plan */
+  background-image: url(/flappybird/assets/loadingScreen/background.jpg);
+  background-size: cover;
+}
+
