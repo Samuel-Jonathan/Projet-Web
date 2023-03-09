@@ -6,41 +6,40 @@ import { circRectsOverlap } from "./collisions.js";
 import * as assets from "./Assets.js";
 import Score from "./Score.js";
 import { gameover } from "./GameOver.js";
+import { getCurrentGameStates, gamestates } from "./gamestates.js";
 
 export let loop;
 let tabBricks = [];
-let canvas, ctx;
+export let canvas, ctx;
 let paddle, ball;
 let score = 0;
 let bonus = new Array();
 
-// États du jeu 
-export const gamestates = {
-    Game: "game",
-	GameOver: "game_over"
-}
-
-// État du jeu actuel
-var currentGamestate = gamestates.Game;
-
-// Modifie la gamestate actuelle
-export function setCurrentGameStates(gamestate) {
-	currentGamestate = gamestate;
-}
-
-
 window.onload = init();
 
 
+
 var isPause = false;
+var paddleHitSound = document.getElementById("paddleHit");
+var brickHitSound = document.getElementById("brickHit");
+var backgroundSound = document.getElementById("background")
+
+
+backgroundSound.play();
+
+export function setPause(value){
+    isPause = value;
+}
 
 
 export function init() {
+
     isPause = false;
     tabBricks = [];
     console.log("page chargée");
     canvas = document.querySelector("#gameCanvas");
     ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     // Crée la balle
     ball = new Ball(canvas.width / 2, canvas.height - 80, 10, "blue", 6, -6);
     // Crée la raquette
@@ -48,11 +47,12 @@ export function init() {
     // Crée les briques
     createBricks(100, 10, "#ff4af6");
     // Crée le score
-    score = new Score(500, 500, 0);
+    score = new Score(900, 650, 0,"blue","25");
 
     // Évènements de la raquette
     document.addEventListener("keydown", paddle.handleKeyDown.bind(paddle));
     document.addEventListener("keyup", paddle.handleKeyUp.bind(paddle));
+    
 
     // Pause du jeu
     window.addEventListener("keydown", pause);
@@ -86,11 +86,12 @@ function gameLoop() {
     handleCollisionBallPaddle();
     ball.update(canvas.width, canvas.height);
 
-    if(currentGamestate == gamestates.GameOver){
-        gameover(ctx,assets.gameOverImg,window.width / 2 - ,50);
+    if (getCurrentGameStates() == gamestates.GameOver) {
+        gameover();
     }
-  
+
     loop = (!isPause) ? requestAnimationFrame(gameLoop) : 0;
+
 
 }
 
@@ -108,15 +109,23 @@ function createBonus() {
 function pause(event) {
     if (event.code == "Escape") {
         // Met le jeu en pause
+        //arreter la musique 
+        backgroundSound.pause();
         if (!isPause) {
             isPause = true;
             // Relance le jeu
         } else {
             isPause = false;
+            backgroundSound.play();
             gameLoop();
         }
 
     }
+}
+
+//permet de reinitialiser la music au debut 
+export function resetMusic(){
+    backgroundSound.currentTime = 0;
 }
 
 
@@ -144,7 +153,7 @@ function handleCollisionBallPaddle() {
             // On remet au point de contact
             ball.x = paddle.x + paddle.width + ball.radius;
         }
-
+        paddleHitSound.play();
     }
 }
 
@@ -171,6 +180,8 @@ function handleCollisionBallBrick(brick) {
             // On remet au point de contact
             ball.x = brick.x + brick.width + ball.radius;
         }
+        brickHitSound.play();
+
         //si la balle touche la brique, on la supprime
         const index = tabBricks.indexOf(brick);
         score.addScore(1);

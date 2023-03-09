@@ -20,7 +20,7 @@ export default class Paddle {
             ctx.drawImage(this.img, this.x, this.y);
         }else{
             this.width = 200;
-            this.height = 40;
+            this.height = 15;
             ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
         }
        

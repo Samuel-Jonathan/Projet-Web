@@ -1,5 +1,3 @@
-import { circRectsOverlap } from "./Collisions.js";
-
 export default class Bonus {
   constructor(name, img, width, height) {
     this.name = name;
@@ -11,7 +9,7 @@ export default class Bonus {
   }
 
   draw(ctx) {
-    ctx.drawImage(this.img, Math.random()+this.x, Math.random()+this.y, this.width, this.height);
+    ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
   }
   
 }
