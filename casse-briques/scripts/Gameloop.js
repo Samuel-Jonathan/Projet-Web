@@ -6,9 +6,10 @@ import { circRectsOverlap } from "./collisions.js";
 import * as assets from "./Assets.js";
 import Score from "./Score.js";
 import { canvas, ctx } from "./Main.js";
+import { Level } from "./Level.js";
 import Malus from "./Malus.js";
 
-let tabBricks = [];
+export let tabBricks = [];
 let paddle, ball;
 let score = 0;
 let bonus = new Array();
@@ -16,16 +17,21 @@ let malus = new Array();
 
 
 var isPause = false;
-var paddleHitSound = document.getElementById("paddleHit");
-var brickHitSound = document.getElementById("brickHit");
-var backgroundSound = document.getElementById("background")
+let paddleHitSound = document.getElementById("paddleHit");
+let brickHitSound = document.getElementById("brickHit");
+let backgroundSound = document.getElementById("background");
 
+let current_level = 1;
+
+let level;
 
 backgroundSound.play();
 
 export function setPause(value) {
     isPause = value;
 }
+
+
 
 
 export function initGame() {
@@ -38,21 +44,22 @@ export function initGame() {
     console.log("page chargée");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     // Crée la balle
-    ball = new Ball(canvas.width / 2, canvas.height - 80, 10, "blue", 6, -6);
+    ball = new Ball(canvas.width / 2, canvas.height - 80, 10, "white", 6, -6);
     // Crée la raquette
-    paddle = new Paddle(assets.paddleImg, 75, canvas.height - 50, 100, 10, 10);
+    paddle = new Paddle(assets.paddleImg, canvas.width / 2 - 100 / 2, canvas.height - 50, 100, 10, 12);
     // Crée les briques
-    createBricks(9, 9, 10, 10, 100, 10, "#ff4af6");
+    // createBricks(9,9,10,10,100, 10, "#ff4af6");
     // Crée le score
     score = new Score(850, 500, 0, "red", "25");
+
+    level = new Level(9, 1, 10, 10, 100, 10, "#ff4af6");
+
+    level.createBricks();
 
     // Évènements de la raquette
     document.addEventListener("keydown", paddle.handleKeyDown.bind(paddle));
     document.addEventListener("keyup", paddle.handleKeyUp.bind(paddle));
-
-
     paddle.hasPaddleBonus = false;
-
     // Pause du jeu
     window.addEventListener("keydown", pause);
 
@@ -86,15 +93,48 @@ export function gameLoop() {
         handleCollisionBallPaddle();
         ball.update(canvas.width, canvas.height);
 
+        // Fin de niveau
+        end();
+
         // Dessine le score
         score.draw(ctx);
     }
 
 }
 
+function end() {
+    if (tabBricks.length === 0) {
+        current_level++;
+        // Position de la raquette et de la balle
+        paddle.x = canvas.width / 2 - 100 / 2;
+        paddle.y = canvas.height - 50;
+        ball.x = canvas.width / 2 - 10 / 2;
+        ball.y = canvas.height - 70;
+        // Change de niveau
+        switch (current_level) {
+            case 2:
+                level = new Level(9, 2, 10, 100, 100, 10, "#ff4af6");
+                level.createBricks();
+                break;
+            case 3:
+                level = new Level(9, 3, 10, 10, 100, 10, "#ff4af6");
+                level.createBricks();
+                break;
+            case 4:
+                level = new Level(9, 4, 10, 10, 100, 10, "#ff4af6");
+                level.createBricks();
+                break;
+            case 5:
+                level = new Level(9, 5, 10, 10, 100, 10, "#ff4af6");
+                level.createBricks();
+                break;
+        }
+    }
+}
+
 function createBonus() {
     // Spawn des bonus
-    let spawnBonus = Math.round(random(1, 100));
+    let spawnBonus = Math.round(random(1, 1000));
     spawnBonus = (spawnBonus == 1) ? bonus.push(new Bonus("paddle_bonus", assets.paddleImg, 50, 10)) : null;
 
     for (let i = 0; i < bonus.length; i++) {
@@ -122,14 +162,15 @@ function pause(event) {
         if (!isPause) {
             isPause = true;
             ctx.drawImage(assets.pauseImg, 400, 350);
+            ctx.drawImage(assets.pauseImg, 400, 350);
             // Relance le jeu
         } else {
+
 
             isPause = false;
             backgroundSound.play();
             gameLoop();
         }
-
     }
 }
 
