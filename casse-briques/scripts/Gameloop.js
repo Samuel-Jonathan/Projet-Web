@@ -5,18 +5,12 @@ import Bonus from "./Bonus.js";
 import { circRectsOverlap } from "./collisions.js";
 import * as assets from "./Assets.js";
 import Score from "./Score.js";
-import { gameover } from "./GameOver.js";
-import { getCurrentGameStates, gamestates } from "./gamestates.js";
+import { canvas, ctx } from "./Main.js";
 
-export let loop;
 let tabBricks = [];
-export let canvas, ctx;
 let paddle, ball;
 let score = 0;
 let bonus = new Array();
-
-window.onload = init();
-
 
 
 var isPause = false;
@@ -25,26 +19,19 @@ var brickHitSound = document.getElementById("brickHit");
 var backgroundSound = document.getElementById("background")
 
 
-backgroundSound.play();
 
-export function setPause(value){
+export function setPause(value) {
     isPause = value;
 }
-var paddleHitSound = document.getElementById("paddleHit");
-var brickHitSound = document.getElementById("brickHit");
-var backgroundSound = document.getElementById("background")
 
 
-backgroundSound.play();
-
-
-export function init() {
-
+// backgroundSound.play();
+export function initGame() {
+    
     isPause = false;
     tabBricks = [];
+    bonus = [];
     console.log("page chargée");
-    canvas = document.querySelector("#gameCanvas");
-    ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     // Crée la balle
     ball = new Ball(canvas.width / 2, canvas.height - 80, 10, "blue", 6, -6);
@@ -53,21 +40,21 @@ export function init() {
     // Crée les briques
     createBricks(100, 10, "#ff4af6");
     // Crée le score
-    score = new Score(900, 650, 0,"blue","25");
+    score = new Score(900, 650, 0, "blue", "25");
 
     // Évènements de la raquette
     document.addEventListener("keydown", paddle.handleKeyDown.bind(paddle));
     document.addEventListener("keyup", paddle.handleKeyUp.bind(paddle));
-    
+
 
     // Pause du jeu
     window.addEventListener("keydown", pause);
 
-    loop = requestAnimationFrame(gameLoop);
 }
 
-function gameLoop() {
-    window.cancelAnimationFrame(loop);
+export function gameLoop() {
+
+
     // Efface le canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     // Dessine la balle
@@ -91,12 +78,6 @@ function gameLoop() {
     // Collision entre la balle et la raquette
     handleCollisionBallPaddle();
     ball.update(canvas.width, canvas.height);
-
-    if (getCurrentGameStates() == gamestates.GameOver) {
-        gameover();
-    }
-
-    loop = (!isPause) ? requestAnimationFrame(gameLoop) : 0;
 
 
 }
@@ -130,7 +111,7 @@ function pause(event) {
 }
 
 //permet de reinitialiser la music au debut 
-export function resetMusic(){
+export function resetMusic() {
     backgroundSound.currentTime = 0;
 }
 
@@ -186,7 +167,7 @@ function handleCollisionBallBrick(brick) {
             // On remet au point de contact
             ball.x = brick.x + brick.width + ball.radius;
         }
-        brickHitSound.play();
+        // brickHitSound.play();
 
         //si la balle touche la brique, on la supprime
         const index = tabBricks.indexOf(brick);
