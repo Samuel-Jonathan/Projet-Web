@@ -27,10 +27,12 @@ export function setPause(value) {
 
 // backgroundSound.play();
 export function initGame() {
-    
+
     isPause = false;
     tabBricks = [];
     bonus = [];
+
+
     console.log("page chargée");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     // Crée la balle
@@ -47,14 +49,16 @@ export function initGame() {
     document.addEventListener("keyup", paddle.handleKeyUp.bind(paddle));
 
 
+    paddle.hasPaddleBonus = false;
+  
+
     // Pause du jeu
     window.addEventListener("keydown", pause);
 
 }
 
 export function gameLoop() {
-
-
+ 
     // Efface le canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     // Dessine la balle
@@ -171,8 +175,10 @@ function handleCollisionBallBrick(brick) {
 
         //si la balle touche la brique, on la supprime
         const index = tabBricks.indexOf(brick);
-        score.addScore(1);
         tabBricks.splice(index, 1);
+
+        // Ajoute un point
+        score.addScore(1);
     }
 }
 
@@ -194,6 +200,7 @@ function handleCollisionBonus(ball) {
 function createBricks(brickWidth, brickHeight, brickColor) {
     for (let l = 0; l < 9; l++) {
         for (let c = 0; c < 9; c++) {
+           
             let x = l * (brickWidth + 10); // Add 10 pixels of spacing between bricks
             let y = c * (brickHeight + 20); // Add 20 pixels of spacing between rows of bricks
             let b = new Brick(x, y, brickWidth, brickHeight, brickColor);

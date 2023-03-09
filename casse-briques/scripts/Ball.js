@@ -38,7 +38,6 @@ export default class Ball {
 
 
     update(width, height) {
-        setCurrentGameStates(gamestates.GameOver);
         this.x += this.dx;
         this.y += this.dy;
         this.handleCanvasCollision(width, height);
@@ -54,7 +53,7 @@ export default class Ball {
         } else if (this.y + this.dy > height - this.radius) {
 
             setCurrentGameStates(gamestates.GameOver);
-              console.log(getCurrentGameStates());
+            
             
             resetMusic()
 
