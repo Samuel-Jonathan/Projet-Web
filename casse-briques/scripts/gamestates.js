@@ -1,6 +1,7 @@
 // États du jeu 
 export const gamestates = {
     Game: "game",
+	Pause: "pause",
 	GameOver: "game_over"
 }
 

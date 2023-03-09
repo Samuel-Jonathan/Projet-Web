@@ -25,9 +25,7 @@ export function setPause(value) {
 }
 
 
-// backgroundSound.play();
 export function initGame() {
-
     isPause = false;
     tabBricks = [];
     bonus = [];
@@ -50,7 +48,6 @@ export function initGame() {
 
 
     paddle.hasPaddleBonus = false;
-  
 
     // Pause du jeu
     window.addEventListener("keydown", pause);
@@ -58,31 +55,32 @@ export function initGame() {
 }
 
 export function gameLoop() {
- 
-    // Efface le canvas
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    // Dessine la balle
-    ball.draw(ctx);
-    // Dessine la raquette
-    paddle.draw(ctx);
-    // Dessine le score
-    score.draw(ctx);
 
-    // Crée des bonus
-    createBonus();
+    if (!isPause) {
+        // Efface le canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        // Dessine la balle
+        ball.draw(ctx);
+        // Dessine la raquette
+        paddle.draw(ctx);
+        // Dessine le score
+        score.draw(ctx);
 
-    for (let i = 0; i < tabBricks.length; i++) {
-        // Dessine les briques
-        tabBricks[i].draw(ctx);
-        // Collision de la balle avec les briques
-        handleCollisionBallBrick(tabBricks[i]);
+        // Crée des bonus
+        createBonus();
+
+        for (let i = 0; i < tabBricks.length; i++) {
+            // Dessine les briques
+            tabBricks[i].draw(ctx);
+            // Collision de la balle avec les briques
+            handleCollisionBallBrick(tabBricks[i]);
+        }
+
+        paddle.update(canvas.width);
+        // Collision entre la balle et la raquette
+        handleCollisionBallPaddle();
+        ball.update(canvas.width, canvas.height);
     }
-
-    paddle.update(canvas.width);
-    // Collision entre la balle et la raquette
-    handleCollisionBallPaddle();
-    ball.update(canvas.width, canvas.height);
-
 
 }
 
@@ -107,7 +105,7 @@ function pause(event) {
             // Relance le jeu
         } else {
             isPause = false;
-            backgroundSound.play();
+            // backgroundSound.play();
             gameLoop();
         }
 
@@ -171,7 +169,7 @@ function handleCollisionBallBrick(brick) {
             // On remet au point de contact
             ball.x = brick.x + brick.width + ball.radius;
         }
-        // brickHitSound.play();
+        brickHitSound.play();
 
         //si la balle touche la brique, on la supprime
         const index = tabBricks.indexOf(brick);
@@ -200,7 +198,7 @@ function handleCollisionBonus(ball) {
 function createBricks(brickWidth, brickHeight, brickColor) {
     for (let l = 0; l < 9; l++) {
         for (let c = 0; c < 9; c++) {
-           
+
             let x = l * (brickWidth + 10); // Add 10 pixels of spacing between bricks
             let y = c * (brickHeight + 20); // Add 20 pixels of spacing between rows of bricks
             let b = new Brick(x, y, brickWidth, brickHeight, brickColor);

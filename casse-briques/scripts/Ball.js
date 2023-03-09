@@ -54,8 +54,7 @@ export default class Ball {
 
             setCurrentGameStates(gamestates.GameOver);
             
-            
-            resetMusic()
+            // resetMusic()
 
         }
     }

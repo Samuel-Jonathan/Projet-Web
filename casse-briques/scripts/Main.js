@@ -13,6 +13,7 @@ export const ctx = canvas.getContext("2d");
 window.onload = init();
 
 function init() {
+    
     initGame();
     window.requestAnimationFrame(loop);
 }
@@ -21,11 +22,9 @@ function loop() {
 
     switch (getCurrentGameStates()) {
         case gamestates.Game:
-
             gameLoop();
             break;
         case gamestates.GameOver:
-
             gameOver();
             break;
     }
