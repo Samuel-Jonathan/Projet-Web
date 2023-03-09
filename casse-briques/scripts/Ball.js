@@ -1,5 +1,7 @@
 import { circRectsOverlap } from "./Collisions.js";
 import { init } from "./gameloop.js";
+import { resetMusic } from "./gameloop.js";
+
 
 export default class Ball {
     constructor(x, y, radius, color, dx, dy) {
@@ -53,8 +55,8 @@ export default class Ball {
              if (this.y + this.dy >= height - this.radius) {
                 // Si la balle touche le bas du canvas
                 // Relancer le jeu
+                resetMusic()
                 init();
-
             }
         }
     }
