@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles/cassebriques.css">
+  <title>Casse-briques</title>
+</head>
+
+<script type="module" src="scripts/Main.js"></script>
+
+<body>
+
+  <audio id="background" preload="auto">
+    <source src="sounds/Background.mp3" type="audio/mp3">
+  </audio>
+  <audio id="paddleHit" preload="auto">
+    <source src="sounds/sounds_paddle_hit.mp3" type="audio/mp3">
+  </audio>
+  <audio id="wallHit" preload="auto">
+    <source src="sounds/sounds_wall.mp3" type="audio/mp3">
+  </audio>
+  <audio id="brickHit" preload="auto">
+    <source src="sounds/sounds_brick_hit.mp3" type="audio/mp3">
+  </audio>
+
+  <canvas id="gameCanvas" width="1000" height="700"></canvas>
+  <div class="game-container">
+  </div>
+</body>
+
+</html>
