@@ -1,5 +1,5 @@
 // Importations
-import { gameLoop, initGame } from "./Gameloop.js";
+import { gameLoop, initGame, resetMusic } from "./Gameloop.js";
 import { gameOver } from "./GameOver.js";
 import { gamestates, getCurrentGameStates } from "./gamestates.js";
 
@@ -26,6 +26,7 @@ function loop() {
             break;
         case gamestates.GameOver:
             gameOver();
+            resetMusic()
             break;
     }
 
