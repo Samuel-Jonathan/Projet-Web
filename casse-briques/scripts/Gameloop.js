@@ -17,38 +17,31 @@ let malus = new Array();
 
 
 var isPause = false;
+
 let paddleHitSound = document.getElementById("paddleHit");
 let brickHitSound = document.getElementById("brickHit");
 let backgroundSound = document.getElementById("background");
 
 let current_level = 1;
-
 let level;
 
 backgroundSound.play();
 
-export function setPause(value) {
-    isPause = value;
-}
-
-
-
-
 export function initGame() {
+    // Réinitialise le jeu
     isPause = false;
     tabBricks = [];
     bonus = [];
     malus = [];
 
-
     console.log("page chargée");
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     // Crée la balle
     ball = new Ball(canvas.width / 2, canvas.height - 80, 10, "white", 6, -6);
     // Crée la raquette
     paddle = new Paddle(assets.paddleImg, canvas.width / 2 - 100 / 2, canvas.height - 50, 100, 10, 12);
-    // Crée les briques
-    // createBricks(9,9,10,10,100, 10, "#ff4af6");
+
     // Crée le score
     score = new Score(850, 500, 0, "red", "25");
 
@@ -59,7 +52,9 @@ export function initGame() {
     // Évènements de la raquette
     document.addEventListener("keydown", paddle.handleKeyDown.bind(paddle));
     document.addEventListener("keyup", paddle.handleKeyUp.bind(paddle));
+    // Réinitialise les malus
     paddle.hasPaddleBonus = false;
+    paddle.hasSpeedMalus = false;
     // Pause du jeu
     window.addEventListener("keydown", pause);
 
@@ -93,11 +88,11 @@ export function gameLoop() {
         handleCollisionBallPaddle();
         ball.update(canvas.width, canvas.height);
 
-        // Fin de niveau
-        end();
-
         // Dessine le score
         score.draw(ctx);
+
+        // Fin de niveau
+        end();
     }
 
 }
@@ -145,8 +140,8 @@ function createBonus() {
 
 function createMalus() {
     // Spawn des malus
-    let spawnMalus = Math.round(random(1, 10));
-    spawnMalus = (spawnMalus == 1) ? malus.push(new Malus("speed_malus", assets.speedImg, 50, 50)) : null;
+    let spawnSpeedMalus = Math.round(random(1, 10));
+    spawnSpeedMalus = (spawnSpeedMalus == 1) ? malus.push(new Malus("speed_malus", assets.speedImg, 50, 50)) : null;
 
     for (let i = 0; i < malus.length; i++) {
         malus[i].draw(ctx);
@@ -155,26 +150,22 @@ function createMalus() {
 }
 
 function pause(event) {
+    // Met le jeu en pause
     if (event.code == "Escape") {
-        // Met le jeu en pause
         //arreter la musique 
         backgroundSound.pause();
         if (!isPause) {
             isPause = true;
             ctx.drawImage(assets.pauseImg, 400, 350);
-            ctx.drawImage(assets.pauseImg, 400, 350);
             // Relance le jeu
         } else {
-
-
             isPause = false;
             backgroundSound.play();
-            gameLoop();
         }
     }
 }
 
-//permet de reinitialiser la music au debut 
+//permet de reinitialiser la musique au debut 
 export function resetMusic() {
     backgroundSound.currentTime = 0;
 }
@@ -258,6 +249,7 @@ function handleCollisionMalus(ball) {
     for (let i = 0; i < malus.length; i++) {
         if (circRectsOverlap(malus[i].x, malus[i].y, malus[i].width, malus[i].height, ball.x, ball.y, ball.radius)) {
 
+            // Collision avec le malus de vitesse
             switch (malus[i].name) {
                 case "speed_malus":
                     if (!paddle.hasSpeedMalus) {
@@ -266,34 +258,24 @@ function handleCollisionMalus(ball) {
                         ball.dy *= 1.6;
                     }
                     paddle.hasSpeedMalus = true;
-                   
+                    break;
+
             }
 
             const index = malus.indexOf(malus[i]);
             malus.splice(index, 1);
 
-
-        }
-    }
-}
-
-
-
-//creer une function score qui a chaque fois que la ballle touche une brick ca ajoute un point 
-
-function createBricks(nblinebrick, nbcolonebrick, spacelinebrick, spacecolonebrick, brickWidth, brickHeight, brickColor) {
-    for (let l = 0; l < nblinebrick; l++) {
-        for (let c = 0; c < nbcolonebrick; c++) {
-            let x = l * (brickWidth + spacelinebrick);
-            let y = c * (brickHeight + spacecolonebrick);
-            let b = new Brick(x, y, brickWidth, brickHeight, brickColor);
-            tabBricks.push(b);
         }
     }
 }
 
 function random(min, max) {
     return Math.random() * (max - min) + min;
+}
+
+
+export function setPause(value) {
+    isPause = value;
 }
 
 

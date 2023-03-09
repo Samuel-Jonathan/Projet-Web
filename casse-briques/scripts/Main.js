@@ -1,5 +1,5 @@
 // Importations
-import { gameLoop, initGame, resetMusic } from "./Gameloop.js";
+import { gameLoop, initGame } from "./Gameloop.js";
 import { gameOver } from "./GameOver.js";
 import { gamestates, getCurrentGameStates } from "./gamestates.js";
 
