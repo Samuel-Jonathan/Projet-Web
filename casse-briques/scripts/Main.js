@@ -26,7 +26,7 @@ function loop() {
             break;
         case gamestates.GameOver:
             gameOver();
-            resetMusic()
+            resetMusic();
             break;
     }
 
