@@ -112,6 +112,7 @@ function clickMainMenuButton(pos) {
 
 		isHoverGameOver = false;
 
+		initGame();
 		setCurrentGameStates(gamestates.MainMenu);
 	}
 
