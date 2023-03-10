@@ -37,6 +37,10 @@ export default class Paddle {
             this.x -= this.speed;
         }
 
+        this.bonusMalusTimer();
+    }
+
+    bonusMalusTimer() {
         // Bonus de raquette
         if (this.hasPaddleBonus) {
             this.timerPaddleBonus--;

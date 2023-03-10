@@ -1,14 +1,16 @@
 export default class Brick {
-    constructor(x, y, width, height, color) {
+    constructor(x, y, width, height, color, nbDurability) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
         this.color = color;
+        this.nbDurability = nbDurability;
         
     }
 
     update(ball) {
+      
         if (ball.x + ball.size > this.x && ball.x < this.x + this.width && ball.y + ball.size > this.y && ball.y < this.y + this.height) {
           ball.dy = -ball.dy;
           return true;
@@ -17,6 +19,7 @@ export default class Brick {
       }
 
     draw(ctx) {
+      
         ctx.save();
         ctx.translate(this.x,this.y);
         ctx.fillStyle = this.color;

@@ -47,7 +47,7 @@ export function initGame() {
 
     level = new Level(9, 3, 10, 10, 100, 10, "#ff4af6");
 
-    level.createBricks();
+    level.createBricks(2);
 
     // Évènements de la raquette
     document.addEventListener("keydown", paddle.handleKeyDown.bind(paddle));
@@ -74,7 +74,7 @@ export function gameLoop() {
         createBonus();
 
         // Crée les malus
-        createMalus();
+        // createMalus();
 
         for (let i = 0; i < tabBricks.length; i++) {
             // Dessine les briques
@@ -109,19 +109,19 @@ function end() {
         switch (current_level) {
             case 2:
                 level = new Level(9, 2, 10, 100, 100, 10, "#ff4af6");
-                level.createBricks();
+                level.createBricks(10);
                 break;
             case 3:
                 level = new Level(9, 3, 10, 10, 100, 10, "#ff4af6");
-                level.createBricks();
+                level.createBricks(10);
                 break;
             case 4:
                 level = new Level(9, 4, 10, 10, 100, 10, "#ff4af6");
-                level.createBricks();
+                level.createBricks(10);
                 break;
             case 5:
                 level = new Level(9, 5, 10, 10, 100, 10, "#ff4af6");
-                level.createBricks();
+                level.createBricks(10);
                 break;
         }
     }
@@ -228,15 +228,18 @@ function handleCollisionBallBrick(brick) {
             ball.x = brick.x + brick.width + ball.radius;
         }
         brickHitSound.play();
-
-        //si la balle touche la brique, on la supprime
-        const index = tabBricks.indexOf(brick);
-        tabBricks.splice(index, 1);
+        brick.nbDurability--;
+        console.log(brick.nbDurability);
+        if (brick.nbDurability == 0) {
+            //si la balle touche la brique, on la supprime
+            const index = tabBricks.indexOf(brick);
+            tabBricks.splice(index, 1);
+        }
 
         // Ajoute un point
         score.addScore(1);
-    }else if(circRectsOverlap(brick.x, brick.y, brick.width, brick.height, ball.x, ball.y, ball.radius) && paddle.hasStrengthBonus){
-      
+    } else if (circRectsOverlap(brick.x, brick.y, brick.width, brick.height, ball.x, ball.y, ball.radius) && paddle.hasStrengthBonus) {
+
         const index = tabBricks.indexOf(brick);
         tabBricks.splice(index, 1);
     }
@@ -290,7 +293,7 @@ function handleCollisionMalus(ball) {
     }
 }
 
-function random(min, max) {
+export function random(min, max) {
     return Math.random() * (max - min) + min;
 }
 
