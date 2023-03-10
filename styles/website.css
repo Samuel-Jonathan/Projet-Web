@@ -1,116 +1,158 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200&display=swap');
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-   font-family: 'Poppins', sans-serif;
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
 }
 
-body{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    /* background: rgb(41, 41, 41); */
-    /* background: #ebf5fc; */
-    background-image: url(/assets/background.jpg);
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    background-size: cover;
-    
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: rgb(255, 255, 255);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
-.container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    max-width: 1200px;
-    flex-wrap: wrap;
-    padding: 40px 0;
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 1200px;
+  flex-wrap: wrap;
+  padding: 40px 0;
 }
 
-.container .game{
-    position: relative;
-    min-width: 320px;
-    height: 440px;
-    box-shadow: inset 5px 5px 5px rgba(0,0,0,0.05),
+.container .game {
+  position: relative;
+  min-width: 320px;
+  height: 440px;
+  box-shadow: inset 5px 5px 5px rgba(0, 0, 0, 0.05),
     inset -5px -5px 5px rgba(255, 255, 255, 0.5),
-    5px 5px 5px rgba(0,0,0,0.05),
-    -5px -5px 5px rgba(255,255,255,0.5);
-    border-radius: 15px;
-    margin: 30px;
+    5px 5px 5px rgba(0, 0, 0, 0.05), -5px -5px 5px rgba(255, 255, 255, 0.5);
+  border-radius: 15px;
+  margin: 30px;
 }
 
-.container .game .box{
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    right: 20px;
-    bottom: 20px;
-    /* background: #ebf5fc;  */
-    /* background: rgb(23, 21, 32); */
-    background: rgb(30, 4, 65);
-    box-shadow: 0 10px 20px rgba(99, 99, 99, 0.849);
-    border-radius: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: 0.5s;
+.container .game .box {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  background: rgb(65, 65, 65);
+  box-shadow: 0 10px 20px rgba(99, 99, 99, 0.849);
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.5s;
 }
 
-.container .game:hover .box{
-
-    transform: translateY(-50px);
-    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-    background: radial-gradient(circle, rgba(44,64,158,1) 0%, rgba(26,30,72,1) 46%, rgba(20,21,34,1) 81%);
-    background: radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(84,51,105,1) 100%);
+.container .game:hover .box {
+  transform: translateY(-50px);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  background: radial-gradient(
+    circle,
+    rgb(130, 130, 130) 0%,
+    rgb(143, 143, 144) 46%,
+    rgb(131, 131, 131) 81%
+  );
+  background: radial-gradient(
+    circle,
+    rgb(109, 109, 109) 0%,
+    rgb(116, 116, 116) 100%
+  );
 }
 
-.container .game .box .content{
-    padding: 20px;
-    text-align: center;
+.container .game .box .content {
+  padding: 20px;
+  text-align: center;
 }
 
-
-.container .game .box .content h3{
-    font-size: 1.8em;
-    /* color: #777; */
-    color: white;
-    z-index: 1;
-    transition: 0.5s;
-    padding: 15px;
+.container .game .box .content h3 {
+  font-size: 1.8em;
+  color: white;
+  z-index: 1;
+  transition: 0.5s;
+  padding: 15px;
 }
 
-.container .game .box .content p{
-    font-size: 1em;
-    font-weight: 300;
-    color: #777;
-    z-index: 1;
-    transition: 0.5s;
+.container .game .box .content p {
+  font-size: 1em;
+  font-weight: 300;
+  color: #777;
+  z-index: 1;
+  transition: 0.5s;
 }
 
 .container .game:hover .box .content h3,
-.container .game :hover .box .content p{
-    color: #fff;
+.container .game :hover .box .content p {
+  color: #fff;
 }
 
-.container .game:hover .box .content h3{
-    color: #fff
+.container .game:hover .box .content h3 {
+  color: #fff;
 }
 
-.container .game .box .content a{
-    position: relative;
-    display: inline-block;
-    padding: 8px 20px;
-    background: #03a9f4;
-    margin-top: 15px;
-    border-radius: 20px;
-    color: #fff;
-    text-decoration: none;
-    font-weight: 400;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+.container .game .box .content a {
+  position: relative;
+  display: inline-block;
+  padding: 8px 20px;
+  background: #03a9f4;
+  margin-top: 15px;
+  border-radius: 20px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 400;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
-.container .game:hover .box .content a{
-    background: #03a9f4;
+.container .game:hover .box .content a {
+  background: #03a9f4;
+}
+
+.container .game:hover .box .content a:hover {
+  background: rgb(198, 195, 195);
+}
+
+.sidebar {
+  height: 100%;
+  width: 170px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: black;
+  overflow-x: hidden;
+  padding-top: 16px;
+}
+
+.sidebar a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #818181;
+  display: block;
+}
+
+.sidebar a:hover {
+  color: #f1f1f1;
+}
+
+.main {
+  margin-left: 160px;
+  padding: 0px 10px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidebar {
+    padding-top: 15px;
+  }
+  .sidebar a {
+    font-size: 18px;
+  }
 }
