@@ -30,17 +30,17 @@ export default class Paddle {
 
     }
 
-    update(width) {
+    update(width, ball) {
         if (this.isRightPressed && this.x < width - this.width) {
             this.x += this.speed;
         } else if (this.isLeftPressed && this.x > 0) {
             this.x -= this.speed;
         }
 
-        this.bonusMalusTimer();
+        this.bonusMalusTimer(ball);
     }
 
-    bonusMalusTimer() {
+    bonusMalusTimer(ball) {
         // Bonus de raquette
         if (this.hasPaddleBonus) {
             this.timerPaddleBonus--;
@@ -57,6 +57,8 @@ export default class Paddle {
 
             this.timerSpeedMalus--;
             if (this.timerSpeedMalus < 0) {
+                ball.dx /= 1.6;
+                ball.dy /= 1.6;
                 this.hasSpeedMalus = false;
                 this.timerSpeedMalus = 180;
             }

@@ -47,7 +47,7 @@ export function initGame() {
 
     level = new Level(9, 1, 10, 10, 100, 10, "#ff4af6");
 
-    level.createBricks(0);
+    level.createBricks(5);
 
     // Évènements de la raquette
     document.addEventListener("keydown", paddle.handleKeyDown.bind(paddle));
@@ -109,19 +109,19 @@ function end() {
         switch (current_level) {
             case 2:
                 level = new Level(9, 2, 10, 100, 100, 10, "#ff4af6");
-                level.createBricks(10);
+                level.createBricks(4);
                 break;
             case 3:
                 level = new Level(9, 3, 10, 10, 100, 10, "#ff4af6");
-                level.createBricks(7);
+                level.createBricks(3);
                 break;
             case 4:
                 level = new Level(9, 4, 10, 10, 100, 10, "#ff4af6");
-                level.createBricks(4);
+                level.createBricks(2);
                 break;
             case 5:
                 level = new Level(9, 5, 10, 10, 100, 10, "#ff4af6");
-                level.createBricks(2);
+                level.createBricks(1);
                 break;
         }
     }
@@ -129,11 +129,11 @@ function end() {
 
 function createBonus() {
     // Spawn des bonus
-    let spawnPaddleBonus = Math.round(random(1, 100));
+    let spawnPaddleBonus = Math.round(random(1, 200));
     spawnPaddleBonus = (spawnPaddleBonus == 1) ? bonus.push(new Bonus("paddle_bonus", assets.paddleImg, 50, 10)) : null;
 
     // Spawn des bonus
-    let spawnStrengthBonus = Math.round(random(1, 10));
+    let spawnStrengthBonus = Math.round(random(1, 200));
     spawnStrengthBonus = (spawnStrengthBonus == 1) ? bonus.push(new Bonus("strength_bonus", assets.strengthImg, 35, 48)) : null;
 
 
@@ -145,7 +145,7 @@ function createBonus() {
 
 function createMalus() {
     // Spawn des malus
-    let spawnSpeedMalus = Math.round(random(1, 100));
+    let spawnSpeedMalus = Math.round(random(1, 10));
     spawnSpeedMalus = (spawnSpeedMalus == 1) ? malus.push(new Malus("speed_malus", assets.speedImg, 50, 50)) : null;
 
     for (let i = 0; i < malus.length; i++) {
@@ -242,6 +242,8 @@ function handleCollisionBallBrick(brick) {
 
         const index = tabBricks.indexOf(brick);
         tabBricks.splice(index, 1);
+        // Ajoute un point
+        score.addScore(1);
     }
 }
 
@@ -279,8 +281,9 @@ function handleCollisionMalus(ball) {
 
                         ball.dx *= 1.6;
                         ball.dy *= 1.6;
+
+                        paddle.hasSpeedMalus = true;
                     }
-                    paddle.hasSpeedMalus = true;
                     break;
             }
 

@@ -191,13 +191,13 @@ function createBonus() {
 	const bagCoinsImg = assets.bagCoinImg;
 
 	// Probabilité qu'un bonus d'invincibilité apparaissent
-	let spawnInvincibilityBonus = Math.round(random(1, 100));
+	let spawnInvincibilityBonus = Math.round(random(1, 200));
 
 	// Probabilité qu'un bonus x2 apparaissent
-	let spawnX2Bonus = Math.round(random(1, 100));
+	let spawnX2Bonus = Math.round(random(1, 200));
 
 	// Probabilité qu'un sac de pièces apparaissent
-	let spawnBagCoins = Math.round(random(1, 100));
+	let spawnBagCoins = Math.round(random(1, 200));
 
 
 	// Crée le bonus d'invicibilité
@@ -240,7 +240,7 @@ function createMalus(){
 		const bombMalusImg = assets.bombImg;
 
 		// Probabilité qu'un bonus d'invincibilité apparaissent
-		let spawnBombMalus = Math.round(random(1, 10));
+		let spawnBombMalus = Math.round(random(1, 200));
 	
 	
 		// Crée le malus bombe
@@ -269,7 +269,7 @@ function createCoins() {
 	const coinsImg = assets.coinImg;
 
 	// Probabilité qu'une pièce apparaissent
-	let spawnCoins = Math.round(random(1, 10));
+	let spawnCoins = Math.round(random(1, 100));
 
 
 	// Crée une pièce
