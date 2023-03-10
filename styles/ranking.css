@@ -10,7 +10,7 @@
   height: 100%;
   width: 170px;
   position: fixed;
-  z-index: 1; 
+  z-index: 1;
   top: 0;
   left: 0;
   background-color: black;
@@ -51,24 +51,19 @@ fieldset {
 }
 
 table {
-  border: 1px solid black;
-  font-size: 20px;
-  background-color: rgb(239, 239, 239);
-  border-collapse: separate;
-  border-spacing: 20px;
-}
+    border: 1px solid black;
+    font-size: 20px;
+    background-color: rgb(239, 239, 239);
+    border-collapse: separate;
+    border-spacing: 20px;
+  }
 
-#cassebriques{
+  #cassebriques{
     visibility: hidden;
     position: relative;
-    bottom: 400px;
+    bottom: 350px;
 }
 
-#validate{
-  margin-left: 12px;
+#trophy{
+  padding: 20px;
 }
-
-#notvalidate{
-  margin-left: 13px;
-}
-

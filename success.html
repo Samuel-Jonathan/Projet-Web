@@ -14,9 +14,9 @@
 <body>
     <div class="sidebar">
         <a href="website.html"><i class="fa fa-gamepad" aria-hidden="true"></i> Jeux</a>
-        <a href="#ranking"><i class="fa fa-star" aria-hidden="true"></i> Classement</a>
+        <a href="ranking.html"><i class="fa fa-star" aria-hidden="true"></i> Classement</a>
         <a href="success.html"><i class="fa fa-trophy" aria-hidden="true"></i> Succès</a>
-    </div>
+      </div>
 
     <center>
         <fieldset>
@@ -43,23 +43,23 @@
             </tr>
             <tr>
                 <td style="font-weight: bold;">Récolter 10000 pièces</td>
-                <td style="font-weight: bold;">Validé</td>
+                <td style="font-weight: bold;"><i id="validate" class="fa fa-check" aria-hidden="true"></i></td>
             </tr>
             <tr>
                 <td>Récolter 100000 pièces</td>
-                <td>Non validé</td>
+                <td><i id="notvalidate" class="fa fa-times" aria-hidden="true"></i></td>
             </tr>
             <tr>
                 <td style="font-weight: bold;">Avoir un score à 50 sans utiliser <br>un bonus d'invincibilité</td>
-                <td style="font-weight: bold;">Validé</td>
+                <td style="font-weight: bold;"><i id="validate" class="fa fa-check" aria-hidden="true"></i></td>
             </tr>
             <tr>
                 <td>Avoir un score à 50 sans utiliser un bonus x2</td>
-                <td>Non validé</td>
+                <td><i id="notvalidate" class="fa fa-times" aria-hidden="true"></i></td>
             </tr>
             <tr>
                 <td>Récolter 200 pièces sans prendre un sac de pièces</td>
-                <td>Non validé</td>
+                <td><i id="notvalidate" class="fa fa-times" aria-hidden="true"></i></td>
             </tr>
         </table>
 
@@ -70,23 +70,23 @@
             </tr>
             <tr>
                 <td>Finir les 5 niveaux</td>
-                <td>Non validé</td>
+                <td><i id="notvalidate" class="fa fa-times" aria-hidden="true"></i></td>
             </tr>
             <tr>
                 <td style="font-weight: bold;">Avoir un score 50</td>
-                <td style="font-weight: bold;">Validé</td>
+                <td style="font-weight: bold;"><i id="validate" class="fa fa-check" aria-hidden="true"></i></td>
             </tr>
             <tr>
                 <td style="font-weight: bold;">Finir les 5 niveaux sans utiliser de bonus</td>
-                <td style="font-weight: bold;">Validé</td>
+                <td style="font-weight: bold;"><i id="validate" class="fa fa-check" aria-hidden="true"></i></td>
             </tr>
             <tr>
                 <td style="font-weight: bold;">Avoir un score de 100</td>
-                <td style="font-weight: bold;">Validé</td>
+                <td style="font-weight: bold;"><i id="validate" class="fa fa-check" aria-hidden="true"></i></td>
             </tr>
             <tr>
                 <td>Finir les 5 niveaux en moins de 30 minutes</td>
-                <td>Non validé</td>
+                <td><i id="notvalidate" class="fa fa-times" aria-hidden="true"></i></td>
             </tr>
         </table>
     </center>
@@ -106,9 +106,6 @@
             cassebriques.style.visibility = "visible";
             flappybird.style.visibility = "hidden";
         } 
-
-
-
 
     </script>
 
