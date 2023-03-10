@@ -64,6 +64,11 @@ h1 {
   margin-right: 20px;
 }
 
+input{
+  color: white;
+  font-family: Righteous; 
+}
+
 input[type="text"] {
   color: white;
   font-family: Righteous;

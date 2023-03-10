@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Succès</title>
+    <link rel="stylesheet" href="styles/success.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+<body>
+    <div class="sidebar">
+        <a href="website.html"><i class="fa fa-gamepad" aria-hidden="true"></i> Jeux</a>
+        <a href="#ranking"><i class="fa fa-star" aria-hidden="true"></i> Classement</a>
+        <a href="success.html"><i class="fa fa-trophy" aria-hidden="true"></i> Succès</a>
+    </div>
+
+    <center>
+        <fieldset>
+            <legend>Sélectionne le jeu :</legend>
+
+            <div>
+                <input type="radio" id="Flappy Bird" name="success" value="Flappy Bird" checked onclick="check()">
+                <label for="Flappy Bird">Flappy Bird</label>
+            </div>
+
+            <div>
+                <input type="radio" id="Casse-briques" name="success" value="Casse-briques" onclick="check2()">
+                <label for="Casse-briques">Casse-briques</label>
+            </div>
+        </fieldset>
+    </center>
+
+
+    <center>
+        <table id="flappybird">
+            <tr>
+                <th style="border: 1px solid black;">Succès</th>
+                <th style="border: 1px solid black;">État</th>
+            </tr>
+            <tr>
+                <td style="font-weight: bold;">Récolter 10000 pièces</td>
+                <td style="font-weight: bold;">Validé</td>
+            </tr>
+            <tr>
+                <td>Récolter 100000 pièces</td>
+                <td>Non validé</td>
+            </tr>
+            <tr>
+                <td style="font-weight: bold;">Avoir un score à 50 sans utiliser <br>un bonus d'invincibilité</td>
+                <td style="font-weight: bold;">Validé</td>
+            </tr>
+            <tr>
+                <td>Avoir un score à 50 sans utiliser un bonus x2</td>
+                <td>Non validé</td>
+            </tr>
+            <tr>
+                <td>Récolter 200 pièces sans prendre un sac de pièces</td>
+                <td>Non validé</td>
+            </tr>
+        </table>
+
+        <table id="cassebriques">
+            <tr>
+                <th style="border: 1px solid black;">Succès</th>
+                <th style="border: 1px solid black;">État</th>
+            </tr>
+            <tr>
+                <td>Finir les 5 niveaux</td>
+                <td>Non validé</td>
+            </tr>
+            <tr>
+                <td style="font-weight: bold;">Avoir un score 50</td>
+                <td style="font-weight: bold;">Validé</td>
+            </tr>
+            <tr>
+                <td style="font-weight: bold;">Finir les 5 niveaux sans utiliser de bonus</td>
+                <td style="font-weight: bold;">Validé</td>
+            </tr>
+            <tr>
+                <td style="font-weight: bold;">Avoir un score de 100</td>
+                <td style="font-weight: bold;">Validé</td>
+            </tr>
+            <tr>
+                <td>Finir les 5 niveaux en moins de 30 minutes</td>
+                <td>Non validé</td>
+            </tr>
+        </table>
+    </center>
+
+    <script>
+        let flappybird = document.getElementById("flappybird");
+        let cassebriques = document.getElementById("cassebriques");
+        function check() {
+            
+            flappybird.style.visibility = "visible";
+            cassebriques.style.visibility = "hidden";
+
+        }
+
+        function check2() {
+ 
+            cassebriques.style.visibility = "visible";
+            flappybird.style.visibility = "hidden";
+        } 
+
+
+
+
+    </script>
+
+</body>
+
+</html>
