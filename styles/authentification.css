@@ -1,65 +1,82 @@
 body {
-    background-image: url("/Projet-Web/assets/background.jpg");
-    background-size: cover;
-    background-position: center;
-    font-family: Arial, sans-serif;
+  background-image: url("/assets/background_authentification.jpg");
+  background-size: cover;
+  background-position: center;
+  font-family: Arial, sans-serif;
 }
 
 .content {
-    width: 400px;
-    height: 500px;
-    margin: 100px auto;
-    background-color: rgba(60, 6, 120, 0.9);
-    padding: 40px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    border-radius: 10px;
+  width: 400px;
+  height: 500px;
+  margin: 100px auto;
+  background-color: rgba(60, 6, 120, 0.9);
+  padding: 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  font-family: Righteous;
 }
 
 h1 {
-    text-align: center;
-    color: #ffffff;
-    margin-bottom: 40px;
+  text-align: center;
+  color: white;
+  margin-bottom: 40px;
 }
 
 .form-group {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
 }
 
 .form-label {
-    font-size: 14px;
-    color: #ffffff;
-    margin-bottom: 10px;
+  font-size: 14px;
+  color: #ffffff;
+  margin-bottom: 10px;
 }
 
 .form-input {
-    height: 40px;
-    padding: 10px;
-    font-size: 16px;
-    color: #000000;
-    border: none;
-    border-radius: 5px;
-    background-color: rgba(255, 255, 255, 0.1);
+  height: 40px;
+  padding: 10px;
+  font-size: 16px;
+  color: #000000;
+  border: none;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .form-submit,
 .form-reset {
-    height: 40px;
-    padding: 10px 20px;
-    font-size: 16px;
-    color: #ffffff;
-    background-color: rgba(255, 74, 171, 0.8);
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 20px;
+  height: 40px;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #ffffff;
+  background-color: rgba(255, 74, 171, 0.8);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
 }
 
-
 .form-link {
-    font-size: 14px;
-    color: #ffffff;
-    text-decoration: none;
-    margin-right: 20px;
+  font-size: 14px;
+  color: #ffffff;
+  text-decoration: none;
+  margin-right: 20px;
+}
+
+input[type="text"] {
+  color: white;
+  font-family: Righteous;
+}
+
+input[type="password"] {
+  color: white;
+  font-family: Righteous;
+}
+
+a {
+  font-family: Righteous;
+  color: white;
+  outline: none;
+  text-decoration: none;
 }
