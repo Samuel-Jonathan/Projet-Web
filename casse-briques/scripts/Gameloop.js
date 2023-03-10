@@ -45,9 +45,9 @@ export function initGame() {
     // Crée le score
     score = new Score(850, 500, 0, "red", "25");
 
-    level = new Level(9, 3, 10, 10, 100, 10, "#ff4af6");
+    level = new Level(9, 1, 10, 10, 100, 10, "#ff4af6");
 
-    level.createBricks(2);
+    level.createBricks(0);
 
     // Évènements de la raquette
     document.addEventListener("keydown", paddle.handleKeyDown.bind(paddle));
@@ -113,15 +113,15 @@ function end() {
                 break;
             case 3:
                 level = new Level(9, 3, 10, 10, 100, 10, "#ff4af6");
-                level.createBricks(10);
+                level.createBricks(7);
                 break;
             case 4:
                 level = new Level(9, 4, 10, 10, 100, 10, "#ff4af6");
-                level.createBricks(10);
+                level.createBricks(4);
                 break;
             case 5:
                 level = new Level(9, 5, 10, 10, 100, 10, "#ff4af6");
-                level.createBricks(10);
+                level.createBricks(2);
                 break;
         }
     }

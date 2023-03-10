@@ -20,21 +20,26 @@ export class Level {
             for (let c = 0; c < this.nblinebrick; c++) {
                 let x = l * (this.brickWidth + this.spacelinebrick);
                 let y = c * (this.brickHeight + this.spacecolonebrick);
-                let hasDurability = Math.round(random(1, durability));
+                if (durability != 0) {
+                    let hasDurability = Math.round(random(1, durability));
 
-               
-                if (hasDurability == 1) {
-                    let nbDurability = Math.round(random(2, 3));
 
-                    if(nbDurability == 2){
-                       
-                        this.brickColor = "red";
-                    }else{
-                      
-                        this.brickColor = "blue";
+                    if (hasDurability == 1) {
+                        let nbDurability = Math.round(random(2, 3));
+
+                        if (nbDurability == 2) {
+
+                            this.brickColor = "red";
+                        } else {
+
+                            this.brickColor = "blue";
+                        }
+
+                        var b = new Brick(x, 50 + y, this.brickWidth, this.brickHeight, this.brickColor, nbDurability);
+                    } else {
+                        this.brickColor = "#ff4af6";
+                        var b = new Brick(x, 50 + y, this.brickWidth, this.brickHeight, this.brickColor, 1);
                     }
-
-                    var b = new Brick(x, 50 + y, this.brickWidth, this.brickHeight, this.brickColor, nbDurability);
                 } else {
                     this.brickColor = "#ff4af6";
                     var b = new Brick(x, 50 + y, this.brickWidth, this.brickHeight, this.brickColor, 1);
