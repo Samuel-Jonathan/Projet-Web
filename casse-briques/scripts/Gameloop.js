@@ -145,7 +145,7 @@ function createBonus() {
 
 function createMalus() {
     // Spawn des malus
-    let spawnSpeedMalus = Math.round(random(1, 10));
+    let spawnSpeedMalus = Math.round(random(1, 200));
     spawnSpeedMalus = (spawnSpeedMalus == 1) ? malus.push(new Malus("speed_malus", assets.speedImg, 50, 50)) : null;
 
     for (let i = 0; i < malus.length; i++) {
