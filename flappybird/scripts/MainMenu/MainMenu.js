@@ -89,9 +89,28 @@ function onMouseClickMainMenu(e) {
 	var width = playButton.width;
 	var height = playButton.height;
 	clickPlayButton(x, y, width, height, pos);
+
+	var rankingButton = assets.rankingButton;
+
+	var x = canvas.width / 2 - rankingButton.width / 2 + 400;
+	var y = canvas.height / 2 - rankingButton.height / 2 + 235;
+	var width = 120;
+	var height = 120;
+
+	clickRankingButton(x, y, width, height, pos);
+
+	var successButton = assets.successButton;
+
+	var x = canvas.width / 2 - successButton.width / 2 + 200;
+	var y = canvas.height / 2 - successButton.height / 2 + 235;
+	var width = 120;
+	var height = 120;
+
+	clickSuccessButton(x, y, width, height, pos);
+	
 }
 
-// Évènement du bouton joueur (clic)
+// Évènement du bouton jouer (clic)
 function clickPlayButton(x, y, width, height, pos) {
 
 	if (pos.x > x &&
@@ -105,6 +124,41 @@ function clickPlayButton(x, y, width, height, pos) {
 		isHoverMainMenu = false;
 
 		setCurrentGameStates(gamestates.Game);
+	}
+
+}
+
+function clickRankingButton(x, y, width, height, pos) {
+
+	if (pos.x > x &&
+		pos.x < x + width &&
+		pos.y > y &&
+		pos.y < y + height) {
+
+		canvas.removeEventListener("mousemove", onMouseOverMainMenu);
+		canvas.removeEventListener("click", onMouseClickMainMenu);
+
+		isHoverMainMenu = false;
+
+		location.href = "../../../ranking.html";
+	}
+
+}
+
+
+function clickSuccessButton(x, y, width, height, pos) {
+
+	if (pos.x > x &&
+		pos.x < x + width &&
+		pos.y > y &&
+		pos.y < y + height) {
+
+		canvas.removeEventListener("mousemove", onMouseOverMainMenu);
+		canvas.removeEventListener("click", onMouseClickMainMenu);
+
+		isHoverMainMenu = false;
+
+		location.href = "../../../success.html";
 	}
 
 }
