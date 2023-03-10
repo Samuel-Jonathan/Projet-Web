@@ -74,7 +74,7 @@ export function gameLoop() {
         createBonus();
 
         // Crée les malus
-        // createMalus();
+        createMalus();
 
         for (let i = 0; i < tabBricks.length; i++) {
             // Dessine les briques
@@ -261,7 +261,6 @@ function handleCollisionBonus(ball) {
                     break;
 
             }
-
             const index = bonus.indexOf(bonus[i]);
             bonus.splice(index, 1);
         }
@@ -283,7 +282,6 @@ function handleCollisionMalus(ball) {
                     }
                     paddle.hasSpeedMalus = true;
                     break;
-
             }
 
             const index = malus.indexOf(malus[i]);
