@@ -2,9 +2,11 @@ export default class Paddle {
 
     hasPaddleBonus = false;
     hasSpeedMalus = false;
+    hasStrengthBonus = false;
 
     timerPaddleBonus = 360;
     timerSpeedMalus = 360;
+    timerStrengthBonus = 180;
 
     constructor(img, x, y, width, height, speed) {
         this.img = img;
@@ -35,9 +37,9 @@ export default class Paddle {
             this.x -= this.speed;
         }
 
+        // Bonus de raquette
         if (this.hasPaddleBonus) {
             this.timerPaddleBonus--;
-
             if (this.timerPaddleBonus < 0) {
                 this.hasPaddleBonus = false;
                 this.timerPaddleBonus = 360;
@@ -46,13 +48,25 @@ export default class Paddle {
             }
         }
 
+        // Malus de vitesse
         if (this.hasSpeedMalus) {
 
             this.timerSpeedMalus--;
             if (this.timerSpeedMalus < 0) {
                 this.hasSpeedMalus = false;
-                this.timerSpeedMalus = 360;
+                this.timerSpeedMalus = 180;
             }
+        }
+
+        // Bonus de force
+        if (this.hasStrengthBonus) {
+
+            this.timerStrengthBonus--;
+            if (this.timerStrengthBonus < 0) {
+                this.hasStrengthBonus = false;
+                this.timerStrengthBonus = 180;
+            }
+
         }
     }
 

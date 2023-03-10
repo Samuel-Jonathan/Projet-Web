@@ -44,14 +44,6 @@ export default class Ball {
         this.handleCanvasCollision(width, height);
     }
 
-    setDx(value) {
-        this.dx = value;
-    }
-
-    setDy(value) {
-        this.dy = value;
-    }
-
     handleCanvasCollision(width, height) {
         if (this.x + this.dx > width - this.radius || this.x + this.dx < this.radius) {
             this.dx = -this.dx;

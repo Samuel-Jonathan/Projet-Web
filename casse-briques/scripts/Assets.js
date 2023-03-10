@@ -23,3 +23,7 @@ pauseImg.src = "assets/pause.jpg";
 // Malus vitesse
 export var speedImg = new Image(50,50);
 speedImg.src = "assets/speed.png";
+
+// Bombe
+export var strengthImg = new Image(35,48);
+strengthImg.src = "assets/strength.png";

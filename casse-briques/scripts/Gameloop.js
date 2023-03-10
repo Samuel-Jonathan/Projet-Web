@@ -1,6 +1,5 @@
 import Ball from "./ball.js";
 import Paddle from "./Paddle.js";
-import Brick from "./bricks.js";
 import Bonus from "./Bonus.js";
 import { circRectsOverlap } from "./collisions.js";
 import * as assets from "./Assets.js";
@@ -8,6 +7,7 @@ import Score from "./Score.js";
 import { canvas, ctx } from "./Main.js";
 import { Level } from "./Level.js";
 import Malus from "./Malus.js";
+
 
 export let tabBricks = [];
 let paddle, ball;
@@ -45,7 +45,7 @@ export function initGame() {
     // Crée le score
     score = new Score(850, 500, 0, "red", "25");
 
-    level = new Level(9, 1, 10, 10, 100, 10, "#ff4af6");
+    level = new Level(9, 3, 10, 10, 100, 10, "#ff4af6");
 
     level.createBricks();
 
@@ -86,7 +86,7 @@ export function gameLoop() {
         paddle.update(canvas.width, ball);
         // Collision entre la balle et la raquette
         handleCollisionBallPaddle();
-        ball.update(canvas.width, canvas.height);
+        ball.update(canvas.width, canvas.height, paddle);
 
         // Dessine le score
         score.draw(ctx);
@@ -129,8 +129,13 @@ function end() {
 
 function createBonus() {
     // Spawn des bonus
-    let spawnBonus = Math.round(random(1, 100));
-    spawnBonus = (spawnBonus == 1) ? bonus.push(new Bonus("paddle_bonus", assets.paddleImg, 50, 10)) : null;
+    let spawnPaddleBonus = Math.round(random(1, 100));
+    spawnPaddleBonus = (spawnPaddleBonus == 1) ? bonus.push(new Bonus("paddle_bonus", assets.paddleImg, 50, 10)) : null;
+
+    // Spawn des bonus
+    let spawnStrengthBonus = Math.round(random(1, 10));
+    spawnStrengthBonus = (spawnStrengthBonus == 1) ? bonus.push(new Bonus("strength_bonus", assets.strengthImg, 35, 48)) : null;
+
 
     for (let i = 0; i < bonus.length; i++) {
         bonus[i].draw(ctx);
@@ -200,7 +205,7 @@ function handleCollisionBallPaddle() {
 }
 
 function handleCollisionBallBrick(brick) {
-    if (circRectsOverlap(brick.x, brick.y, brick.width, brick.height, ball.x, ball.y, ball.radius)) {
+    if (circRectsOverlap(brick.x, brick.y, brick.width, brick.height, ball.x, ball.y, ball.radius) && !paddle.hasStrengthBonus) {
         if (ball.y < brick.y) {
             //collision par le haut
             ball.dy = -ball.dy;
@@ -230,6 +235,10 @@ function handleCollisionBallBrick(brick) {
 
         // Ajoute un point
         score.addScore(1);
+    }else if(circRectsOverlap(brick.x, brick.y, brick.width, brick.height, ball.x, ball.y, ball.radius) && paddle.hasStrengthBonus){
+      
+        const index = tabBricks.indexOf(brick);
+        tabBricks.splice(index, 1);
     }
 }
 
@@ -237,9 +246,21 @@ function handleCollisionBallBrick(brick) {
 function handleCollisionBonus(ball) {
     for (let i = 0; i < bonus.length; i++) {
         if (circRectsOverlap(bonus[i].x, bonus[i].y, bonus[i].width, bonus[i].height, ball.x, ball.y, ball.radius)) {
+
+            // Collision avec les bonus 
+            switch (bonus[i].name) {
+
+                case "paddle_bonus":
+                    paddle.hasPaddleBonus = true;
+                    break;
+                case "strength_bonus":
+                    paddle.hasStrengthBonus = true;
+                    break;
+
+            }
+
             const index = bonus.indexOf(bonus[i]);
             bonus.splice(index, 1);
-            paddle.hasPaddleBonus = true;
         }
     }
 }
@@ -249,7 +270,7 @@ function handleCollisionMalus(ball) {
     for (let i = 0; i < malus.length; i++) {
         if (circRectsOverlap(malus[i].x, malus[i].y, malus[i].width, malus[i].height, ball.x, ball.y, ball.radius)) {
 
-            // Collision avec le malus de vitesse
+            // Collision avec les malus
             switch (malus[i].name) {
                 case "speed_malus":
                     if (!paddle.hasSpeedMalus) {

@@ -1,4 +1,5 @@
 export default class Bonus {
+
   constructor(name, img, width, height) {
     this.name = name;
     this.img = img;
